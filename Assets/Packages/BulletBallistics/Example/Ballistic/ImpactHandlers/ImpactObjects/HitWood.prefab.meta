@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 4d3758788903d3e40ad8db78f33e75bc
+timeCreated: 1473338210
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/ImpactHandlers/ImpactObjects/HitWood.prefab
+  uploadId: 708988

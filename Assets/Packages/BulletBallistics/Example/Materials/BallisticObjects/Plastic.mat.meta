@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 73a3e488c5e110d46ae41a1c7e207452
+timeCreated: 1473337676
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Materials/BallisticObjects/Plastic.mat
+  uploadId: 708988

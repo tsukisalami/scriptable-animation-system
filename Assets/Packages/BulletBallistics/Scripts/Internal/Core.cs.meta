@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: b6f99c3149996cb4ea8dc47c45398162
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Scripts/Internal/Core.cs
+  uploadId: 708988

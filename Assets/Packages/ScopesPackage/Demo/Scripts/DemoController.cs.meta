@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: d8668b335f64024429657b4b09c99f3d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 283151
+  packageName: Ultimate Scopes and Red Dot Shaders
+  packageVersion: 1.1.0
+  assetPath: Assets/ScopesPackage/Demo/Scripts/DemoController.cs
+  uploadId: 669269

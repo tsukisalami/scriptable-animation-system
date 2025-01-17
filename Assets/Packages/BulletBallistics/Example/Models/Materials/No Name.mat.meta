@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b64ab8f3facd4a743b6301d64949066e
+timeCreated: 1479745110
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Models/Materials/No Name.mat
+  uploadId: 708988

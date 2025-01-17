@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: b93465380bd8cbd48a62b85a1616c162
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Scripts/Ballistics.asmdef
+  uploadId: 708988

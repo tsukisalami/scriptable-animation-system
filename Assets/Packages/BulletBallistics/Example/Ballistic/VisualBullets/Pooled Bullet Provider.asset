@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c588e069b61404044b023306aab55209, type: 3}
+  m_Name: Pooled Bullet Provider
+  m_EditorClassIdentifier: 
+  VisualBulletPrefab: {fileID: 347060045792952514, guid: 69ca6c5805888df419446062d856b94d, type: 3}
+  InitialPoolSize: 10
+  MaxPoolSize: 100

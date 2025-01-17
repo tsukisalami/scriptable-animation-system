@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: a70880e0e5835154f928f1f5b64c7775
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Scripts/ImpactHandlers/Pooled/PooledImpactInstantiator.cs
+  uploadId: 708988

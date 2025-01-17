@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: bbe111942f910e342a9ff8d2a55e4d12
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/ImpactHandlers/DirtImpactHandler.asset
+  uploadId: 708988

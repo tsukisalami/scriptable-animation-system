@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 8a5a60e6d853efe4993dac82804b8f32
+timeCreated: 1472647151
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Scripts/Components/EnvironmentProvider.cs
+  uploadId: 708988

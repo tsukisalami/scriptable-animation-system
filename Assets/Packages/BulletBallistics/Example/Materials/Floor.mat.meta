@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 37c2d57313708ae438caa7bc3733a7e4
+timeCreated: 1455473053
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Materials/Floor.mat
+  uploadId: 708988

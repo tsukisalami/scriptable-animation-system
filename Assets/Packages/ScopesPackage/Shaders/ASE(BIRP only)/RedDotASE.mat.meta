@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7df25e2e99098ed47ae0c6b095181075
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 283151
+  packageName: Ultimate Scopes and Red Dot Shaders
+  packageVersion: 1.1.0
+  assetPath: Assets/ScopesPackage/Shaders/ASE(BIRP only)/RedDotASE.mat
+  uploadId: 669269

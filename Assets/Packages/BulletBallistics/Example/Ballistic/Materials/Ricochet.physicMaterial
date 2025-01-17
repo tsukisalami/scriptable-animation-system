@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6254185557160539290
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef0bf71b2cbd51941bbb1da6b2015428, type: 3}
+  m_Name: Ricochet
+  m_EditorClassIdentifier: 
+  Target: {fileID: 13400000}
+  EnergyLossPerUnit: -1
+  Spread: 0
+  impactHandler: {fileID: 11400000, guid: eaecf36e0bbf2de42bb033fb9a7eed70, type: 2}
+  RicochetSpread: 0.08726646
+  RicochetProbability: {x: 1, y: 1}
+  RicochetBounciness: {x: 0.099969104, y: 0.31646848}
+  hasImpactHandler: 1
+--- !u!134 &13400000
+PhysicMaterial:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ricochet
+  dynamicFriction: 0.6
+  staticFriction: 0.6
+  bounciness: 0
+  frictionCombine: 0
+  bounceCombine: 0

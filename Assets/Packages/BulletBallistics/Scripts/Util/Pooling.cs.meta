@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 843fd40ecc0ad5d4e8ea1d0e0a4e7ace
+timeCreated: 1465325807
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Scripts/Util/Pooling.cs
+  uploadId: 708988

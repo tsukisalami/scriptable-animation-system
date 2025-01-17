@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 47143aa4a66c2f948ae54d87d79780da
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Resources/Shaders/Tracer.shader
+  uploadId: 708988

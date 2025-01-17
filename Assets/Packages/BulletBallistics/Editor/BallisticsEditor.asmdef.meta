@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 94ecd5b2e0a9e8046b41600583fccce0
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Editor/BallisticsEditor.asmdef
+  uploadId: 708988

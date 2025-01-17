@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 81a2736d2d3ffa74c8ab596ae3b079e3
+timeCreated: 1464712240
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Sound/Main.mixer
+  uploadId: 708988

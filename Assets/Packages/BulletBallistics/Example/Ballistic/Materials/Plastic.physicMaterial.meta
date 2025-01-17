@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: a00ff92eba5b34d4c8620c80f79af820
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 13400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/Materials/Plastic.physicMaterial
+  uploadId: 708988

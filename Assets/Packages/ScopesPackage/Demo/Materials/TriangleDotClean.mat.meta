@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: cf94193e5c0c08742bd71bf0dcc75eb7
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 283151
+  packageName: Ultimate Scopes and Red Dot Shaders
+  packageVersion: 1.1.0
+  assetPath: Assets/ScopesPackage/Demo/Materials/TriangleDotClean.mat
+  uploadId: 669269

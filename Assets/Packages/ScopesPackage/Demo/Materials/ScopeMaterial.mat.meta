@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 7736ff800082f5042a59e9759448a23f
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 283151
+  packageName: Ultimate Scopes and Red Dot Shaders
+  packageVersion: 1.1.0
+  assetPath: Assets/ScopesPackage/Demo/Materials/ScopeMaterial.mat
+  uploadId: 669269

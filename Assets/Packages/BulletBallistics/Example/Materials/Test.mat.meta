@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f4c43ad2dafbea741980175cf7998da6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Materials/Test.mat
+  uploadId: 708988

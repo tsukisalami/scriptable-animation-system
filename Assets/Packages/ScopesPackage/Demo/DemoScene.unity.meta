@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 2d7538cfd0e30aa46a3c097e8bd9913a
+DefaultImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 283151
+  packageName: Ultimate Scopes and Red Dot Shaders
+  packageVersion: 1.1.0
+  assetPath: Assets/ScopesPackage/Demo/DemoScene.unity
+  uploadId: 669269

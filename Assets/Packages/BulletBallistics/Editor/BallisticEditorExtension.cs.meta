@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: c4b16639e07b9c94994b548d2b56e09b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Editor/BallisticEditorExtension.cs
+  uploadId: 708988

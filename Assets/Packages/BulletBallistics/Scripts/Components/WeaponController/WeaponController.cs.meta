@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 3b6157cdc9980c642a8676e78984abd0
+timeCreated: 1480016324
+licenseType: Store
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Scripts/Components/WeaponController/WeaponController.cs
+  uploadId: 708988

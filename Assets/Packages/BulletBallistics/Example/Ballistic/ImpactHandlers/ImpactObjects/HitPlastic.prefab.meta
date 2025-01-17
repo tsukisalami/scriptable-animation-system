@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 44f22a17d2347314aa9dddf18ac9d670
+timeCreated: 1473338401
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/ImpactHandlers/ImpactObjects/HitPlastic.prefab
+  uploadId: 708988

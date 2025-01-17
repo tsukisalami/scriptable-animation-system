@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 5f6a48c8aeaf14044af489f56dae7535
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 13400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/Materials/Stone.physicMaterial
+  uploadId: 708988

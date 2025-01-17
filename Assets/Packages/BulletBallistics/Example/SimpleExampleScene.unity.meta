@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: af395714c0892484dad7c1f993b45dbc
+timeCreated: 1455473515
+licenseType: Store
+DefaultImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/SimpleExampleScene.unity
+  uploadId: 708988

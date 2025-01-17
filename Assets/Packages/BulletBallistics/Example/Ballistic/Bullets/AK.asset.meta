@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 664ee48f5f5bc8e4393955d110902fc6
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/Bullets/AK.asset
+  uploadId: 708988

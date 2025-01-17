@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 7afe4540c851fcd4a9807111580e9e2e
+AssemblyDefinitionImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Scripts/Util/UnsafeNativeUtil/BulletBallisticsUnsafe.asmdef
+  uploadId: 708988

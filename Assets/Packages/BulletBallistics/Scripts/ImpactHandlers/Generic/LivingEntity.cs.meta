@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 4836b5e24a0c2dc44a556455a9c6a90f
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Scripts/ImpactHandlers/Generic/LivingEntity.cs
+  uploadId: 708988

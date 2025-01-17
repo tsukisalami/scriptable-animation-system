@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 60261763e05684149b7657dfd27d9168
+timeCreated: 1473337582
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Materials/BallisticObjects/Wood.mat
+  uploadId: 708988

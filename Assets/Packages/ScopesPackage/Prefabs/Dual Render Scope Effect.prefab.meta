@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 12514cf91d9665741ae5dd361b8dd988
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 283151
+  packageName: Ultimate Scopes and Red Dot Shaders
+  packageVersion: 1.1.0
+  assetPath: Assets/ScopesPackage/Prefabs/Dual Render Scope Effect.prefab
+  uploadId: 669269

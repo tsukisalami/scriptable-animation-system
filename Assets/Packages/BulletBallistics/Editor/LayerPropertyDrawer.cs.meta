@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 6a7cb69a067a650409b97b60d7051b8b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Editor/LayerPropertyDrawer.cs
+  uploadId: 708988

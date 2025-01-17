@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 69ca6c5805888df419446062d856b94d
+timeCreated: 1455557951
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/VisualBullets/Bullet.prefab
+  uploadId: 708988

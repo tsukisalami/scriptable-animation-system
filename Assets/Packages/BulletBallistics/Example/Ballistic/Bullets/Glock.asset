@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b04a4c948ca29f4f91e556ec2f164ba, type: 3}
+  m_Name: Glock
+  m_EditorClassIdentifier: 
+  Speed: 500
+  Mass: 0.0065
+  Diameter: 0.00785
+  DragCoefficient: 0.3
+  Damage: 40
+  HitMask:
+    serializedVersion: 2
+    m_Bits: 273
+  impactHandler: {fileID: 0}
+  Lifetime: 3
+  hasImpactHandler: 0

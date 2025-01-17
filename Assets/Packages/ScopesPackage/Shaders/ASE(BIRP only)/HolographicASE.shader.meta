@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 4e206b71a53df7a4da60119627d99d54
+ShaderImporter:
+  externalObjects: {}
+  defaultTextures: []
+  nonModifiableTextures: []
+  preprocessorOverride: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 283151
+  packageName: Ultimate Scopes and Red Dot Shaders
+  packageVersion: 1.1.0
+  assetPath: Assets/ScopesPackage/Shaders/ASE(BIRP only)/HolographicASE.shader
+  uploadId: 669269

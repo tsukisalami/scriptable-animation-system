@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: eaecf36e0bbf2de42bb033fb9a7eed70
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/ImpactHandlers/MetalImpactHandler.asset
+  uploadId: 708988

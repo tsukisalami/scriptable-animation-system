@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 51cea2b96cddf1d499af36cd1f1fa983
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/VisualBullets/Pooled Bullet
+    Provider.asset
+  uploadId: 708988

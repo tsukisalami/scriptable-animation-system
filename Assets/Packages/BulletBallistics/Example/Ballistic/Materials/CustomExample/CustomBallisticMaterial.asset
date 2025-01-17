@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21451eeb0d65491478975ced04bd1fa0, type: 3}
+  m_Name: CustomBallisticMaterial
+  m_EditorClassIdentifier: 
+  Target: {fileID: 13400000, guid: 898c3c5610de59344b0a563fe0817a5b, type: 2}
+  EnergyLossPerUnit: 1000
+  Spread: 0.01
+  ImpactHandler: {fileID: 11400000, guid: 62caeeb2c817e5140aceae3d9d55c61a, type: 2}

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 9593adf8276e9914e80815f81a11e0fc
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 13400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/Materials/Wood.physicMaterial
+  uploadId: 708988

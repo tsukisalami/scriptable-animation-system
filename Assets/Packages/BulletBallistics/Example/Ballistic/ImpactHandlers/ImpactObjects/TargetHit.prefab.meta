@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 35d64844559499740a973bbf4b92fda7
+timeCreated: 1473172863
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Ballistic/ImpactHandlers/ImpactObjects/TargetHit.prefab
+  uploadId: 708988

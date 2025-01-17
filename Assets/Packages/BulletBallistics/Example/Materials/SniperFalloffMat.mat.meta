@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d26eecc3aec503744aa637a874370d67
+timeCreated: 1473170706
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Materials/SniperFalloffMat.mat
+  uploadId: 708988

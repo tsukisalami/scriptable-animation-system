@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 92aaa89c500c9904cb4eb388bcfefdff
+timeCreated: 1473174121
+licenseType: Store
+NativeFormatImporter:
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Example/Materials/BallisticObjects/Glass.mat
+  uploadId: 708988

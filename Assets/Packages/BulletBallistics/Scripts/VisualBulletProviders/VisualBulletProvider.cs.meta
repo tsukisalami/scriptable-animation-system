@@ -1,0 +1,18 @@
+fileFormatVersion: 2
+guid: 3a143b6834d28e84d8063093273b6c87
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences: []
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 72755
+  packageName: Bullet Ballistics 2
+  packageVersion: 2.0.7
+  assetPath: Assets/BulletBallistics/Scripts/VisualBulletProviders/VisualBulletProvider.cs
+  uploadId: 708988
