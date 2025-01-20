@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c738220f8c01f1048b1144ec27c1afa6, type: 3}
+  m_Name: Mk18
+  m_EditorClassIdentifier: 
+  durability: 100
+  moaAccuracy: 0
+  heat: 0
+  ergonomics: 0
+  verticalRecoil: 0
+  horizontalRecoil: 0
+  durabilityBurnPerShot: 0
+  malfunctionChance: 0
+  misfireChance: 0.007

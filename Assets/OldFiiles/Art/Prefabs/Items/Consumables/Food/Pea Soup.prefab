@@ -1,0 +1,254 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1282887060807183007
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1911331985858179109}
+  - component: {fileID: 1282887060807183005}
+  - component: {fileID: 4356065318522001920}
+  - component: {fileID: 3436470217175947532}
+  m_Layer: 0
+  m_Name: Pea Soup
+  m_TagString: Items
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1911331985858179109
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282887060807183007}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1366383312865984893}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &1282887060807183005
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282887060807183007}
+  serializedVersion: 2
+  m_Mass: 0.1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &4356065318522001920
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282887060807183007}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.07, y: 0.12, z: 0.07}
+  m_Center: {x: 0, y: 0.06, z: 0}
+--- !u!114 &3436470217175947532
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1282887060807183007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f17f0723514eb3545939739471cb3962, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ItemTag: 2
+  SortingType: 8
+  SizeTag: 0
+  IsLockRotate: 0
+  itemModding: {fileID: 1282887060807183007}
+  StatList:
+    itemName: Canned Pea Soup
+    itemPrice: 3
+    MoneyType: 0
+    SpriteTextureItemDescription: {fileID: 21300000, guid: 0eeee9a6e72ea5d4a88c8dfa313680d5,
+      type: 3}
+    itemDescription: Delicious Pea Soup
+    itemTooltip: P.Soup
+    SpriteTextureHotbar: {fileID: 0}
+    IsCanUseHotbar: 0
+    Materials: Tin
+    Mass: 1.2
+    Durability: 80
+    Damage: 0
+    TypeOfFire: 5
+    MuzzleVelocity: 0
+    Recoil: 0
+    RangeOfFire: 0
+    BaseAccuracy: 0
+    Ergonomics: 0
+    Consume: 1
+    TypeOfConsume: 2
+    AmountConsumed: 0
+  WeaponPlayerRig: {fileID: 0}
+  ID_Weapon: 0
+  ItHasMagazine: 0
+  WithAttachments: 0
+  WeaponAttachments: []
+  ID_Attachments: 01000000
+  AttachTag: 5
+  SpriteTextureItemInventory: {fileID: 21300000, guid: 0eeee9a6e72ea5d4a88c8dfa313680d5,
+    type: 3}
+  SpriteTextureItemModding: {fileID: 21300000, guid: 0eeee9a6e72ea5d4a88c8dfa313680d5,
+    type: 3}
+  IsBackpack: 0
+  SizeBackpack: 9
+  IsTacticalRig: 0
+  TypeTRStyle: 0
+  IsPockets: 0
+  PocketSlots: 0
+  IsMoney: 0
+  MoneyType: 0
+  IsPurse: 0
+  IsStack: 0
+  StackID: 0
+  AmountStack: 0
+  MaxAmountStack: 0
+  IsLatchkey: 0
+  IsCombine: 0
+  IsResultCombine: 0
+  CombineResultPrefab: {fileID: 0}
+  MaxStackCombine: 0
+  IsMagazine: 0
+  IsBullet: 0
+  TypeOfBullet: 0
+  ClipSize: 0
+  AmountBullet: 0
+  SeparatePrefab: {fileID: 0}
+  ByDefaultRenderParams: 1
+  WeaponScale: {x: 300, y: 300, z: 300}
+  WeaponPosition: {x: 0, y: 0, z: 0}
+  WeaponRotation: {x: 0, y: 0, z: 0}
+  itemName: Canned Pea Soup
+  itemPrice: 3
+  SpriteTextureItemDescription: {fileID: 21300000, guid: 0eeee9a6e72ea5d4a88c8dfa313680d5,
+    type: 3}
+  itemDescription: Delicious Pea Soup
+  itemTooltip: P.Soup
+  SpriteTextureHotbar: {fileID: 0}
+  IsCanUseHotbar: 0
+  Materials: Tin
+  TypeofMoney: 0
+  Mass: 1.2
+  Durability: 80
+  Damage: 0
+  TypeOfFire: 5
+  MuzzleVelocity: 0
+  Recoil: 0
+  RangeOfFire: 0
+  BaseAccuracy: 0
+  Ergonomics: 0
+  Consume: 1
+  TypeOfConsume: 2
+  AmountConsumed: 0
+  id: 0
+  isSpawnFromInventory: 0
+  IsPutOn: 0
+  StartPositionInInventory: {x: 0, y: 0}
+--- !u!1 &7800358921083294278
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1366383312865984893}
+  - component: {fileID: 4188753641366370359}
+  - component: {fileID: 793982770407218339}
+  m_Layer: 0
+  m_Name: Model
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1366383312865984893
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7800358921083294278}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.0055, y: 0.0055, z: 0.0055}
+  m_ConstrainProportionsScale: 1
+  m_Children: []
+  m_Father: {fileID: 1911331985858179109}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &4188753641366370359
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7800358921083294278}
+  m_Mesh: {fileID: -2432090755550338912, guid: 69bb1440ca81cdb458dedf813b4fe8a5, type: 3}
+--- !u!23 &793982770407218339
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7800358921083294278}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 257
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: -2114709362448669321, guid: 69bb1440ca81cdb458dedf813b4fe8a5, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}

@@ -48,6 +48,9 @@ namespace Ballistics
         [Tooltip("Damage one bullet deals at maximum velocity")]
         public float Damage = 100;
 
+        [Tooltip("How many bullets are shot every time the gun is fired")]
+        public int PelletsPerShot = 1;
+
         [Tooltip("The layers the bullet can interact with")]
         public LayerMask HitMask = ~0;
 
@@ -57,5 +60,11 @@ namespace Ballistics
         [Tooltip("Impact Handler that handles all impacts the bullet is involved in. (can be null)"), InlineInspector]
         [FormerlySerializedAs("impactHandler")]
         public ImpactHandlerObject ImpactHandler;
+
+        [Header("Visuals")]
+        [Tooltip("Bullet model or prefab")]
+        public GameObject BulletPrefab;
+        public GameObject CasingPrefab;
+        public GameObject RoundPrefab;
     }
 }

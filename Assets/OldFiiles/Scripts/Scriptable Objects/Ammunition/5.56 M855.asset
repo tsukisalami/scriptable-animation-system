@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b04a4c948ca29f4f91e556ec2f164ba, type: 3}
+  m_Name: 5.56 M855
+  m_EditorClassIdentifier: 
+  Speed: 762
+  Mass: 0.00396
+  Diameter: 0.00571
+  DragCoefficient: 0.3
+  Spin: {x: 0, y: 0, z: 0}
+  Damage: 45
+  Penetration: 50
+  PelletsPerShot: 1
+  HitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  Lifetime: 6
+  impactHandler: {fileID: 11400000, guid: 936c970e48693b244bc65d55bc6bf4fa, type: 2}
+  hasImpactHandler: 1
+  BulletPrefab: {fileID: 5341742223406746680, guid: 59e0e1d62b306254487accfec52e8516,
+    type: 3}
+  CasingPrefab: {fileID: 5341742223406746680, guid: d2aee6763cbff0f4fa765c8df64f6905,
+    type: 3}
+  RoundPrefab: {fileID: 5341742223406746680, guid: 9c3cddd6060b7cc4eadfb9cefcf6e7db,
+    type: 3}

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b04a4c948ca29f4f91e556ec2f164ba, type: 3}
+  m_Name: 12Ga Buckshot
+  m_EditorClassIdentifier: 
+  Speed: 380
+  Mass: 0.00349
+  Diameter: 0.0083800005
+  DragCoefficient: 0.3
+  Spin: {x: 0, y: 0, z: 0}
+  Damage: 100
+  Penetration: 50
+  PelletsPerShot: 8
+  HitMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  Lifetime: 6
+  impactHandler: {fileID: 0}
+  hasImpactHandler: 0
+  BulletPrefab: {fileID: 16366012711189829, guid: e90aa7c20ecde2844aa0017736daf70f,
+    type: 3}
+  CasingPrefab: {fileID: 3296168210316521730, guid: 562c05ec609be224fa0af3f0f1512581,
+    type: 3}
+  RoundPrefab: {fileID: 3296168210316521730, guid: d7909301d2c07f54da14db3c17a08780,
+    type: 3}

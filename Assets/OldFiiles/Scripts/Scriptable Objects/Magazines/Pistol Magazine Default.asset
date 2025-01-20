@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91e00cd15c861424190b14505715776c, type: 3}
+  m_Name: Pistol Magazine Default
+  m_EditorClassIdentifier: 
+  reloadTime: 2
+  ergonomics: 1
+  weight: 1
+  caliber: 0
+  ammoCount: 12
+  bulletTypes:
+  - {fileID: 11400000, guid: bf1a3eef02a3bda49ba2a5d045095494, type: 2}

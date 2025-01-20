@@ -71,11 +71,6 @@ public class MountedWeapon : MonoBehaviour
         
         // Disable player's movement (you'll need to implement this through your own system)
         // player.DisableMovement();
-        
-        // Position and parent player at mount position
-        player.transform.position = playerMountPosition.position;
-        player.transform.rotation = playerMountPosition.rotation;
-        player.transform.parent = playerMountPosition;
     }
 
     private void HandleWeaponControl()
@@ -100,24 +95,12 @@ public class MountedWeapon : MonoBehaviour
             originalRotation.y + currentHorizontalAngle,
             originalRotation.z + currentVerticalAngle
         );
-
-        // Keep player level while rotating horizontally
-        if (currentUser != null)
-        {
-            Vector3 playerEulerAngles = currentUser.transform.localEulerAngles;
-            playerEulerAngles.x = 0;
-            playerEulerAngles.z = 0;
-            currentUser.transform.localEulerAngles = playerEulerAngles;
-        }
     }
 
     private void DismountPlayer()
     {
         if (currentUser != null)
         {
-            // Unparent the player before resetting
-            currentUser.transform.parent = null;
-            
             // Re-enable player's movement (you'll need to implement this through your own system)
             // currentUser.EnableMovement();
             

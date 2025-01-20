@@ -47,3 +47,7 @@ MonoBehaviour:
     defaultValue: {x: 0, y: 0, z: 0, w: 0}
   - name: MoveInput
     defaultValue: {x: 0, y: 0, z: 0, w: 0}
+  - name: RightHandTarget
+    defaultValue: {x: 0, y: 0, z: 0, w: 0}
+  - name: LeftHandTarget
+    defaultValue: {x: 0, y: 0, z: 0, w: 0}
