@@ -33,7 +33,8 @@ Material:
   - _USERADIALNOISE
   - _USE_OFFSET_NOISE
   - _USE_TEXTURE_COLOR
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _USESCOPESHADOW
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -87,6 +88,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _PIPInput:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -137,6 +142,7 @@ Material:
     - _DepthOffsetEnable: 0
     - _DetailAlbedoMapScale: 1
     - _DetailNormalMapScale: 1
+    - _DistortStrength: 15
     - _DoubleSidedEnable: 0
     - _DoubleSidedGIMode: 0
     - _DoubleSidedNormalMode: 2
@@ -146,6 +152,11 @@ Material:
     - _EnableFogOnTransparent: 1
     - _EnvironmentReflections: 1
     - _ExcludeFromTUAndAA: 0
+    - _EyeRelief: 0.1
+    - _EyeReliefFalloff: 4
+    - _EyeboxAccuracy: 2
+    - _FOVFadeDistance: 0.01
+    - _FOV_Size: 0.75
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0
@@ -174,6 +185,12 @@ Material:
     - _RequireSplitLighting: 0
     - _Retical_Size: 0.25
     - _Reticle_Brightness: 20
+    - _Reticle_Size: 1
+    - _Reticle_Zoom: 1
+    - _Scope_Depth: 1
+    - _ShaderZoom: 1
+    - _ShadowFadeDistance: 0.1
+    - _ShadowSize: 0.85
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -200,6 +217,7 @@ Material:
     - _TransparentWritingMotionVec: 0
     - _TransparentZWrite: 0
     - _USERADIALNOISE: 1
+    - _USESCOPESHADOW: 1
     - _USE_OFFSET_NOISE: 1
     - _USE_TEXTURE_COLOR: 1
     - _UseShadowThreshold: 0
@@ -211,6 +229,7 @@ Material:
     m_Colors:
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
+    - _CrosshairColor: {r: 1, g: 1, b: 1, a: 1}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
     - _Glass_Tint: {r: 0.49043232, g: 0.7093611, b: 0.9716981, a: 0.28235295}
