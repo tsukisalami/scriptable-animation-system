@@ -9,7 +9,7 @@
                     "name": "Fire",
                     "type": "Value",
                     "id": "a7145557-7d88-42dc-bd8f-6e4eb520848e",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true

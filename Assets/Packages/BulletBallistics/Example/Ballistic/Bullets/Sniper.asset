@@ -12,15 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b04a4c948ca29f4f91e556ec2f164ba, type: 3}
   m_Name: Sniper
   m_EditorClassIdentifier: 
-  Speed: 1000
-  Mass: 0.02
+  Speed: 500
+  Mass: 0.005
   Diameter: 0.008
-  DragCoefficient: 0.21
+  DragCoefficient: 0.3
   Spin: {x: 0, y: 0, z: 0}
-  Damage: 300
+  Damage: 100
+  PelletsPerShot: 1
   HitMask:
     serializedVersion: 2
-    m_Bits: 273
+    m_Bits: 4294967295
   Lifetime: 6
-  impactHandler: {fileID: 0}
-  hasImpactHandler: 0
+  ImpactHandler: {fileID: 0}
+  BulletPrefab: {fileID: 0}
+  CasingPrefab: {fileID: 0}
+  RoundPrefab: {fileID: 0}

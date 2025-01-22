@@ -130,7 +130,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""5f8cec63-aa0a-4b5f-9cb0-cd01efcbe8a9"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -139,7 +139,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Prone"",
                     ""type"": ""Button"",
                     ""id"": ""c984d2e8-8329-4859-9e2a-87e65ea1ed31"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -148,16 +148,70 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Slide"",
                     ""type"": ""Button"",
                     ""id"": ""75a2a6e4-7eb2-4557-a086-e73034f5d88b"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
+                    ""name"": ""SelectPrimary"",
+                    ""type"": ""Button"",
+                    ""id"": ""8dd2c8bb-6413-4627-addf-f156592fdbb0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectSecondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""2d460ad1-b31c-48b2-8eb4-90c93272f94e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectThrowables"",
+                    ""type"": ""Button"",
+                    ""id"": ""b960a2d6-5be0-4636-b386-eaa078fe7eec"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectSpecialEquipment"",
+                    ""type"": ""Button"",
+                    ""id"": ""aa73dce7-992b-4b58-9a43-3caa2f61099d"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectMedical"",
+                    ""type"": ""Button"",
+                    ""id"": ""444ac3b3-4151-4d2c-8b9f-f2176ccf6c6b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectTools"",
+                    ""type"": ""Button"",
+                    ""id"": ""40c895a9-01d3-4534-a4d9-1d384af142bd"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""CycleScope"",
                     ""type"": ""Button"",
                     ""id"": ""3ebcfcd8-c943-4578-a792-25c54c5c341b"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -451,6 +505,72 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Slide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""349f2dca-95bd-4042-84e9-9de0b04275ee"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectPrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""994d2300-8427-4a62-84b1-c003d15ef246"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSecondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""908e6c9f-ebc2-4341-a2db-cc9a803f7867"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectThrowables"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3541753d-b817-4545-9292-3909a028f502"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSpecialEquipment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a282a612-7998-4f25-891f-17439ba73488"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectMedical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3858f17c-4d8f-474e-b0f4-7f219f8bee7f"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectTools"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -959,6 +1079,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Prone = m_Gameplay.FindAction("Prone", throwIfNotFound: true);
         m_Gameplay_Slide = m_Gameplay.FindAction("Slide", throwIfNotFound: true);
+        m_Gameplay_SelectPrimary = m_Gameplay.FindAction("SelectPrimary", throwIfNotFound: true);
+        m_Gameplay_SelectSecondary = m_Gameplay.FindAction("SelectSecondary", throwIfNotFound: true);
+        m_Gameplay_SelectThrowables = m_Gameplay.FindAction("SelectThrowables", throwIfNotFound: true);
+        m_Gameplay_SelectSpecialEquipment = m_Gameplay.FindAction("SelectSpecialEquipment", throwIfNotFound: true);
+        m_Gameplay_SelectMedical = m_Gameplay.FindAction("SelectMedical", throwIfNotFound: true);
+        m_Gameplay_SelectTools = m_Gameplay.FindAction("SelectTools", throwIfNotFound: true);
         m_Gameplay_CycleScope = m_Gameplay.FindAction("CycleScope", throwIfNotFound: true);
         m_Gameplay_ChangeFireMode = m_Gameplay.FindAction("ChangeFireMode", throwIfNotFound: true);
         m_Gameplay_DigitAxis = m_Gameplay.FindAction("DigitAxis", throwIfNotFound: true);
@@ -1070,6 +1196,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Prone;
     private readonly InputAction m_Gameplay_Slide;
+    private readonly InputAction m_Gameplay_SelectPrimary;
+    private readonly InputAction m_Gameplay_SelectSecondary;
+    private readonly InputAction m_Gameplay_SelectThrowables;
+    private readonly InputAction m_Gameplay_SelectSpecialEquipment;
+    private readonly InputAction m_Gameplay_SelectMedical;
+    private readonly InputAction m_Gameplay_SelectTools;
     private readonly InputAction m_Gameplay_CycleScope;
     private readonly InputAction m_Gameplay_ChangeFireMode;
     private readonly InputAction m_Gameplay_DigitAxis;
@@ -1098,6 +1230,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Prone => m_Wrapper.m_Gameplay_Prone;
         public InputAction @Slide => m_Wrapper.m_Gameplay_Slide;
+        public InputAction @SelectPrimary => m_Wrapper.m_Gameplay_SelectPrimary;
+        public InputAction @SelectSecondary => m_Wrapper.m_Gameplay_SelectSecondary;
+        public InputAction @SelectThrowables => m_Wrapper.m_Gameplay_SelectThrowables;
+        public InputAction @SelectSpecialEquipment => m_Wrapper.m_Gameplay_SelectSpecialEquipment;
+        public InputAction @SelectMedical => m_Wrapper.m_Gameplay_SelectMedical;
+        public InputAction @SelectTools => m_Wrapper.m_Gameplay_SelectTools;
         public InputAction @CycleScope => m_Wrapper.m_Gameplay_CycleScope;
         public InputAction @ChangeFireMode => m_Wrapper.m_Gameplay_ChangeFireMode;
         public InputAction @DigitAxis => m_Wrapper.m_Gameplay_DigitAxis;
@@ -1159,6 +1297,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Slide.started += instance.OnSlide;
             @Slide.performed += instance.OnSlide;
             @Slide.canceled += instance.OnSlide;
+            @SelectPrimary.started += instance.OnSelectPrimary;
+            @SelectPrimary.performed += instance.OnSelectPrimary;
+            @SelectPrimary.canceled += instance.OnSelectPrimary;
+            @SelectSecondary.started += instance.OnSelectSecondary;
+            @SelectSecondary.performed += instance.OnSelectSecondary;
+            @SelectSecondary.canceled += instance.OnSelectSecondary;
+            @SelectThrowables.started += instance.OnSelectThrowables;
+            @SelectThrowables.performed += instance.OnSelectThrowables;
+            @SelectThrowables.canceled += instance.OnSelectThrowables;
+            @SelectSpecialEquipment.started += instance.OnSelectSpecialEquipment;
+            @SelectSpecialEquipment.performed += instance.OnSelectSpecialEquipment;
+            @SelectSpecialEquipment.canceled += instance.OnSelectSpecialEquipment;
+            @SelectMedical.started += instance.OnSelectMedical;
+            @SelectMedical.performed += instance.OnSelectMedical;
+            @SelectMedical.canceled += instance.OnSelectMedical;
+            @SelectTools.started += instance.OnSelectTools;
+            @SelectTools.performed += instance.OnSelectTools;
+            @SelectTools.canceled += instance.OnSelectTools;
             @CycleScope.started += instance.OnCycleScope;
             @CycleScope.performed += instance.OnCycleScope;
             @CycleScope.canceled += instance.OnCycleScope;
@@ -1235,6 +1391,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Slide.started -= instance.OnSlide;
             @Slide.performed -= instance.OnSlide;
             @Slide.canceled -= instance.OnSlide;
+            @SelectPrimary.started -= instance.OnSelectPrimary;
+            @SelectPrimary.performed -= instance.OnSelectPrimary;
+            @SelectPrimary.canceled -= instance.OnSelectPrimary;
+            @SelectSecondary.started -= instance.OnSelectSecondary;
+            @SelectSecondary.performed -= instance.OnSelectSecondary;
+            @SelectSecondary.canceled -= instance.OnSelectSecondary;
+            @SelectThrowables.started -= instance.OnSelectThrowables;
+            @SelectThrowables.performed -= instance.OnSelectThrowables;
+            @SelectThrowables.canceled -= instance.OnSelectThrowables;
+            @SelectSpecialEquipment.started -= instance.OnSelectSpecialEquipment;
+            @SelectSpecialEquipment.performed -= instance.OnSelectSpecialEquipment;
+            @SelectSpecialEquipment.canceled -= instance.OnSelectSpecialEquipment;
+            @SelectMedical.started -= instance.OnSelectMedical;
+            @SelectMedical.performed -= instance.OnSelectMedical;
+            @SelectMedical.canceled -= instance.OnSelectMedical;
+            @SelectTools.started -= instance.OnSelectTools;
+            @SelectTools.performed -= instance.OnSelectTools;
+            @SelectTools.canceled -= instance.OnSelectTools;
             @CycleScope.started -= instance.OnCycleScope;
             @CycleScope.performed -= instance.OnCycleScope;
             @CycleScope.canceled -= instance.OnCycleScope;
@@ -1508,6 +1682,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnProne(InputAction.CallbackContext context);
         void OnSlide(InputAction.CallbackContext context);
+        void OnSelectPrimary(InputAction.CallbackContext context);
+        void OnSelectSecondary(InputAction.CallbackContext context);
+        void OnSelectThrowables(InputAction.CallbackContext context);
+        void OnSelectSpecialEquipment(InputAction.CallbackContext context);
+        void OnSelectMedical(InputAction.CallbackContext context);
+        void OnSelectTools(InputAction.CallbackContext context);
         void OnCycleScope(InputAction.CallbackContext context);
         void OnChangeFireMode(InputAction.CallbackContext context);
         void OnDigitAxis(InputAction.CallbackContext context);

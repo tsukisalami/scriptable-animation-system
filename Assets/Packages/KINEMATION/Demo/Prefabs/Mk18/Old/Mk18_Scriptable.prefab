@@ -3048,7 +3048,6 @@ GameObject:
   - component: {fileID: 417141916365352039}
   - component: {fileID: 2151158701131182720}
   - component: {fileID: 50495845089654894}
-  - component: {fileID: -523480150808525360}
   m_Layer: 0
   m_Name: Mk18_Scriptable
   m_TagString: Untagged
@@ -3108,14 +3107,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   overrideController: {fileID: 0}
-  equipMotion: {fileID: 0}
-  unEquipMotion: {fileID: 0}
+  equipMotion: {fileID: 11400000, guid: b11b46638e8719941a429aa33657277d, type: 2}
+  unEquipMotion: {fileID: 11400000, guid: 6e3ba419dec1a754b9c447a8fc1f9b1f, type: 2}
   fieldOfView: 90
-  bolt: {fileID: 3908947564442918690}
+  bolt: {fileID: 8360221118003370252}
   casingEjectPoint: {fileID: 6898294777410688076}
-  ejectForce: 3
+  ejectForce: 1.5
   casingLifetime: 5
-  casingTorque: 150
+  casingTorque: 100
   muzzleFlashVFX: {fileID: 5532375965403511289}
   muzzleSmokeVFX: {fileID: 1573295337017816914}
   chamberSmokeVFX: {fileID: 4183384757955243894}
@@ -3125,8 +3124,8 @@ MonoBehaviour:
     type: 2}
   grenadeClip: {fileID: 11400000, guid: 8c00be63e1ceb6e419dc9b20f7064687, type: 2}
   cameraGrenadeAnimation: {fileID: 0}
-  overlayType: 2
-  animatorProfile: {fileID: 11400000, guid: 8a7b18c3ddc6ec14590fcffc38d6aad6, type: 2}
+  overlayType: 0
+  animatorProfile: {fileID: 0}
   recoilData: {fileID: 11400000, guid: 7638b99fbca1b914b9f2e6441b21a466, type: 2}
   recoilPatternSettings: {fileID: 11400000, guid: f828d6d423a942146839c52d2c7bdb1f,
     type: 2}
@@ -3158,14 +3157,12 @@ MonoBehaviour:
   - attachments:
     - {fileID: 238443097295942336}
   tacticalDevices:
-    attachments:
-    - {fileID: 9090790029432930396}
-    - {fileID: 2476784247422263983}
+    attachments: []
   SpreadController: {fileID: 0}
   currentState: 0
-  jamChance: 0.001
-  feedFailureChance: 0.002
-  misfireChance: 0.001
+  jamChance: 0.017
+  feedFailureChance: 0.023
+  misfireChance: 0.017
   adsTime: 0.3
   reloadTime: 2
   checkChamberTime: 1
@@ -3231,37 +3228,6 @@ MonoBehaviour:
   fireModeSwitchSound: {fileID: 0}
   inspectSound: {fileID: 0}
   shellCasingSound: {fileID: 0}
---- !u!114 &-523480150808525360
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8542894136583626980}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 5f52975c2aaf85746a129504f58e8e5e,
-    type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Gameplay
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1001 &2942192950500416284
 PrefabInstance:
   m_ObjectHideFlags: 0

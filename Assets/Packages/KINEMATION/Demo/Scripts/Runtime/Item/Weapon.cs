@@ -26,7 +26,7 @@ namespace Demo.Scripts.Runtime.Item
         Rifle
     }
 
-    /*public enum WeaponState
+    public enum WeaponState
     {
         Idle,               // Default state, weapon ready
         AimingDownSights,   // Player is aiming
@@ -37,7 +37,7 @@ namespace Demo.Scripts.Runtime.Item
         FailureToFeed,     // Round failed to feed properly
         Misfire,           // Round failed to fire
         FixingMalfunction   // Player clearing a malfunction
-    }*/
+    }
 
     public class Weapon : FPSItem
     {
@@ -138,24 +138,25 @@ namespace Demo.Scripts.Runtime.Item
         private bool isCrouched;
 
         // Current state of the weapon
-        //[SerializeField] private WeaponState currentState = WeaponState.Idle;
+        [SerializeField] private WeaponState currentState = WeaponState.Idle;
         
-        /*[Header("State Durations")]
+        // Malfunction chances (0-1 range)
+        [Header("Malfunction Parameters")]
+        [Range(0f, 1f)] public float jamChance = 0.001f;
+        [Range(0f, 1f)] public float feedFailureChance = 0.002f;
+        [Range(0f, 1f)] public float misfireChance = 0.001f;
+        
+        // State durations
+        [Header("State Durations")]
         public float adsTime = 0.3f;
         public float reloadTime = 2.0f;
         public float checkChamberTime = 1.0f;
         public float checkMagazineTime = 1.5f;
         public float malfunctionFixTime = 3.0f;
 
-        // Malfunction chances (0-1 range)
-        [Header("Malfunction Parameters")]
-        [Range(0f, 1f)] public float jamChance = 0.001f;
-        [Range(0f, 1f)] public float feedFailureChance = 0.002f;
-        [Range(0f, 1f)] public float misfireChance = 0.001f;*/
-
         // Properties
-        /*public WeaponState CurrentState => currentState;
-        public bool IsOperational => currentState == WeaponState.Idle || currentState == WeaponState.AimingDownSights;*/
+        public WeaponState CurrentState => currentState;
+        public bool IsOperational => currentState == WeaponState.Idle || currentState == WeaponState.AimingDownSights;
 
         // Add property to check if weapon is currently firing
         private bool IsFiring => _fireWeapon;  // Assuming _fireWeapon is your existing firing flag
@@ -629,13 +630,13 @@ namespace Demo.Scripts.Runtime.Item
         private void Update()
         {
             // Check for malfunctions when firing
-            /*if (IsFiring && IsOperational)
+            if (IsFiring && IsOperational)
             {
                 CheckForMalfunctions();
             }
 
             // Handle state-specific updates
-            UpdateWeaponState();*/
+            UpdateWeaponState();
 
             if (_refillMagazine)
             {
@@ -660,6 +661,7 @@ namespace Demo.Scripts.Runtime.Item
                     UpdateSensitivityMultiplier(false);
                 }
             }
+
 
             if(_fireWeapon)
             {
@@ -698,6 +700,7 @@ namespace Demo.Scripts.Runtime.Item
                 else
                     Debug.Log("One of the weapon shooting VFX is not assigned");
 
+
                 _fireWeapon = false;
             }
 
@@ -723,9 +726,10 @@ namespace Demo.Scripts.Runtime.Item
                     _userInputController.SetValue("HoldBreath", 1);
                 }
             }*/
+
         }
 
-        /*private void CheckForMalfunctions()
+        private void CheckForMalfunctions()
         {
             float random = UnityEngine.Random.value;  // Explicitly use UnityEngine.Random
             
@@ -789,17 +793,25 @@ namespace Demo.Scripts.Runtime.Item
 
         private IEnumerator FixMalfunction()
         {
+            // Play fixing animation
+            // animator.SetTrigger("FixMalfunction");
+            
             yield return new WaitForSeconds(malfunctionFixTime);
+            
+            // Return to idle state
             SetWeaponState(WeaponState.Idle);
         }
 
         private void PlayMalfunctionSound(string soundType)
         {
-        }*/
+            // Play appropriate malfunction sound effect
+            // audioSource.PlayOneShot(GetMalfunctionClip(soundType));
+        }
 
+        // Change from override to new method since there's no base method to override
         public bool CanFire()
         {
-            return true; // Previously returned IsOperational
+            return IsOperational;
         }
     }
 }

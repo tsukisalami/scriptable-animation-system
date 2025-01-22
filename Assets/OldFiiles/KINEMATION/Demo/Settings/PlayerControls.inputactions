@@ -108,7 +108,7 @@
                     "name": "Jump",
                     "type": "Button",
                     "id": "5f8cec63-aa0a-4b5f-9cb0-cd01efcbe8a9",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -117,7 +117,7 @@
                     "name": "Prone",
                     "type": "Button",
                     "id": "c984d2e8-8329-4859-9e2a-87e65ea1ed31",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -126,16 +126,70 @@
                     "name": "Slide",
                     "type": "Button",
                     "id": "75a2a6e4-7eb2-4557-a086-e73034f5d88b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
+                    "name": "SelectPrimary",
+                    "type": "Button",
+                    "id": "8dd2c8bb-6413-4627-addf-f156592fdbb0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SelectSecondary",
+                    "type": "Button",
+                    "id": "2d460ad1-b31c-48b2-8eb4-90c93272f94e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SelectThrowables",
+                    "type": "Button",
+                    "id": "b960a2d6-5be0-4636-b386-eaa078fe7eec",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SelectSpecialEquipment",
+                    "type": "Button",
+                    "id": "aa73dce7-992b-4b58-9a43-3caa2f61099d",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SelectMedical",
+                    "type": "Button",
+                    "id": "444ac3b3-4151-4d2c-8b9f-f2176ccf6c6b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SelectTools",
+                    "type": "Button",
+                    "id": "40c895a9-01d3-4534-a4d9-1d384af142bd",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "CycleScope",
                     "type": "Button",
                     "id": "3ebcfcd8-c943-4578-a792-25c54c5c341b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -429,6 +483,72 @@
                     "processors": "",
                     "groups": "",
                     "action": "Slide",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "349f2dca-95bd-4042-84e9-9de0b04275ee",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectPrimary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "994d2300-8427-4a62-84b1-c003d15ef246",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectSecondary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "908e6c9f-ebc2-4341-a2db-cc9a803f7867",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectThrowables",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3541753d-b817-4545-9292-3909a028f502",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectSpecialEquipment",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a282a612-7998-4f25-891f-17439ba73488",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectMedical",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3858f17c-4d8f-474e-b0f4-7f219f8bee7f",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectTools",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

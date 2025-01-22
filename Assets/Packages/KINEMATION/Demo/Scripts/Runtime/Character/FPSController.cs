@@ -7,6 +7,7 @@ using KINEMATION.KAnimationCore.Runtime.Rig;
 
 using Demo.Scripts.Runtime.Item;
 using System.Collections.Generic;
+using System.Collections;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -43,7 +44,7 @@ namespace Demo.Scripts.Runtime.Character
         private int _previousWeaponIndex;
 
         private FPSAimState _aimState;
-        private FPSActionState _actionState;
+        public FPSActionState _actionState;
 
         private Animator _animator;
 
@@ -52,7 +53,7 @@ namespace Demo.Scripts.Runtime.Character
         private UserInputController _userInput;
         // ~Scriptable Animation System Integration
 
-        private List<FPSItem> _instantiatedWeapons;
+        public List<FPSItem> _instantiatedWeapons;
         private Vector2 _lookDeltaInput;
 
         private RecoilPattern _recoilPattern;
@@ -63,6 +64,8 @@ namespace Demo.Scripts.Runtime.Character
         private static int _inspectStartHash = Animator.StringToHash("InspectStart");
         private static int _inspectEndHash = Animator.StringToHash("InspectEnd");
         private static int _slideHash = Animator.StringToHash("Sliding");
+
+        private PlayerLoadout playerLoadout;
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
@@ -122,11 +125,19 @@ namespace Demo.Scripts.Runtime.Character
         private void InitializeWeapons()
         {
             _instantiatedWeapons = new List<FPSItem>();
+            playerLoadout = GetComponent<PlayerLoadout>();
 
-            foreach (var prefab in settings.weaponPrefabs)
+            if (playerLoadout == null)
             {
-                var weapon = Instantiate(prefab, transform.position, Quaternion.identity);
+                Debug.LogError("FPSController: PlayerLoadout component not found!");
+                return;
+            }
 
+            var allItems = playerLoadout.GetAllItems();
+
+            foreach (var itemPrefab in allItems)
+            {
+                var weapon = Instantiate(itemPrefab, transform.position, Quaternion.identity);
                 var weaponTransform = weapon.transform;
 
                 weaponTransform.parent = _weaponBone;
@@ -135,6 +146,14 @@ namespace Demo.Scripts.Runtime.Character
 
                 _instantiatedWeapons.Add(weapon.GetComponent<FPSItem>());
                 weapon.gameObject.SetActive(false);
+            }
+
+            _actionState = FPSActionState.None;
+            
+            if (_instantiatedWeapons.Count > 0)
+            {
+                _activeWeaponIndex = 0;
+                EquipWeapon();
             }
         }
 
@@ -156,9 +175,6 @@ namespace Demo.Scripts.Runtime.Character
             InitializeMovement();
             InitializeWeapons();
 
-            _actionState = FPSActionState.None;
-            EquipWeapon();
-
             _sensitivityMultiplierPropertyIndex = _userInput.GetPropertyIndex("SensitivityMultiplier");
         }
 
@@ -176,12 +192,14 @@ namespace Demo.Scripts.Runtime.Character
 
         private void EquipWeapon()
         {
-            if (_instantiatedWeapons.Count == 0) return;
+            if (_instantiatedWeapons.Count == 0)
+            {
+                return;
+            }
 
             _instantiatedWeapons[_previousWeaponIndex].gameObject.SetActive(false);
             GetActiveItem().gameObject.SetActive(true);
             GetActiveItem().OnEquip(gameObject);
-
             _actionState = FPSActionState.None;
         }
 
@@ -242,7 +260,24 @@ namespace Demo.Scripts.Runtime.Character
         
         private bool _isLeaning;
 
-        private void StartWeaponChange(int newIndex)
+        public void OnChangeWeapon()
+        {
+            if (_movementComponent.PoseState == FPSPoseState.Prone) return;
+            if (HasActiveAction() || _instantiatedWeapons.Count == 0) return;
+
+            var currentCategory = playerLoadout.GetCategory(playerLoadout.currentCategoryIndex);
+            if (currentCategory == null) return;
+
+            var targetItem = currentCategory.GetCurrentItem();
+            if (targetItem == null) return;
+
+            int newIndex = _instantiatedWeapons.FindIndex(w => w.GetType() == targetItem.GetType());
+            if (newIndex == -1) return;
+
+            StartWeaponChange(newIndex);
+        }
+
+        public void StartWeaponChange(int newIndex)
         {
             if (newIndex == _activeWeaponIndex || newIndex > _instantiatedWeapons.Count - 1)
             {
@@ -250,12 +285,12 @@ namespace Demo.Scripts.Runtime.Character
             }
 
             UnequipWeapon();
-
             OnFireReleased();
-            Invoke(nameof(EquipWeapon), settings.equipDelay);
-
+            
             _previousWeaponIndex = _activeWeaponIndex;
             _activeWeaponIndex = newIndex;
+
+            Invoke(nameof(EquipWeapon), settings.equipDelay);
         }
         
         private void UpdateLookInput()
@@ -342,14 +377,6 @@ namespace Demo.Scripts.Runtime.Character
             }
         }
 
-        public void OnChangeWeapon()
-        {
-            if (_movementComponent.PoseState == FPSPoseState.Prone) return;
-            if (HasActiveAction() || _instantiatedWeapons.Count == 0) return;
-            
-            StartWeaponChange(_activeWeaponIndex + 1 > _instantiatedWeapons.Count - 1 ? 0 : _activeWeaponIndex + 1);
-        }
-
         public void OnLook(InputValue value)
         {
             _lookDeltaInput = value.Get<Vector2>();
@@ -394,6 +421,41 @@ namespace Demo.Scripts.Runtime.Character
         {
             if (!value.isPressed || _actionState != FPSActionState.AttachmentEditing) return;
             GetActiveItem().OnAttachmentChanged((int) value.Get<float>());
+        }
+
+        public void OnSelectPrimary(InputValue value)
+        {
+            if (value.isPressed) playerLoadout.SelectCategory(0);
+        }
+
+        public void OnSelectSecondary(InputValue value)
+        {
+            Debug.Log($"Secondary weapon key pressed: {value.isPressed}");
+            if (value.isPressed && playerLoadout != null)
+            {
+                Debug.Log("Attempting to select secondary weapon");
+                playerLoadout.SelectCategory(1);
+            }
+        }
+
+        public void OnSelectThrowables(InputValue value)
+        {
+            if (value.isPressed) playerLoadout.SelectCategory(2);
+        }
+
+        public void OnSelectSpecialEquipment(InputValue value)
+        {
+            if (value.isPressed) playerLoadout.SelectCategory(3);
+        }
+
+        public void OnSelectMedical(InputValue value)
+        {
+            if (value.isPressed) playerLoadout.SelectCategory(4);
+        }
+
+        public void OnSelectTools(InputValue value)
+        {
+            if (value.isPressed) playerLoadout.SelectCategory(5);
         }
 #endif
     }

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b04a4c948ca29f4f91e556ec2f164ba, type: 3}
+  m_Name: 88mm
+  m_EditorClassIdentifier: 
+  Speed: 830
+  Mass: 9.2
+  Diameter: 0.088
+  DragCoefficient: 0.321
+  Spin: {x: 0, y: 0, z: 4000}
+  Damage: 100
+  PelletsPerShot: 1
+  HitMask:
+    serializedVersion: 2
+    m_Bits: 81
+  Lifetime: 40
+  ImpactHandler: {fileID: 0}
+  BulletPrefab: {fileID: 2065850837648312249, guid: 5a021473f20c08140898a1ab091a634f,
+    type: 3}
+  CasingPrefab: {fileID: 8020193932685407484, guid: ed5405d292e9f684e9248a09ec5b09cb,
+    type: 3}
+  RoundPrefab: {fileID: 0}
