@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: abf5ad9513f2b1b46be5ffc92ecc6468
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Lightmaps/Takeoff-Hover-Cruise/LightingData.asset
+  uploadId: 549500

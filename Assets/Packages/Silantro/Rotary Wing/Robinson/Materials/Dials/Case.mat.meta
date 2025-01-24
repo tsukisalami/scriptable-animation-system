@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: d9a307e6f2266de439b497bf05e27d84
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Robinson/Materials/Dials/Case.mat
+  uploadId: 549500

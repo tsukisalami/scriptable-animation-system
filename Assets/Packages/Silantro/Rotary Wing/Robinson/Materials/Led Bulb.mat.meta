@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 6ee5214e30a4ab043bb07dd654be5987
+timeCreated: 1575590867
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Robinson/Materials/Led Bulb.mat
+  uploadId: 549500

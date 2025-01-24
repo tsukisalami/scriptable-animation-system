@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: ec952b25e212c7748b7c94cd98ef7528
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Robinson/Materials/Blur Tail.mat
+  uploadId: 549500

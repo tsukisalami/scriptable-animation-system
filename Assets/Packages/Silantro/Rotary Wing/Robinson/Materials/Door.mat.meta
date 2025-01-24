@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 54d4458cd04a6a9469349634ba50a2c9
+timeCreated: 1575590856
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Robinson/Materials/Door.mat
+  uploadId: 549500

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 2735d8edab9dcb74eb3ad14c5c3fc4e0
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Robinson/Materials/Interior/Plastic.mat
+  uploadId: 549500

@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 46422726e9489ec47a98c892732f4db3
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Lightmaps/Mouse Control/LightingData.asset
+  uploadId: 549500

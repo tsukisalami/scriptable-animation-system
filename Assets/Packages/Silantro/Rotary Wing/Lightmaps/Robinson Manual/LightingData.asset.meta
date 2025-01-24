@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: e2350d46a85ad1045bd146a624d9b522
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Lightmaps/Robinson Manual/LightingData.asset
+  uploadId: 549500

@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 8c61284b8cc3e334f9cba2b6b5d0eb0c
+timeCreated: 1575590869
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Robinson/Materials/Bolts.mat
+  uploadId: 549500

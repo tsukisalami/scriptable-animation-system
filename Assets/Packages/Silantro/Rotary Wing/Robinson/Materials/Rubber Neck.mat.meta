@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: cfb1351c2d697ac4595c897fbeb5d6ee
+timeCreated: 1575590869
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Robinson/Materials/Rubber Neck.mat
+  uploadId: 549500

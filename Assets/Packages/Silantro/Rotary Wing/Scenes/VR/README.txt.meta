@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: ab6f1879f46cef34ca27cb44d44ac569
+TextScriptImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Scenes/VR/README.txt
+  uploadId: 549500

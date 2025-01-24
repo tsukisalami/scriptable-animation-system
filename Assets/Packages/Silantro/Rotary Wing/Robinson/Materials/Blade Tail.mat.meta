@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: f8f1f0c9e0dd64249a89b5991382fd85
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Robinson/Materials/Blade Tail.mat
+  uploadId: 549500

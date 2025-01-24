@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 2024c6f97ff0ca0439c431178adaddfb
+timeCreated: 1575590855
+licenseType: Store
+NativeFormatImporter:
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 142612
+  packageName: Silantro Helicopter Simulator Toolkit
+  packageVersion: 3.5.15
+  assetPath: Assets/Silantro/Rotary Wing/Robinson/Materials/Exterior Base.mat
+  uploadId: 549500
