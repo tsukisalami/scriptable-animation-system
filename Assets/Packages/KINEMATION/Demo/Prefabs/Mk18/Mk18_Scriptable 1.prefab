@@ -629,7 +629,7 @@ VisualEffect:
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
-  m_ResetSeedOnPlay: 1
+  m_ResetSeedOnPlay: 0
   m_AllowInstancing: 1
   m_ResourceVersion: 1
   m_PropertySheet:
@@ -1464,7 +1464,7 @@ VisualEffect:
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
-  m_ResetSeedOnPlay: 1
+  m_ResetSeedOnPlay: 0
   m_AllowInstancing: 1
   m_ResourceVersion: 1
   m_PropertySheet:
@@ -2953,7 +2953,7 @@ VisualEffect:
   m_InitialEventName: OnPlay
   m_InitialEventNameOverriden: 0
   m_StartSeed: 0
-  m_ResetSeedOnPlay: 1
+  m_ResetSeedOnPlay: 0
   m_AllowInstancing: 1
   m_ResourceVersion: 1
   m_PropertySheet:
@@ -3049,7 +3049,7 @@ GameObject:
   - component: {fileID: 2151158701131182720}
   - component: {fileID: 50495845089654894}
   m_Layer: 0
-  m_Name: Mk18_Scriptable
+  m_Name: Mk18_Scriptable 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3106,7 +3106,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideController: {fileID: 0}
+  overrideController: {fileID: 22100000, guid: 7f4b08ee1d035e240b77bf86eb4d6668, type: 2}
   equipMotion: {fileID: 11400000, guid: b11b46638e8719941a429aa33657277d, type: 2}
   unEquipMotion: {fileID: 11400000, guid: 6e3ba419dec1a754b9c447a8fc1f9b1f, type: 2}
   fieldOfView: 90
