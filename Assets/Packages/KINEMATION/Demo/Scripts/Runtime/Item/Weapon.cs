@@ -304,20 +304,20 @@ namespace Demo.Scripts.Runtime.Item
             _controllerAnimator.CrossFade(CurveUnequip, 0.15f);
         }
 
-        /*public override void OnUnarmedEnabled()
+        public void OnUnarmedEnabled()
         {
             _controllerAnimator.SetFloat(OverlayType, 0);
             _userInputController.SetValue(FPSANames.PlayablesWeight, 0f);
             _userInputController.SetValue(FPSANames.StabilizationWeight, 0f);
         }
 
-        public override void OnUnarmedDisabled()
+        public void OnUnarmedDisabled()
         {
             _controllerAnimator.SetFloat(OverlayType, (int)overlayType);
             _userInputController.SetValue(FPSANames.PlayablesWeight, 1f);
             _userInputController.SetValue(FPSANames.StabilizationWeight, 1f);
             _fpsAnimator.LinkAnimatorProfile(gameObject);
-        }*/
+        }
 
         public override bool OnAimPressed()
         {

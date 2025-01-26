@@ -106,7 +106,7 @@ public class MachineGun : MonoBehaviour
         // Apply rotation
         Vector3 newRotation = gunMount.localEulerAngles;
         newRotation.y = currentHorizontalAngle;
-        newRotation.x = currentVerticalAngle;
+        newRotation.z = currentVerticalAngle;
         gunMount.localEulerAngles = newRotation;
     }
 

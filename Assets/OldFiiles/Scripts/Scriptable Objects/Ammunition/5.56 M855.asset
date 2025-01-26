@@ -17,7 +17,7 @@ MonoBehaviour:
   Diameter: 0.00571
   DragCoefficient: 0.3
   Spin: {x: 0, y: 0, z: 0}
-  Damage: 45
+  Damage: 12
   PelletsPerShot: 1
   HitMask:
     serializedVersion: 2

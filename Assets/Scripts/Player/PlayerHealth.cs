@@ -14,6 +14,13 @@ public class PlayerHealth : MonoBehaviour
         Dead        // permanent death
     }
 
+    public enum HitLocation
+    {
+        Head,
+        Body,
+        Limb
+    }
+
     [Header("Settings")]
     [SerializeField] private PlayerHealthSettings healthSettings;
     [SerializeField] private LivingEntity livingEntity;
@@ -23,17 +30,28 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private HealthState healthState;
     [SerializeField] private float speedReduction;
     [SerializeField] private float pain;
+    [SerializeField] private bool isBleeding;
+    [SerializeField] private float downedTimeRemaining;
 
+    // Public properties
     public float SpeedReductionFactor { get => speedReduction; private set => speedReduction = value; }
     public float PainFactor { get => pain; private set => pain = value; }
     public HealthState CurrentHealthState { get => healthState; private set => healthState = value; }
     public bool IsRevivalCooldownActive { get; private set; }
+    public bool IsBleeding { get => isBleeding; private set => isBleeding = value; }
+    public float DownedTimeRemaining { get => downedTimeRemaining; private set => downedTimeRemaining = value; }
+    public bool IsMorphineActive { get; private set; }
 
     // Events
     public UnityEvent<HealthState> OnHealthStateChanged = new UnityEvent<HealthState>();
     public UnityEvent OnPlayerDowned = new UnityEvent();
     public UnityEvent OnPlayerDied = new UnityEvent();
     public UnityEvent OnPlayerRevived = new UnityEvent();
+    public UnityEvent<bool> OnBleedingChanged = new UnityEvent<bool>();
+
+    private Coroutine bleedingCoroutine;
+    private Coroutine morphineCoroutine;
+    private Coroutine randomReviveCoroutine;
 
     private void OnValidate()
     {
@@ -95,10 +113,43 @@ public class PlayerHealth : MonoBehaviour
 
     private void Update()
     {
+        if (CurrentHealthState == HealthState.Downed)
+        {
+            downedTimeRemaining -= Time.deltaTime;
+            if (downedTimeRemaining <= 0)
+            {
+                HandleZeroHealth();
+            }
+        }
+
         if (CurrentHealthState == HealthState.Downed && Input.GetKeyDown(healthSettings.reviveKey))
         {
             TryRevivePlayer();
         }
+    }
+
+    public void HandleHit(float baseDamage, HitLocation hitLocation)
+    {
+        if (CurrentHealthState == HealthState.Dead || CurrentHealthState == HealthState.Downed)
+            return;
+
+        float damageMultiplier = hitLocation switch
+        {
+            HitLocation.Head => healthSettings.headMultiplier,
+            HitLocation.Body => healthSettings.bodyMultiplier,
+            HitLocation.Limb => healthSettings.limbMultiplier,
+            _ => 1f
+        };
+
+        float finalDamage = baseDamage * damageMultiplier;
+        
+        // Start bleeding on any hit
+        if (!isBleeding)
+        {
+            StartBleeding();
+        }
+
+        livingEntity.ApplyDamage(finalDamage);
     }
 
     private void HandleDamageReceived(DamageInfo damageInfo)
@@ -106,7 +157,6 @@ public class PlayerHealth : MonoBehaviour
         if (CurrentHealthState == HealthState.Dead || CurrentHealthState == HealthState.Downed)
             return;
 
-        // Only log if actual damage was taken (not healing)
         if (damageInfo.DamageAmount > 0)
         {
             float previousHealth = currentHealth;
@@ -115,7 +165,7 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            currentHealth = Mathf.Max(0, currentHealth - damageInfo.DamageAmount);
+            currentHealth = Mathf.Min(healthSettings.maxHealth, currentHealth - damageInfo.DamageAmount);
         }
         
         if (currentHealth <= 0)
@@ -133,11 +183,19 @@ public class PlayerHealth : MonoBehaviour
         {
             CurrentHealthState = HealthState.Dead;
             OnPlayerDied.Invoke();
+            if (randomReviveCoroutine != null)
+                StopCoroutine(randomReviveCoroutine);
         }
         else
         {
             CurrentHealthState = HealthState.Downed;
+            downedTimeRemaining = healthSettings.downedStateDuration;
             OnPlayerDowned.Invoke();
+            
+            // Start random revive chance
+            if (randomReviveCoroutine != null)
+                StopCoroutine(randomReviveCoroutine);
+            randomReviveCoroutine = StartCoroutine(RandomReviveRoutine());
         }
     }
 
@@ -230,6 +288,94 @@ public class PlayerHealth : MonoBehaviour
         {
             OnHealthStateChanged.Invoke(CurrentHealthState);
             Debug.Log($"State: {previousState} -> {CurrentHealthState} [Speed: {SpeedReductionFactor:F2}, Pain: {PainFactor:F2}]");
+        }
+    }
+
+    private void StartBleeding()
+    {
+        if (bleedingCoroutine != null)
+            StopCoroutine(bleedingCoroutine);
+        
+        isBleeding = true;
+        OnBleedingChanged.Invoke(true);
+        bleedingCoroutine = StartCoroutine(BleedingRoutine());
+    }
+
+    public void StopBleeding()
+    {
+        if (bleedingCoroutine != null)
+        {
+            StopCoroutine(bleedingCoroutine);
+            bleedingCoroutine = null;
+        }
+        
+        isBleeding = false;
+        OnBleedingChanged.Invoke(false);
+    }
+
+    private IEnumerator BleedingRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(healthSettings.bleedTickRate);
+            if (CurrentHealthState != HealthState.Dead && CurrentHealthState != HealthState.Downed)
+            {
+                livingEntity.ApplyDamage(healthSettings.bleedDamagePerSecond * healthSettings.bleedTickRate);
+            }
+        }
+    }
+
+    public void ApplyMorphine()
+    {
+        if (morphineCoroutine != null)
+            StopCoroutine(morphineCoroutine);
+        
+        IsMorphineActive = true;
+        IsRevivalCooldownActive = false;
+        morphineCoroutine = StartCoroutine(MorphineEffectRoutine());
+    }
+
+    private IEnumerator MorphineEffectRoutine()
+    {
+        float startTime = Time.time;
+        
+        while (Time.time - startTime < healthSettings.morphineDuration)
+        {
+            // Apply health regeneration
+            if (currentHealth < healthSettings.maxHealth)
+            {
+                float healAmount = healthSettings.morphineHealthRegenerationRate * Time.deltaTime;
+                livingEntity.ApplyDamage(-healAmount);
+            }
+            
+            yield return null;
+        }
+        
+        IsMorphineActive = false;
+    }
+
+    private IEnumerator RandomReviveRoutine()
+    {
+        if (Random.value < healthSettings.randomReviveChance)
+        {
+            float reviveTime = Random.Range(healthSettings.randomReviveMinTime, healthSettings.randomReviveMaxTime);
+            yield return new WaitForSeconds(reviveTime);
+            
+            if (CurrentHealthState == HealthState.Downed)
+            {
+                TryRevivePlayer();
+            }
+        }
+    }
+
+    public void GiveUp()
+    {
+        if (CurrentHealthState == HealthState.Downed)
+        {
+            CurrentHealthState = HealthState.Dead;
+            OnPlayerDied.Invoke();
+            if (randomReviveCoroutine != null)
+                StopCoroutine(randomReviveCoroutine);
         }
     }
 
