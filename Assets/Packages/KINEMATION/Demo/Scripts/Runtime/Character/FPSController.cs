@@ -350,6 +350,17 @@ namespace Demo.Scripts.Runtime.Character
         {
             if (IsSprinting()) return;
             
+            var currentItem = GetActiveItem();
+            if (currentItem is ConsumableItem consumable)
+            {
+                if (value.isPressed)
+                {
+                    consumable.OnPrimaryUse();
+                }
+                return;
+            }
+            
+            // Handle regular weapon fire
             if (value.isPressed)
             {
                 OnFirePressed();
@@ -363,6 +374,17 @@ namespace Demo.Scripts.Runtime.Character
         {
             if (IsSprinting()) return;
 
+            var currentItem = GetActiveItem();
+            if (currentItem is ConsumableItem consumable)
+            {
+                if (value.isPressed)
+                {
+                    consumable.OnSecondaryUse();
+                }
+                return;
+            }
+
+            // Handle regular weapon aiming
             if (value.isPressed && !IsAiming())
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;
@@ -458,5 +480,29 @@ namespace Demo.Scripts.Runtime.Character
             if (value.isPressed) playerLoadout.SelectCategory(5);
         }
 #endif
+
+        /*
+        public void OnUseConsumable(InputValue value)
+        {
+            if (IsSprinting() || HasActiveAction()) return;
+            
+            var currentItem = GetActiveItem();
+            if (currentItem is ConsumableItem consumable)
+            {
+                consumable.OnPrimaryUse();
+            }
+        }
+
+        public void OnAlternateUseConsumable(InputValue value)
+        {
+            if (IsSprinting() || HasActiveAction()) return;
+            
+            var currentItem = GetActiveItem();
+            if (currentItem is ConsumableItem consumable)
+            {
+                consumable.OnSecondaryUse();
+            }
+        }
+        */
     }
 }

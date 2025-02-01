@@ -70,24 +70,6 @@ public class PlayerLoadout : MonoBehaviour
             enabled = false;
             return;
         }
-
-        // Initialize consumable counts
-        InitializeConsumableCounts(throwables);
-        InitializeConsumableCounts(specialEquipment);
-        InitializeConsumableCounts(medicalEquipment);
-    }
-
-    private void InitializeConsumableCounts(LoadoutCategory category)
-    {
-        if (category.isConsumable)
-        {
-            category.itemCounts = new int[category.items.Count];
-            // Set default counts (can be modified through inspector or other methods)
-            for (int i = 0; i < category.itemCounts.Length; i++)
-            {
-                category.itemCounts[i] = 1; // Default to 1, adjust as needed
-            }
-        }
     }
 
     public void SelectCategory(int index)
@@ -156,15 +138,30 @@ public class PlayerLoadout : MonoBehaviour
 
         category.itemCounts[category.currentIndex]--;
         
-        // If current item is depleted, try to switch to next available item
+        // If current item is depleted
         if (category.itemCounts[category.currentIndex] <= 0)
         {
             FPSItem nextItem = category.CycleNext();
             if (nextItem != null)
             {
+                // If we found another item with available count, equip it
                 EquipItem(nextItem);
             }
+            else
+            {
+                // If no more items available in category, switch to primary weapon
+                SelectCategory(0); // 0 is the primary weapon category
+            }
         }
+    }
+
+    // Helper method to check if current item has uses remaining
+    public bool HasCurrentItemUses()
+    {
+        LoadoutCategory category = GetCategory(currentCategoryIndex);
+        if (category == null || !category.isConsumable) return true;
+        
+        return category.itemCounts[category.currentIndex] > 0;
     }
 
     // Helper method to add items to categories

@@ -349,8 +349,8 @@ MonoBehaviour:
       index: 48
       isVirtual: 0
     pose:
-      position: {x: 0.05, y: 0.025, z: 0}
-      rotation: {x: 0, y: 0, z: 0, w: 1}
+      position: {x: 0.12, y: 0, z: 0}
+      rotation: {x: 0, y: 0.06453231, z: 0, w: 0.9979156}
       scale: {x: 0, y: 0, z: 0}
     space: 2
     modifyMode: 0
@@ -901,6 +901,7 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 89
     isVirtual: 0
+  offsetFeetTargets: 1
   rightHandWeight: 1
   leftHandWeight: 1
   rightFootWeight: 1

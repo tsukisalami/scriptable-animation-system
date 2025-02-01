@@ -16,11 +16,16 @@ MonoBehaviour:
   Mass: 0.0034
   Diameter: 0.00535
   DragCoefficient: 0.2
-  Spin: 100
-  Length: 0.01
+  Spin: {x: 0, y: 0, z: 0}
   Damage: 100
+  PelletsPerShot: 1
   HitMask:
     serializedVersion: 2
     m_Bits: 273
-  ImpactHandler: {fileID: 0}
   Lifetime: 6
+  ImpactHandler: {fileID: 0}
+  BulletPrefab: {fileID: 107274, guid: 69ca6c5805888df419446062d856b94d, type: 3}
+  CasingPrefab: {fileID: 5341742223406746680, guid: d2aee6763cbff0f4fa765c8df64f6905,
+    type: 3}
+  RoundPrefab: {fileID: 5341742223406746680, guid: 9c3cddd6060b7cc4eadfb9cefcf6e7db,
+    type: 3}

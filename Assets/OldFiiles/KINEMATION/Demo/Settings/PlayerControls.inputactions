@@ -186,6 +186,24 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "ConsumablePrimaryUse",
+                    "type": "Button",
+                    "id": "ebe565fb-0f01-454d-af2c-4e8a6dc49e3e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "ConsumableSecondaryUse",
+                    "type": "Button",
+                    "id": "3633e889-ff1c-4da9-b352-f936e63954f4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
                     "name": "CycleScope",
                     "type": "Button",
                     "id": "3ebcfcd8-c943-4578-a792-25c54c5c341b",
@@ -549,6 +567,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectTools",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a339950d-b934-48ea-a328-66e5255bb102",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConsumablePrimaryUse",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c955fc81-5f63-4a36-8540-714ad2f853ec",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ConsumableSecondaryUse",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

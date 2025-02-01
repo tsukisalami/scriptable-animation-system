@@ -15,6 +15,7 @@ MonoBehaviour:
   reloadTime: 2
   ergonomics: 1
   weight: 1
-  caliber: 0
-  ammoCount: 30
-  bulletTypes: []
+  caliber: 1
+  ammoCount: 120
+  bulletTypes:
+  - {fileID: 11400000, guid: 664ee48f5f5bc8e4393955d110902fc6, type: 2}

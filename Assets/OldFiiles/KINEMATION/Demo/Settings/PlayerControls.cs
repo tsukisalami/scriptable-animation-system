@@ -208,6 +208,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""ConsumablePrimaryUse"",
+                    ""type"": ""Button"",
+                    ""id"": ""ebe565fb-0f01-454d-af2c-4e8a6dc49e3e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ConsumableSecondaryUse"",
+                    ""type"": ""Button"",
+                    ""id"": ""3633e889-ff1c-4da9-b352-f936e63954f4"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""CycleScope"",
                     ""type"": ""Button"",
                     ""id"": ""3ebcfcd8-c943-4578-a792-25c54c5c341b"",
@@ -571,6 +589,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SelectTools"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a339950d-b934-48ea-a328-66e5255bb102"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConsumablePrimaryUse"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c955fc81-5f63-4a36-8540-714ad2f853ec"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ConsumableSecondaryUse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -1085,6 +1125,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_SelectSpecialEquipment = m_Gameplay.FindAction("SelectSpecialEquipment", throwIfNotFound: true);
         m_Gameplay_SelectMedical = m_Gameplay.FindAction("SelectMedical", throwIfNotFound: true);
         m_Gameplay_SelectTools = m_Gameplay.FindAction("SelectTools", throwIfNotFound: true);
+        m_Gameplay_ConsumablePrimaryUse = m_Gameplay.FindAction("ConsumablePrimaryUse", throwIfNotFound: true);
+        m_Gameplay_ConsumableSecondaryUse = m_Gameplay.FindAction("ConsumableSecondaryUse", throwIfNotFound: true);
         m_Gameplay_CycleScope = m_Gameplay.FindAction("CycleScope", throwIfNotFound: true);
         m_Gameplay_ChangeFireMode = m_Gameplay.FindAction("ChangeFireMode", throwIfNotFound: true);
         m_Gameplay_DigitAxis = m_Gameplay.FindAction("DigitAxis", throwIfNotFound: true);
@@ -1202,6 +1244,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_SelectSpecialEquipment;
     private readonly InputAction m_Gameplay_SelectMedical;
     private readonly InputAction m_Gameplay_SelectTools;
+    private readonly InputAction m_Gameplay_ConsumablePrimaryUse;
+    private readonly InputAction m_Gameplay_ConsumableSecondaryUse;
     private readonly InputAction m_Gameplay_CycleScope;
     private readonly InputAction m_Gameplay_ChangeFireMode;
     private readonly InputAction m_Gameplay_DigitAxis;
@@ -1236,6 +1280,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SelectSpecialEquipment => m_Wrapper.m_Gameplay_SelectSpecialEquipment;
         public InputAction @SelectMedical => m_Wrapper.m_Gameplay_SelectMedical;
         public InputAction @SelectTools => m_Wrapper.m_Gameplay_SelectTools;
+        public InputAction @ConsumablePrimaryUse => m_Wrapper.m_Gameplay_ConsumablePrimaryUse;
+        public InputAction @ConsumableSecondaryUse => m_Wrapper.m_Gameplay_ConsumableSecondaryUse;
         public InputAction @CycleScope => m_Wrapper.m_Gameplay_CycleScope;
         public InputAction @ChangeFireMode => m_Wrapper.m_Gameplay_ChangeFireMode;
         public InputAction @DigitAxis => m_Wrapper.m_Gameplay_DigitAxis;
@@ -1315,6 +1361,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SelectTools.started += instance.OnSelectTools;
             @SelectTools.performed += instance.OnSelectTools;
             @SelectTools.canceled += instance.OnSelectTools;
+            @ConsumablePrimaryUse.started += instance.OnConsumablePrimaryUse;
+            @ConsumablePrimaryUse.performed += instance.OnConsumablePrimaryUse;
+            @ConsumablePrimaryUse.canceled += instance.OnConsumablePrimaryUse;
+            @ConsumableSecondaryUse.started += instance.OnConsumableSecondaryUse;
+            @ConsumableSecondaryUse.performed += instance.OnConsumableSecondaryUse;
+            @ConsumableSecondaryUse.canceled += instance.OnConsumableSecondaryUse;
             @CycleScope.started += instance.OnCycleScope;
             @CycleScope.performed += instance.OnCycleScope;
             @CycleScope.canceled += instance.OnCycleScope;
@@ -1409,6 +1461,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SelectTools.started -= instance.OnSelectTools;
             @SelectTools.performed -= instance.OnSelectTools;
             @SelectTools.canceled -= instance.OnSelectTools;
+            @ConsumablePrimaryUse.started -= instance.OnConsumablePrimaryUse;
+            @ConsumablePrimaryUse.performed -= instance.OnConsumablePrimaryUse;
+            @ConsumablePrimaryUse.canceled -= instance.OnConsumablePrimaryUse;
+            @ConsumableSecondaryUse.started -= instance.OnConsumableSecondaryUse;
+            @ConsumableSecondaryUse.performed -= instance.OnConsumableSecondaryUse;
+            @ConsumableSecondaryUse.canceled -= instance.OnConsumableSecondaryUse;
             @CycleScope.started -= instance.OnCycleScope;
             @CycleScope.performed -= instance.OnCycleScope;
             @CycleScope.canceled -= instance.OnCycleScope;
@@ -1688,6 +1746,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSelectSpecialEquipment(InputAction.CallbackContext context);
         void OnSelectMedical(InputAction.CallbackContext context);
         void OnSelectTools(InputAction.CallbackContext context);
+        void OnConsumablePrimaryUse(InputAction.CallbackContext context);
+        void OnConsumableSecondaryUse(InputAction.CallbackContext context);
         void OnCycleScope(InputAction.CallbackContext context);
         void OnChangeFireMode(InputAction.CallbackContext context);
         void OnDigitAxis(InputAction.CallbackContext context);
