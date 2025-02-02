@@ -226,6 +226,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
+                    ""name"": ""Suicide"",
+                    ""type"": ""Button"",
+                    ""id"": ""5bcfec13-5bbd-4433-9869-3c2aa2296889"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
                     ""name"": ""CycleScope"",
                     ""type"": ""Button"",
                     ""id"": ""3ebcfcd8-c943-4578-a792-25c54c5c341b"",
@@ -238,7 +247,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""ChangeFireMode"",
                     ""type"": ""Button"",
                     ""id"": ""0bd5b109-473d-4afa-9c67-33e69192c42f"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -274,7 +283,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""HoldBreath"",
                     ""type"": ""Value"",
                     ""id"": ""e6e6abb1-78f4-4b54-8408-bdbbf90617f0"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -292,7 +301,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""Use"",
                     ""type"": ""Button"",
                     ""id"": ""677a27e7-221b-4f75-a8f5-84b1d3a4fdea"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -613,6 +622,39 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""ConsumableSecondaryUse"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""One Modifier"",
+                    ""id"": ""1d923b1a-2d93-446c-b684-23a6771ab2f5"",
+                    ""path"": ""OneModifier"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Suicide"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""modifier"",
+                    ""id"": ""b1227201-cc14-4c21-8154-597d42a8366f"",
+                    ""path"": ""<Keyboard>/leftAlt"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Suicide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""binding"",
+                    ""id"": ""8b7c8382-5f5e-4936-8daf-1e96f9ed1ee9"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Suicide"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
@@ -1127,6 +1169,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_SelectTools = m_Gameplay.FindAction("SelectTools", throwIfNotFound: true);
         m_Gameplay_ConsumablePrimaryUse = m_Gameplay.FindAction("ConsumablePrimaryUse", throwIfNotFound: true);
         m_Gameplay_ConsumableSecondaryUse = m_Gameplay.FindAction("ConsumableSecondaryUse", throwIfNotFound: true);
+        m_Gameplay_Suicide = m_Gameplay.FindAction("Suicide", throwIfNotFound: true);
         m_Gameplay_CycleScope = m_Gameplay.FindAction("CycleScope", throwIfNotFound: true);
         m_Gameplay_ChangeFireMode = m_Gameplay.FindAction("ChangeFireMode", throwIfNotFound: true);
         m_Gameplay_DigitAxis = m_Gameplay.FindAction("DigitAxis", throwIfNotFound: true);
@@ -1246,6 +1289,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_SelectTools;
     private readonly InputAction m_Gameplay_ConsumablePrimaryUse;
     private readonly InputAction m_Gameplay_ConsumableSecondaryUse;
+    private readonly InputAction m_Gameplay_Suicide;
     private readonly InputAction m_Gameplay_CycleScope;
     private readonly InputAction m_Gameplay_ChangeFireMode;
     private readonly InputAction m_Gameplay_DigitAxis;
@@ -1282,6 +1326,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @SelectTools => m_Wrapper.m_Gameplay_SelectTools;
         public InputAction @ConsumablePrimaryUse => m_Wrapper.m_Gameplay_ConsumablePrimaryUse;
         public InputAction @ConsumableSecondaryUse => m_Wrapper.m_Gameplay_ConsumableSecondaryUse;
+        public InputAction @Suicide => m_Wrapper.m_Gameplay_Suicide;
         public InputAction @CycleScope => m_Wrapper.m_Gameplay_CycleScope;
         public InputAction @ChangeFireMode => m_Wrapper.m_Gameplay_ChangeFireMode;
         public InputAction @DigitAxis => m_Wrapper.m_Gameplay_DigitAxis;
@@ -1367,6 +1412,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ConsumableSecondaryUse.started += instance.OnConsumableSecondaryUse;
             @ConsumableSecondaryUse.performed += instance.OnConsumableSecondaryUse;
             @ConsumableSecondaryUse.canceled += instance.OnConsumableSecondaryUse;
+            @Suicide.started += instance.OnSuicide;
+            @Suicide.performed += instance.OnSuicide;
+            @Suicide.canceled += instance.OnSuicide;
             @CycleScope.started += instance.OnCycleScope;
             @CycleScope.performed += instance.OnCycleScope;
             @CycleScope.canceled += instance.OnCycleScope;
@@ -1467,6 +1515,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ConsumableSecondaryUse.started -= instance.OnConsumableSecondaryUse;
             @ConsumableSecondaryUse.performed -= instance.OnConsumableSecondaryUse;
             @ConsumableSecondaryUse.canceled -= instance.OnConsumableSecondaryUse;
+            @Suicide.started -= instance.OnSuicide;
+            @Suicide.performed -= instance.OnSuicide;
+            @Suicide.canceled -= instance.OnSuicide;
             @CycleScope.started -= instance.OnCycleScope;
             @CycleScope.performed -= instance.OnCycleScope;
             @CycleScope.canceled -= instance.OnCycleScope;
@@ -1748,6 +1799,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnSelectTools(InputAction.CallbackContext context);
         void OnConsumablePrimaryUse(InputAction.CallbackContext context);
         void OnConsumableSecondaryUse(InputAction.CallbackContext context);
+        void OnSuicide(InputAction.CallbackContext context);
         void OnCycleScope(InputAction.CallbackContext context);
         void OnChangeFireMode(InputAction.CallbackContext context);
         void OnDigitAxis(InputAction.CallbackContext context);

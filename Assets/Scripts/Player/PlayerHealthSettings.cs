@@ -15,9 +15,12 @@ public class PlayerHealthSettings : ScriptableObject
     [SerializeField] public float instantDeathChance = 0.1f;
 
     [Header("Damage Multipliers")]
-    [SerializeField] public float headMultiplier = 2.5f;
-    [SerializeField] public float bodyMultiplier = 1.0f;
-    [SerializeField] public float limbMultiplier = 0.7f;
+    [SerializeField] public float headMultiplier = 2f;
+    [SerializeField] public float chestMultiplier = 1.5f;
+    [SerializeField] public float limbMultiplier = 1f;
+    [SerializeField] public float handMultiplier = 0.8f;
+    [SerializeField] public float footMultiplier = 0.8f;
+
 
     [Header("Bleeding Settings")]
     [SerializeField] public float bleedDamagePerSecond = 1f;

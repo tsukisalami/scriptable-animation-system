@@ -60,7 +60,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 231d678d77831874eb9b2a4927a132fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideController: {fileID: 22100000, guid: 7b30ccb51858b794d9b2dc1c824e9fc9, type: 2}
+  overrideController: {fileID: 9100000, guid: b09d8a0688c5abe42998a0987f3f1210, type: 2}
   equipMotion: {fileID: 11400000, guid: b11b46638e8719941a429aa33657277d, type: 2}
   unEquipMotion: {fileID: 11400000, guid: 6e3ba419dec1a754b9c447a8fc1f9b1f, type: 2}
   useAnimation: {fileID: 0}

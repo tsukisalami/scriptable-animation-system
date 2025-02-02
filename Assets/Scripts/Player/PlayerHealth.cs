@@ -17,8 +17,10 @@ public class PlayerHealth : MonoBehaviour
     public enum HitLocation
     {
         Head,
-        Body,
-        Limb
+        Chest,
+        Limb,
+        Hand,
+        Foot
     }
 
     [Header("Settings")]
@@ -136,8 +138,10 @@ public class PlayerHealth : MonoBehaviour
         float damageMultiplier = hitLocation switch
         {
             HitLocation.Head => healthSettings.headMultiplier,
-            HitLocation.Body => healthSettings.bodyMultiplier,
+            HitLocation.Chest => healthSettings.chestMultiplier,
             HitLocation.Limb => healthSettings.limbMultiplier,
+            HitLocation.Hand => healthSettings.handMultiplier,
+            HitLocation.Foot => healthSettings.footMultiplier,
             _ => 1f
         };
 
@@ -179,16 +183,24 @@ public class PlayerHealth : MonoBehaviour
 
     private void HandleZeroHealth()
     {
+        Debug.Log("[PlayerHealth] HandleZeroHealth called!");
+        
+        HealthState previousState = CurrentHealthState;
+        
         if (Random.value < healthSettings.instantDeathChance)
         {
+            Debug.Log("[PlayerHealth] Instant death triggered!");
             CurrentHealthState = HealthState.Dead;
+            OnHealthStateChanged.Invoke(HealthState.Dead);  // Explicitly invoke state change
             OnPlayerDied.Invoke();
             if (randomReviveCoroutine != null)
                 StopCoroutine(randomReviveCoroutine);
         }
         else
         {
+            Debug.Log("[PlayerHealth] Player downed!");
             CurrentHealthState = HealthState.Downed;
+            OnHealthStateChanged.Invoke(HealthState.Downed);  // Explicitly invoke state change
             downedTimeRemaining = healthSettings.downedStateDuration;
             OnPlayerDowned.Invoke();
             
@@ -197,6 +209,12 @@ public class PlayerHealth : MonoBehaviour
                 StopCoroutine(randomReviveCoroutine);
             randomReviveCoroutine = StartCoroutine(RandomReviveRoutine());
         }
+        
+        // Update speed and pain factors
+        SpeedReductionFactor = 0f;
+        PainFactor = 1f;
+        
+        Debug.Log($"[PlayerHealth] Final state after HandleZeroHealth: {CurrentHealthState}");
     }
 
     private void TryRevivePlayer()
@@ -258,6 +276,15 @@ public class PlayerHealth : MonoBehaviour
     {
         HealthState previousState = CurrentHealthState;
 
+        // Don't change state if already Downed or Dead
+        if (CurrentHealthState == HealthState.Downed || CurrentHealthState == HealthState.Dead)
+        {
+            SpeedReductionFactor = 0f;
+            PainFactor = 1f;
+            Debug.Log($"[PlayerHealth] Maintaining {CurrentHealthState} state");
+            return;
+        }
+
         if (currentHealth >= 70)
         {
             CurrentHealthState = HealthState.Healthy;
@@ -280,14 +307,14 @@ public class PlayerHealth : MonoBehaviour
         }
         else
         {
-            SpeedReductionFactor = 0f;
-            PainFactor = 1f;
+            HandleZeroHealth();
+            return;
         }
 
         if (previousState != CurrentHealthState)
         {
+            Debug.Log($"[PlayerHealth] State changed: {previousState} -> {CurrentHealthState} [Speed: {SpeedReductionFactor:F2}, Pain: {PainFactor:F2}]");
             OnHealthStateChanged.Invoke(CurrentHealthState);
-            Debug.Log($"State: {previousState} -> {CurrentHealthState} [Speed: {SpeedReductionFactor:F2}, Pain: {PainFactor:F2}]");
         }
     }
 
@@ -377,6 +404,17 @@ public class PlayerHealth : MonoBehaviour
             if (randomReviveCoroutine != null)
                 StopCoroutine(randomReviveCoroutine);
         }
+    }
+
+    public void OnSuicide()
+    {
+        if (CurrentHealthState == HealthState.Dead || CurrentHealthState == HealthState.Downed)
+            return;
+
+        // Set health to 0 and trigger the death pipeline
+        currentHealth = 0;
+        livingEntity.ApplyDamage(float.MaxValue); // Ensure the living entity is also "dead"
+        HandleZeroHealth();
     }
 
     // Helper method to get health as an integer for UI display
