@@ -66,5 +66,30 @@ namespace Ballistics
         public GameObject BulletPrefab;
         public GameObject CasingPrefab;
         public GameObject RoundPrefab;
+
+        [Header("Bullet Type")]
+        [Tooltip("If true, bullet explodes on impact instead of penetrating")]
+        public bool explodeOnImpact = false;
+
+        [Header("Explosion Settings")]
+        [ShowIf("explodeOnImpact")]
+        [Tooltip("Radius of the explosion")]
+        public float explosionRadius = 5f;
+        
+        [ShowIf("explodeOnImpact")]
+        [Tooltip("Force applied to rigidbodies within explosion radius")]
+        public float explosionForce = 1000f;
+        
+        [ShowIf("explodeOnImpact")]
+        [Tooltip("Maximum damage at explosion center")]
+        public float explosionDamage = 100f;
+        
+        [ShowIf("explodeOnImpact")]
+        [Tooltip("How quickly damage falls off with distance (1 = linear)")]
+        public float explosionFalloff = 1f;
+        
+        [ShowIf("explodeOnImpact")]
+        [Tooltip("Visual effect prefab for explosion")]
+        public GameObject explosionEffectPrefab;
     }
 }

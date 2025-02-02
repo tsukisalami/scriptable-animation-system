@@ -1,7 +1,7 @@
 fileFormatVersion: 2
 guid: 43fafec64c9f12540afd459bc570add7
 ModelImporter:
-  serializedVersion: 21300
+  serializedVersion: 22200
   internalIDToNameTable:
   - first:
       74: -203655887218126122
@@ -19,8 +19,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 1
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -72,6 +70,7 @@ ModelImporter:
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1
+    importPhysicalCameras: 1
     importVisibility: 1
     importBlendShapes: 1
     importCameras: 1
@@ -99,6 +98,7 @@ ModelImporter:
     secondaryUVMinObjectScale: 1
     secondaryUVPackMargin: 4
     useFileScale: 1
+    strictVertexDataChecks: 0
   tangentSpace:
     normalSmoothAngle: 60
     normalImportMode: 0
@@ -747,7 +747,8 @@ ModelImporter:
     - name: Right_PinkyDistalEnd
       parentName: Right_PinkyDistal
       position: {x: 0.0000006008148, y: 0.018518925, z: -0.00000010967254}
-      rotation: {x: -0.00000019371505, y: 0.00000003939873, z: 0.000000013270206, w: 1}
+      rotation: {x: -0.00000019371505, y: 0.00000003939873, z: 0.000000013270206,
+        w: 1}
       scale: {x: 1, y: 0.99999994, z: 1}
     - name: Right_RingProximal
       parentName: Right_Hand
@@ -807,7 +808,8 @@ ModelImporter:
     - name: Right_IndexDistalEnd
       parentName: Right_IndexDistal
       position: {x: 0.00000020384788, y: 0.024609514, z: -0.0000006198883}
-      rotation: {x: -0.00000002235173, y: 0.000000025635456, z: -0.00000010435031, w: 1}
+      rotation: {x: -0.00000002235173, y: 0.000000025635456, z: -0.00000010435031,
+        w: 1}
       scale: {x: 1.0000002, y: 1.000001, z: 1.0000007}
     - name: Right_ThumbProximal
       parentName: Right_Hand
@@ -827,7 +829,8 @@ ModelImporter:
     - name: Right_ThumbDistalEnd
       parentName: Right_ThumbDistal
       position: {x: 0.00000032424927, y: 0.029458169, z: -0.00000087484716}
-      rotation: {x: -0.000000059604638, y: 0.000000035282365, z: 0.000000113868396, w: 1}
+      rotation: {x: -0.000000059604638, y: 0.000000035282365, z: 0.000000113868396,
+        w: 1}
       scale: {x: 1.0000004, y: 1.0000004, z: 1}
     - name: Left_UpperLeg
       parentName: Hips
@@ -921,12 +924,14 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: f6abb5cf2c66b054dbd6afc546ff3044, type: 3}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: f6abb5cf2c66b054dbd6afc546ff3044,
+    type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 3
   humanoidOversampling: 1
   avatarSetup: 2
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 0
   remapMaterialsIfMaterialImportModeIsNone: 0
   additionalBone: 0
   userData: 

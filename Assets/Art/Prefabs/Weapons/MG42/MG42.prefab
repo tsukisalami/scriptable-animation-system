@@ -81,14 +81,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gunMount: {fileID: 4803974291131847278}
-  roundsPerMinute: 600
+  roundsPerMinute: 1200
   canFire: 1
-  minHorizontalAngle: -45
-  maxHorizontalAngle: 45
-  horizontalSweepSpeed: 30
-  minVerticalAngle: -10
-  maxVerticalAngle: 30
-  verticalSweepSpeed: 15
+  minHorizontalAngle: -10
+  maxHorizontalAngle: 10
+  horizontalSweepSpeed: 2
+  minVerticalAngle: -0.4
+  maxVerticalAngle: 0
+  verticalSweepSpeed: 5
+  minBurstPause: 0.5
+  maxBurstPause: 6
+  minBurstDuration: 5
+  maxBurstDuration: 15
 --- !u!114 &7980869600751490844
 MonoBehaviour:
   m_ObjectHideFlags: 0

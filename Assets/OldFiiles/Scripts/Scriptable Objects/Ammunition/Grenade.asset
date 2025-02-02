@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7b04a4c948ca29f4f91e556ec2f164ba, type: 3}
-  m_Name: 5.56 M855
+  m_Name: Grenade
   m_EditorClassIdentifier: 
-  Speed: 762
-  Mass: 0.00396
-  Diameter: 0.00571
-  DragCoefficient: 0.3
+  Speed: 70
+  Mass: 0.35
+  Diameter: 0.065
+  DragCoefficient: 0.468
   Spin: {x: 0, y: 0, z: 0}
-  Damage: 12
+  Damage: 6
   PelletsPerShot: 1
   HitMask:
     serializedVersion: 2
@@ -30,7 +30,7 @@ MonoBehaviour:
     type: 3}
   RoundPrefab: {fileID: 5341742223406746680, guid: 9c3cddd6060b7cc4eadfb9cefcf6e7db,
     type: 3}
-  explodeOnImpact: 1
+  explodeOnImpact: 0
   explosionRadius: 5
   explosionForce: 1000
   explosionDamage: 100

@@ -15,7 +15,7 @@ MonoBehaviour:
   outputAudioMixerGroup: {fileID: 24330208, guid: 81a2736d2d3ffa74c8ab596ae3b079e3,
     type: 2}
   priority: 128
-  volume: 0.635
+  volume: 0.224
   pitch: 1
   panStereo: 0
   spatialBlend: 1
