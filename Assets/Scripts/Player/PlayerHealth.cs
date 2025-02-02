@@ -26,6 +26,7 @@ public class PlayerHealth : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private PlayerHealthSettings healthSettings;
     [SerializeField] private LivingEntity livingEntity;
+    [SerializeField] private UnityEngine.InputSystem.PlayerInput playerInput;
 
     [Header("Debug Values")]
     [SerializeField] private float currentHealth;
@@ -54,6 +55,7 @@ public class PlayerHealth : MonoBehaviour
     private Coroutine bleedingCoroutine;
     private Coroutine morphineCoroutine;
     private Coroutine randomReviveCoroutine;
+    private Coroutine healthRegenerationCoroutine; // Track the regeneration coroutine
 
     private void OnValidate()
     {
@@ -65,6 +67,11 @@ public class PlayerHealth : MonoBehaviour
         if (livingEntity == null)
         {
             livingEntity = GetComponent<LivingEntity>();
+        }
+
+        if (playerInput == null)
+        {
+            playerInput = GetComponentInParent<UnityEngine.InputSystem.PlayerInput>();
         }
     }
 
@@ -147,8 +154,8 @@ public class PlayerHealth : MonoBehaviour
 
         float finalDamage = baseDamage * damageMultiplier;
         
-        // Start bleeding on any hit
-        if (!isBleeding)
+        // Higher chance (20%) to start bleeding on direct hits
+        if (!isBleeding && Random.value < 0.2f)
         {
             StartBleeding();
         }
@@ -158,11 +165,26 @@ public class PlayerHealth : MonoBehaviour
 
     private void HandleDamageReceived(DamageInfo damageInfo)
     {
-        if (CurrentHealthState == HealthState.Dead || CurrentHealthState == HealthState.Downed)
+        // Don't process damage if dead (prevents state update spam)
+        if (CurrentHealthState == HealthState.Dead)
             return;
 
         if (damageInfo.DamageAmount > 0)
         {
+            // 20% chance to start bleeding when taking damage
+            if (!isBleeding && Random.value < 0.2f)
+            {
+                StartBleeding();
+            }
+
+            // Cancel health regeneration if taking damage
+            if (healthRegenerationCoroutine != null)
+            {
+                StopCoroutine(healthRegenerationCoroutine);
+                healthRegenerationCoroutine = null;
+                Debug.Log("[PlayerHealth] Regeneration cancelled due to damage");
+            }
+
             float previousHealth = currentHealth;
             currentHealth = Mathf.Max(0, currentHealth - damageInfo.DamageAmount);
             Debug.Log($"Health: {previousHealth:F0} -> {currentHealth:F0} (Damage: {damageInfo.DamageAmount:F1})");
@@ -177,8 +199,10 @@ public class PlayerHealth : MonoBehaviour
             currentHealth = 0;
             HandleZeroHealth();
         }
-        
-        UpdateHealthState();
+        else
+        {
+            UpdateHealthState();
+        }
     }
 
     private void HandleZeroHealth()
@@ -187,11 +211,17 @@ public class PlayerHealth : MonoBehaviour
         
         HealthState previousState = CurrentHealthState;
         
+        // Disable all player input
+        if (playerInput != null)
+        {
+            playerInput.enabled = false;
+        }
+        
         if (Random.value < healthSettings.instantDeathChance)
         {
             Debug.Log("[PlayerHealth] Instant death triggered!");
             CurrentHealthState = HealthState.Dead;
-            OnHealthStateChanged.Invoke(HealthState.Dead);  // Explicitly invoke state change
+            OnHealthStateChanged.Invoke(HealthState.Dead);
             OnPlayerDied.Invoke();
             if (randomReviveCoroutine != null)
                 StopCoroutine(randomReviveCoroutine);
@@ -200,21 +230,17 @@ public class PlayerHealth : MonoBehaviour
         {
             Debug.Log("[PlayerHealth] Player downed!");
             CurrentHealthState = HealthState.Downed;
-            OnHealthStateChanged.Invoke(HealthState.Downed);  // Explicitly invoke state change
+            OnHealthStateChanged.Invoke(HealthState.Downed);
             downedTimeRemaining = healthSettings.downedStateDuration;
             OnPlayerDowned.Invoke();
             
-            // Start random revive chance
             if (randomReviveCoroutine != null)
                 StopCoroutine(randomReviveCoroutine);
             randomReviveCoroutine = StartCoroutine(RandomReviveRoutine());
         }
         
-        // Update speed and pain factors
         SpeedReductionFactor = 0f;
         PainFactor = 1f;
-        
-        Debug.Log($"[PlayerHealth] Final state after HandleZeroHealth: {CurrentHealthState}");
     }
 
     private void TryRevivePlayer()
@@ -222,18 +248,34 @@ public class PlayerHealth : MonoBehaviour
         if (CurrentHealthState != HealthState.Downed)
             return;
 
+        // Stop any existing regeneration
+        if (healthRegenerationCoroutine != null)
+        {
+            StopCoroutine(healthRegenerationCoroutine);
+            healthRegenerationCoroutine = null;
+        }
+
+        // Re-enable player input
+        if (playerInput != null)
+        {
+            playerInput.enabled = true;
+        }
+
+        // Force reset the health state before healing
+        CurrentHealthState = HealthState.Critical;
+        
+        // Reset health values
         float healAmount = healthSettings.reviveHealth - currentHealth;
         currentHealth = healthSettings.reviveHealth;
         livingEntity.ApplyDamage(-healAmount);
         
         IsRevivalCooldownActive = true;
-        CurrentHealthState = HealthState.Critical;
         OnPlayerRevived.Invoke();
         
         Debug.Log($"Player revived. Healing to {healthSettings.healthRegenerationTarget:F0} health over {healthSettings.healthRegenerationDuration:F1} seconds");
         
         StartCoroutine(RevivalCooldownRoutine());
-        StartCoroutine(HealthRegenerationRoutine());
+        healthRegenerationCoroutine = StartCoroutine(HealthRegenerationRoutine());
     }
 
     private IEnumerator RevivalCooldownRoutine()
@@ -245,17 +287,27 @@ public class PlayerHealth : MonoBehaviour
     private IEnumerator HealthRegenerationRoutine()
     {
         float startTime = Time.time;
-        float startHealth = currentHealth;
+        float endTime = startTime + healthSettings.healthRegenerationDuration;
+        float targetHealth = healthSettings.healthRegenerationTarget;
 
-        while (Time.time - startTime < healthSettings.healthRegenerationDuration && currentHealth < healthSettings.healthRegenerationTarget)
+        while (Time.time < endTime && currentHealth < targetHealth)
         {
-            float progress = (Time.time - startTime) / healthSettings.healthRegenerationDuration;
-            float newHealth = Mathf.Lerp(startHealth, healthSettings.healthRegenerationTarget, progress);
-            float healAmount = newHealth - currentHealth;
-            
-            if (healAmount > 0)
+            // Don't continue regeneration if player dies during the process
+            if (CurrentHealthState == HealthState.Dead || CurrentHealthState == HealthState.Downed)
             {
-                currentHealth = newHealth;
+                healthRegenerationCoroutine = null;
+                yield break;
+            }
+
+            // Calculate how much health should be gained this frame
+            float timeProgress = (Time.time - startTime) / healthSettings.healthRegenerationDuration;
+            float healthPerSecond = (targetHealth - healthSettings.reviveHealth) / healthSettings.healthRegenerationDuration;
+            float healAmount = healthPerSecond * Time.deltaTime;
+            
+            // Only heal if we haven't reached the target
+            if (currentHealth + healAmount <= targetHealth)
+            {
+                currentHealth += healAmount;
                 livingEntity.ApplyDamage(-healAmount);
                 UpdateHealthState();
             }
@@ -263,28 +315,36 @@ public class PlayerHealth : MonoBehaviour
             yield return null;
         }
 
-        float finalHealAmount = healthSettings.healthRegenerationTarget - currentHealth;
-        if (finalHealAmount > 0)
+        // Final health update if not dead/downed
+        if (CurrentHealthState != HealthState.Dead && CurrentHealthState != HealthState.Downed)
         {
-            currentHealth = healthSettings.healthRegenerationTarget;
-            livingEntity.ApplyDamage(-finalHealAmount);
-            UpdateHealthState();
+            // Only apply final healing if we haven't exceeded the target
+            if (currentHealth < targetHealth)
+            {
+                float finalHealAmount = targetHealth - currentHealth;
+                if (finalHealAmount > 0)
+                {
+                    currentHealth = targetHealth;
+                    livingEntity.ApplyDamage(-finalHealAmount);
+                    UpdateHealthState();
+                }
+            }
         }
+
+        healthRegenerationCoroutine = null;
     }
 
     private void UpdateHealthState()
     {
-        HealthState previousState = CurrentHealthState;
-
-        // Don't change state if already Downed or Dead
-        if (CurrentHealthState == HealthState.Downed || CurrentHealthState == HealthState.Dead)
+        // Don't update state if dead
+        if (CurrentHealthState == HealthState.Dead)
         {
-            SpeedReductionFactor = 0f;
-            PainFactor = 1f;
-            Debug.Log($"[PlayerHealth] Maintaining {CurrentHealthState} state");
             return;
         }
 
+        // Allow state updates if downed (for revival)
+        HealthState previousState = CurrentHealthState;
+        
         if (currentHealth >= 70)
         {
             CurrentHealthState = HealthState.Healthy;
@@ -305,7 +365,7 @@ public class PlayerHealth : MonoBehaviour
             float t = (currentHealth - 29f) / (1f - 29f);
             PainFactor = Mathf.Lerp(0.6f, 1f, t);
         }
-        else
+        else if (CurrentHealthState != HealthState.Downed && CurrentHealthState != HealthState.Dead)
         {
             HandleZeroHealth();
             return;
@@ -326,6 +386,7 @@ public class PlayerHealth : MonoBehaviour
         isBleeding = true;
         OnBleedingChanged.Invoke(true);
         bleedingCoroutine = StartCoroutine(BleedingRoutine());
+        Debug.Log("[PlayerHealth] Started bleeding!");
     }
 
     public void StopBleeding()
@@ -347,7 +408,9 @@ public class PlayerHealth : MonoBehaviour
             yield return new WaitForSeconds(healthSettings.bleedTickRate);
             if (CurrentHealthState != HealthState.Dead && CurrentHealthState != HealthState.Downed)
             {
-                livingEntity.ApplyDamage(healthSettings.bleedDamagePerSecond * healthSettings.bleedTickRate);
+                float bleedDamage = healthSettings.bleedDamagePerSecond * healthSettings.bleedTickRate;
+                livingEntity.ApplyDamage(bleedDamage);
+                Debug.Log($"[PlayerHealth] Bleeding tick: -{bleedDamage:F1} health");
             }
         }
     }

@@ -7,15 +7,25 @@ public class RagdollManager : MonoBehaviour
     [SerializeField] private PlayerHealth playerHealth;
     [SerializeField] private Animator animator;
     [SerializeField] private CharacterController characterController;
+    [SerializeField] private Transform hipsBone; // Assign the hips/pelvis bone in inspector
 
     private Rigidbody[] ragdollRigidbodies;
     private Collider[] ragdollColliders;
     private bool isRagdollActive = false;
+    private Vector3 lastHipsPosition;
 
     private void Awake()
     {
         ragdollRigidbodies = GetComponentsInChildren<Rigidbody>();
         ragdollColliders = GetComponentsInChildren<Collider>();
+
+        if (hipsBone == null)
+        {
+            Debug.LogError("[RagdollManager] Hips bone reference is missing! Player revival position will be incorrect.");
+            enabled = false;
+            return;
+        }
+
         SetRagdollState(false);
     }
 
@@ -60,15 +70,28 @@ public class RagdollManager : MonoBehaviour
 
         Debug.Log("[RagdollManager] Enabling ragdoll physics");
         
+        // Store velocity before disabling character controller
+        Vector3 currentVelocity = characterController.velocity;
+        
         characterController.enabled = false;
         animator.enabled = false;
-        StartCoroutine(EnableRagdollPhysics());
+        StartCoroutine(EnableRagdollPhysics(currentVelocity));
     }
 
-    private IEnumerator EnableRagdollPhysics()
+    private IEnumerator EnableRagdollPhysics(Vector3 initialVelocity)
     {
         yield return new WaitForFixedUpdate();
         SetRagdollState(true);
+        
+        // Apply velocity to all rigidbodies
+        foreach (var rb in ragdollRigidbodies)
+        {
+            if (rb != null && !rb.isKinematic)
+            {
+                rb.linearVelocity = initialVelocity;
+            }
+        }
+        
         isRagdollActive = true;
     }
 
@@ -77,6 +100,15 @@ public class RagdollManager : MonoBehaviour
         if (!isRagdollActive) return;
 
         Debug.Log("[RagdollManager] Disabling ragdoll physics");
+
+        // Update player position to where the ragdoll ended up
+        if (hipsBone != null)
+        {
+            // Move the root object to the hips position, but keep the y position slightly above ground
+            Vector3 newPosition = lastHipsPosition;
+            newPosition.y += characterController.height * 0.5f;
+            transform.position = newPosition;
+        }
         
         characterController.enabled = true;
         animator.enabled = true;
@@ -106,6 +138,15 @@ public class RagdollManager : MonoBehaviour
             {
                 collider.enabled = state;
             }
+        }
+    }
+
+    private void Update()
+    {
+        // Track hips position while ragdolled
+        if (isRagdollActive && hipsBone != null)
+        {
+            lastHipsPosition = hipsBone.position;
         }
     }
 

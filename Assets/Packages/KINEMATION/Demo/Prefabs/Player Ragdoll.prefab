@@ -3947,6 +3947,7 @@ GameObject:
   - component: {fileID: 3592104370323025534}
   - component: {fileID: 9157916696633808124}
   - component: {fileID: 3532337663395753440}
+  - component: {fileID: 864382558712239558}
   - component: {fileID: 7948552439935663108}
   - component: {fileID: 7733414983735900236}
   - component: {fileID: 7948552439935663107}
@@ -4036,6 +4037,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthSettings: {fileID: 11400000, guid: c4a4c338266163843a95bbb14916209f, type: 2}
   livingEntity: {fileID: 3592104370323025534}
+  playerInput: {fileID: 652359171}
   currentHealth: 0
   healthState: 0
   speedReduction: 0
@@ -4109,6 +4111,22 @@ MonoBehaviour:
     isConsumable: 0
     itemCounts: 
   currentCategoryIndex: -1
+--- !u!114 &864382558712239558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102044144766431328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a09825d260aad47933e5ee2fbcaaba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerHealth: {fileID: 9157916696633808124}
+  animator: {fileID: 7948552439935663111}
+  characterController: {fileID: 7948552439935663105}
+  hipsBone: {fileID: 1584041484820258844}
 --- !u!114 &7948552439935663108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5815,7 +5833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc4b50e0c614a224c9c930f9aedd8dfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitLocation: 2
+  hitLocation: 4
 --- !u!144 &7596486035570168934
 CharacterJoint:
   m_ObjectHideFlags: 0
