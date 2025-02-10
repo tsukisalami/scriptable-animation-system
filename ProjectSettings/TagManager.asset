@@ -14,7 +14,7 @@ TagManager:
   - Ground
   - 
   - 
-  - 
+  - Player
   - 
   - 
   - 
@@ -30,7 +30,7 @@ TagManager:
   - 
   - 
   - IgnoreCamera
-  - 
+  - DroppedWeapon
   - 
   - 
   - 

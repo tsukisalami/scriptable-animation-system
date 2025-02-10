@@ -40,7 +40,7 @@ namespace Demo.Scripts.Runtime.Character
         private Transform _weaponBone;
         private Vector2 _playerInput;
 
-        private int _activeWeaponIndex;
+        public int _activeWeaponIndex;
         private int _previousWeaponIndex;
 
         private FPSAimState _aimState;

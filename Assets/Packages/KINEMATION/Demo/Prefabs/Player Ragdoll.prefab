@@ -3960,7 +3960,7 @@ GameObject:
   - component: {fileID: 7948552439935663111}
   m_Layer: 0
   m_Name: Player Ragdoll
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4224,6 +4224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 0c5416fd02cdf824988cdb6a02d47482, type: 2}
+  _activeWeaponIndex: 0
   _actionState: 0
   _instantiatedWeapons: []
 --- !u!114 &7948552439935663166

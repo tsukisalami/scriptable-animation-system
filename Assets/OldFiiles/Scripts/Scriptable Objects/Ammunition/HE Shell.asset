@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b04a4c948ca29f4f91e556ec2f164ba, type: 3}
   m_Name: HE Shell
   m_EditorClassIdentifier: 
-  Speed: 400
-  Mass: 10
+  Speed: 820
+  Mass: 9.2
   Diameter: 0.088
-  DragCoefficient: 0.656
+  DragCoefficient: 0.18
   Spin: {x: 0, y: 0, z: 0}
   Damage: 100
   PelletsPerShot: 1
