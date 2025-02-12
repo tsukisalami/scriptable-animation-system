@@ -28,7 +28,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - PlayerController
   - IgnoreCamera
   - DroppedWeapon
   - 

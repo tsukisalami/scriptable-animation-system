@@ -18,16 +18,21 @@ MonoBehaviour:
   DragCoefficient: 0.3
   Spin: {x: 0, y: 0, z: 0}
   Damage: 22
-  Penetration: 28
+  PelletsPerShot: 1
   HitMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 50332279
   Lifetime: 6
-  impactHandler: {fileID: 11400000, guid: 936c970e48693b244bc65d55bc6bf4fa, type: 2}
-  hasImpactHandler: 1
+  ImpactHandler: {fileID: 11400000, guid: 936c970e48693b244bc65d55bc6bf4fa, type: 2}
   BulletPrefab: {fileID: 3575611928538805115, guid: a78d24b5b9eb43944ab38105d87262dc,
     type: 3}
   CasingPrefab: {fileID: 3575611928538805115, guid: c5fe4498ce62a614783bca096b850cff,
     type: 3}
   RoundPrefab: {fileID: 3575611928538805115, guid: 745a87995944ab94caa447ec2061dbc4,
     type: 3}
+  explodeOnImpact: 0
+  explosionRadius: 0
+  explosionForce: 0
+  explosionDamage: 0
+  explosionFalloff: 0
+  explosionEffectPrefab: {fileID: 0}

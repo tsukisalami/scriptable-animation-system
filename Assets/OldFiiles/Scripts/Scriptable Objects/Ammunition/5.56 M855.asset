@@ -21,7 +21,7 @@ MonoBehaviour:
   PelletsPerShot: 1
   HitMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 50332279
   Lifetime: 6
   ImpactHandler: {fileID: 11400000, guid: 936c970e48693b244bc65d55bc6bf4fa, type: 2}
   BulletPrefab: {fileID: 5341742223406746680, guid: 59e0e1d62b306254487accfec52e8516,
