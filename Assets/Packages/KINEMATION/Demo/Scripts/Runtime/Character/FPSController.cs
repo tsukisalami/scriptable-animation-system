@@ -69,6 +69,9 @@ namespace Demo.Scripts.Runtime.Character
 
         [SerializeField] private GameplayHUD gameplayHUD;  // Reference to UI object's GameplayHUD component
 
+        [SerializeField] private InventoryEvents inventoryEvents;
+        private InputStateManager inputStateManager;
+
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
             if (layerSettings == null)
@@ -173,6 +176,7 @@ namespace Demo.Scripts.Runtime.Character
             
             _userInput = GetComponent<UserInputController>();
             _recoilPattern = GetComponent<RecoilPattern>();
+            inputStateManager = GetComponent<InputStateManager>();
 
             // Simple warning if GameplayHUD is not assigned
             if (gameplayHUD == null)
@@ -184,6 +188,57 @@ namespace Demo.Scripts.Runtime.Character
             InitializeWeapons();
 
             _sensitivityMultiplierPropertyIndex = _userInput.GetPropertyIndex("SensitivityMultiplier");
+
+            // Subscribe to events
+            if (inventoryEvents != null)
+            {
+                inventoryEvents.OnInputStateChanged += HandleInputStateChanged;
+                inventoryEvents.OnAttachmentModeChanged += HandleAttachmentModeChanged;
+                inventoryEvents.OnAttachmentModeExit += HandleAttachmentModeExit;
+            }
+        }
+
+        private void OnDestroy()
+        {
+            // Unsubscribe from events
+            if (inventoryEvents != null)
+            {
+                inventoryEvents.OnInputStateChanged -= HandleInputStateChanged;
+                inventoryEvents.OnAttachmentModeChanged -= HandleAttachmentModeChanged;
+                inventoryEvents.OnAttachmentModeExit -= HandleAttachmentModeExit;
+            }
+        }
+
+        private void HandleInputStateChanged(InputState newState)
+        {
+            switch (newState)
+            {
+                case InputState.AttachmentMode:
+                    _actionState = FPSActionState.AttachmentEditing;
+                    break;
+                case InputState.Normal:
+                    _actionState = FPSActionState.None;
+                    break;
+                case InputState.ActionLocked:
+                    _actionState = FPSActionState.PlayingAnimation;
+                    break;
+            }
+        }
+
+        private void HandleAttachmentModeChanged(int attachmentIndex)
+        {
+            if (_actionState != FPSActionState.AttachmentEditing) return;
+            Debug.Log($"Changing attachment {attachmentIndex}");
+            GetActiveItem()?.OnAttachmentChanged(attachmentIndex);
+        }
+
+        private void HandleAttachmentModeExit()
+        {
+            if (_actionState == FPSActionState.AttachmentEditing)
+            {
+                inputStateManager.SetState(InputState.Normal);
+                _animator.CrossFade(_inspectEndHash, 0.3f);
+            }
         }
 
         private void UnequipWeapon()
@@ -356,6 +411,13 @@ namespace Demo.Scripts.Runtime.Character
         
         public void OnFire(InputValue value)
         {
+            // Remove the Send Message incompatible parameter
+            OnFire();
+        }
+
+        // Add new method for Send Message compatibility
+        public void OnFire()
+        {
             if (IsSprinting()) return;
             
             // Only block shooting if the hotbar is both active and visible (alpha > 0)
@@ -364,44 +426,49 @@ namespace Demo.Scripts.Runtime.Character
             var currentItem = GetActiveItem();
             if (currentItem is ConsumableItem consumable)
             {
-                if (value.isPressed)
-                {
-                    consumable.OnPrimaryUse();
-                }
+                consumable.OnPrimaryUse();
                 return;
             }
             
-            if (value.isPressed)
+            if (Input.GetMouseButton(0))
             {
                 OnFirePressed();
-                return;
             }
-            
-            OnFireReleased();
+            else if (Input.GetMouseButtonUp(0))
+            {
+                OnFireReleased();
+            }
         }
 
         public void OnAim(InputValue value)
+        {
+            // Remove the Send Message incompatible parameter
+            OnAim();
+        }
+
+        // Add new method for Send Message compatibility
+        public void OnAim()
         {
             if (IsSprinting()) return;
 
             var currentItem = GetActiveItem();
             if (currentItem is ConsumableItem consumable)
             {
-                if (value.isPressed)
+                if (Input.GetMouseButton(1))
                 {
                     consumable.OnSecondaryUse();
                 }
                 return;
             }
 
-            if (value.isPressed && !IsAiming())
+            if (Input.GetMouseButton(1) && !IsAiming())
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;
                 PlayTransitionMotion(settings.aimingMotion);
                 return;
             }
 
-            if (!value.isPressed && IsAiming())
+            if (Input.GetMouseButtonUp(1) && IsAiming())
             {
                 DisableAim();
                 PlayTransitionMotion(settings.aimingMotion);
@@ -436,23 +503,38 @@ namespace Demo.Scripts.Runtime.Character
         {
             if (HasActiveAction() && _actionState != FPSActionState.AttachmentEditing) return;
             
-            _actionState = _actionState == FPSActionState.AttachmentEditing 
-                ? FPSActionState.None : FPSActionState.AttachmentEditing;
-
-            if (_actionState == FPSActionState.AttachmentEditing)
+            if (_actionState != FPSActionState.AttachmentEditing)
             {
+                inputStateManager.SetState(InputState.AttachmentMode);
                 _animator.CrossFade(_inspectStartHash, 0.2f);
-                return;
+                Debug.Log("Entered attachment editing mode");
             }
-            
-            _animator.CrossFade(_inspectEndHash, 0.3f);
+            else
+            {
+                inputStateManager.SetState(InputState.Normal);
+                _animator.CrossFade(_inspectEndHash, 0.3f);
+                Debug.Log("Exited attachment editing mode");
+            }
         }
 
+        // Replace the individual attachment methods with the original DigitAxis handler
         public void OnDigitAxis(InputValue value)
         {
-            if (!value.isPressed || _actionState != FPSActionState.AttachmentEditing) return;
-            GetActiveItem().OnAttachmentChanged((int) value.Get<float>());
+            if (_actionState != FPSActionState.AttachmentEditing) return;
+            
+            float digit = value.Get<float>();
+            if (digit > 0)
+            {
+                int attachmentIndex = Mathf.RoundToInt(digit);
+                Debug.Log($"DigitAxis: Changing attachment {attachmentIndex}");
+                HandleAttachmentModeChanged(attachmentIndex);
+            }
         }
+
+        // Remove the individual attachment methods since we're using DigitAxis
+        // public void OnAttachment1() { ... }
+        // public void OnAttachment2() { ... }
+        // public void OnAttachment3() { ... }
 
         public void OnSelectPrimary(InputValue value)
         {

@@ -3682,7 +3682,7 @@ GameObject:
   - component: {fileID: 3532337663395753440}
   - component: {fileID: 1705837131473317464}
   - component: {fileID: 7948552439935663167}
-  - component: {fileID: 269938222292084095}
+  - component: {fileID: 2936092894866321890}
   - component: {fileID: 7948552439935663108}
   - component: {fileID: 7733414983735900236}
   - component: {fileID: 7948552439935663107}
@@ -3692,6 +3692,7 @@ GameObject:
   - component: {fileID: 7948552439935663166}
   - component: {fileID: 652359171}
   - component: {fileID: 7948552439935663111}
+  - component: {fileID: 269938222292084095}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -3877,7 +3878,9 @@ MonoBehaviour:
   _activeWeaponIndex: 0
   _actionState: 0
   _instantiatedWeapons: []
---- !u!114 &269938222292084095
+  gameplayHUD: {fileID: 0}
+  inventoryEvents: {fileID: 11400000, guid: 61ddf5b11c9d484478385a5edf26f7b3, type: 2}
+--- !u!114 &2936092894866321890
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3886,12 +3889,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7102044144766431328}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b4323dd3f6ce164b94c1bba4ca81ad6, type: 3}
+  m_Script: {fileID: 11500000, guid: e728e1b7040177d4eb475b6adc9fe1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  droppedWeaponLayer:
-    serializedVersion: 2
-    m_Bits: 33554432
+  inventoryEvents: {fileID: 11400000, guid: 61ddf5b11c9d484478385a5edf26f7b3, type: 2}
 --- !u!114 &7948552439935663108
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4017,24 +4018,12 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: a7145557-7d88-42dc-bd8f-6e4eb520848e
-    m_ActionName: 'Gameplay/Fire[/Mouse/leftButton]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: d38b3c9c-3122-4026-b210-62a623974bf5
-    m_ActionName: 'Gameplay/Aim[/Mouse/rightButton]'
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: b511db82-e7e2-4fee-9dd2-adca766702f4
     m_ActionName: 'Gameplay/ThrowGrenade[/Keyboard/g]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 3038bfee-99fe-4f0a-9aa5-f13f0f160458
     m_ActionName: 'Gameplay/ToggleUnarmed[/Keyboard/t]'
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: ccf0f95a-2fe7-4ee9-9082-2fd1a83a0dc9
-    m_ActionName: 'Gameplay/ChangeWeapon[/Keyboard/f]'
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 3ed110c0-0d5c-41c7-adb5-f4865a229385
@@ -4081,16 +4070,124 @@ MonoBehaviour:
     m_ActionName: 'Gameplay/ChangeFireMode[/Keyboard/b]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: ac148343-3006-4bf3-8af4-93b08f1684fe
-    m_ActionName: 'Gameplay/DigitAxis[/Keyboard/1,/Keyboard/2,/Keyboard/3]'
+    m_ActionId: ebe565fb-0f01-454d-af2c-4e8a6dc49e3e
+    m_ActionName: 'Gameplay/ConsumablePrimaryUse[/Mouse/leftButton]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 398a09d8-df40-4ed5-a831-65e9f9201c81
-    m_ActionName: 'Gameplay/ToggleAttachmentEditing[/Keyboard/i]'
+    m_ActionId: 3633e889-ff1c-4da9-b352-f936e63954f4
+    m_ActionName: 'Gameplay/ConsumableSecondaryUse[/Mouse/rightButton]'
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 4aefe0b9-e95b-4bc3-aad3-7d54a5ec4a0b
-    m_ActionName: 'Menu/ToggleMenu[/Keyboard/escape]'
+    m_ActionId: 5bcfec13-5bbd-4433-9869-3c2aa2296889
+    m_ActionName: 'Gameplay/Suicide[/Keyboard/leftAlt,/Keyboard/k]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 622dcad9-ef15-4389-b9aa-f5e724648756
+    m_ActionName: 'Gameplay/CycleBullet[/Keyboard/t]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e6e6abb1-78f4-4b54-8408-bdbbf90617f0
+    m_ActionName: 'Gameplay/HoldBreath[/Keyboard/leftCtrl]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0584330f-22e7-4ad7-b098-378da05fef74
+    m_ActionName: 'Gameplay/Zoom[/Mouse/middleButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 677a27e7-221b-4f75-a8f5-84b1d3a4fdea
+    m_ActionName: 'Gameplay/Use[/Keyboard/f]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a5537172-ea95-4741-a34b-6a1845b3aad3
+    m_ActionName: 'Gameplay/ChangeMagnification[/Keyboard/leftCtrl,/Mouse/scroll]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: cb2687db-347e-4da3-880a-90ddfe8cce96
+    m_ActionName: 'Gameplay/ToggleMagnification[/Keyboard/alt,/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 12444aad-ed2f-4404-bf41-442b36438427
+    m_ActionName: Hotbar/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: fe9ab4c2-37e3-43ab-a877-53fcace634b1
+    m_ActionName: 'Hotbar/SelectPrimary[/Keyboard/1]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e2ab4037-d006-4323-b2db-6d69d536cdb6
+    m_ActionName: 'Hotbar/SelectSecondary[/Keyboard/2]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2c5ecee0-0446-49df-bc09-1848b9704f3e
+    m_ActionName: 'Hotbar/SelectThrowables[/Keyboard/3]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 97ee0219-2d7a-4eeb-9624-cc4be5e5bb25
+    m_ActionName: 'Hotbar/SelectSpecialEquipment[/Keyboard/4]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9a9d1b40-cb90-4dd0-a4b1-6f9c7c8472bb
+    m_ActionName: 'Hotbar/SelectMedical[/Keyboard/5]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a4ced437-7f7f-4163-aa29-7b3b9b2ec581
+    m_ActionName: 'Hotbar/SelectTools[/Keyboard/6]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a0e74415-f27e-4fb9-82ab-f7ae12b5497f
+    m_ActionName: 'Attachments/DigitAxis[/Keyboard/1,/Keyboard/2,/Keyboard/3]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 28bd448c-5502-4c8b-b146-a72359ef5838
+    m_ActionName: 'Attachments/ToggleAttachmentEditing[/Keyboard/i]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c1766d81-2c12-41d3-92d1-b37f91aa49e8
+    m_ActionName: 'Plane/ToggleHelp[/Keyboard/h]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e9485076-db6a-4bed-a001-d4ab32a1b623
+    m_ActionName: 'Plane/Throttle[/XInputControllerWindows/leftShoulder,/XInputControllerWindows/rightShoulder]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 12a6d29b-2afa-45bf-8273-6c6bba36a194
+    m_ActionName: 'Plane/RollPitch[/XInputControllerWindows/leftStick]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 14555a3d-d24b-4219-9e59-ddabf42ce26e
+    m_ActionName: 'Plane/Yaw[/XInputControllerWindows/leftTrigger,/XInputControllerWindows/rightTrigger]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9964d257-5a64-4e86-8a00-02f5ad0ccbe9
+    m_ActionName: 'Plane/Camera[/XInputControllerWindows/rightStick]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: f2acd037-d895-484f-a4d3-6b729696f482
+    m_ActionName: 'Plane/ToggleFlaps[/XInputControllerWindows/dpad/down]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9d056210-0a11-42e7-9c89-068146990036
+    m_ActionName: 'Plane/FireMissile[/XInputControllerWindows/buttonEast]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 5ca1543c-a886-4b05-9562-c01feb827539
+    m_ActionName: 'Plane/FireCannon[/XInputControllerWindows/buttonSouth]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 69fade91-148b-425c-8cd7-321b89d424aa
+    m_ActionName: 'Plane/ToggleAI[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 51f0879e-593f-4f00-b5da-d36e236e010f
+    m_ActionName: Car/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 76cc527b-f7e2-490b-9d10-1e4c26b6da22
+    m_ActionName: 'Gameplay/Fire[/Mouse/leftButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2c5c11ac-d375-49e0-9b2d-32762f91efbd
+    m_ActionName: 'Gameplay/Aim[/Mouse/rightButton]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay
@@ -4118,6 +4215,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &269938222292084095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102044144766431328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b4323dd3f6ce164b94c1bba4ca81ad6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  droppedWeaponLayer:
+    serializedVersion: 2
+    m_Bits: 33554432
 --- !u!1 &7151070337432973102
 GameObject:
   m_ObjectHideFlags: 0

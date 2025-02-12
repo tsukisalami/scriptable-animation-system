@@ -8,7 +8,7 @@
                 {
                     "name": "Fire",
                     "type": "Value",
-                    "id": "a7145557-7d88-42dc-bd8f-6e4eb520848e",
+                    "id": "0e401e1d-7208-4098-aa33-9e508f7f0235",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -17,8 +17,8 @@
                 {
                     "name": "Aim",
                     "type": "Value",
-                    "id": "d38b3c9c-3122-4026-b210-62a623974bf5",
-                    "expectedControlType": "Button",
+                    "id": "8c9da6dc-ce9c-403b-a85a-cbec17711f3d",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
@@ -27,7 +27,7 @@
                     "name": "ThrowGrenade",
                     "type": "Button",
                     "id": "b511db82-e7e2-4fee-9dd2-adca766702f4",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -36,16 +36,7 @@
                     "name": "ToggleUnarmed",
                     "type": "Button",
                     "id": "3038bfee-99fe-4f0a-9aa5-f13f0f160458",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ChangeWeapon",
-                    "type": "Button",
-                    "id": "ccf0f95a-2fe7-4ee9-9082-2fd1a83a0dc9",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -132,60 +123,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "SelectPrimary",
-                    "type": "Button",
-                    "id": "8dd2c8bb-6413-4627-addf-f156592fdbb0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SelectSecondary",
-                    "type": "Button",
-                    "id": "2d460ad1-b31c-48b2-8eb4-90c93272f94e",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SelectThrowables",
-                    "type": "Button",
-                    "id": "b960a2d6-5be0-4636-b386-eaa078fe7eec",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SelectSpecialEquipment",
-                    "type": "Button",
-                    "id": "aa73dce7-992b-4b58-9a43-3caa2f61099d",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SelectMedical",
-                    "type": "Button",
-                    "id": "444ac3b3-4151-4d2c-8b9f-f2176ccf6c6b",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "SelectTools",
-                    "type": "Button",
-                    "id": "40c895a9-01d3-4534-a4d9-1d384af142bd",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
                     "name": "ConsumablePrimaryUse",
                     "type": "Button",
                     "id": "ebe565fb-0f01-454d-af2c-4e8a6dc49e3e",
@@ -231,28 +168,10 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "DigitAxis",
-                    "type": "Value",
-                    "id": "ac148343-3006-4bf3-8af4-93b08f1684fe",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "ToggleAttachmentEditing",
-                    "type": "Button",
-                    "id": "398a09d8-df40-4ed5-a831-65e9f9201c81",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "CycleBullet",
                     "type": "Button",
                     "id": "622dcad9-ef15-4389-b9aa-f5e724648756",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -301,31 +220,27 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ToggleAttachmentEditing",
+                    "type": "Button",
+                    "id": "72026426-25eb-407a-9e18-c7dacb267e43",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SelectPrimary",
+                    "type": "Button",
+                    "id": "e6774b6e-309f-41c3-99cb-d82ff697c8f6",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "da9ab103-7f1e-4471-ad04-7bfe3d701bb8",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Fire",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "5c0b9f01-1432-4419-b38f-4bba84dade75",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "0da21a52-d37c-4767-9f62-3c780c5c4f85",
@@ -345,17 +260,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "ToggleUnarmed",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e62386ed-e227-432d-be94-2b77010693cc",
-                    "path": "<Keyboard>/n",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -515,72 +419,6 @@
                 },
                 {
                     "name": "",
-                    "id": "349f2dca-95bd-4042-84e9-9de0b04275ee",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectPrimary",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "994d2300-8427-4a62-84b1-c003d15ef246",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectSecondary",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "908e6c9f-ebc2-4341-a2db-cc9a803f7867",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectThrowables",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3541753d-b817-4545-9292-3909a028f502",
-                    "path": "<Keyboard>/4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectSpecialEquipment",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a282a612-7998-4f25-891f-17439ba73488",
-                    "path": "<Keyboard>/5",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectMedical",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "3858f17c-4d8f-474e-b0f4-7f219f8bee7f",
-                    "path": "<Keyboard>/6",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "SelectTools",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a339950d-b934-48ea-a328-66e5255bb102",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -653,50 +491,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "ChangeFireMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e9f6f6e8-d4c6-43ae-b110-6b097b5b955a",
-                    "path": "<Keyboard>/1",
-                    "interactions": "",
-                    "processors": "Scale",
-                    "groups": "",
-                    "action": "DigitAxis",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "364c60a5-418b-450e-ae59-73f5957d59ea",
-                    "path": "<Keyboard>/2",
-                    "interactions": "",
-                    "processors": "Scale(factor=2)",
-                    "groups": "",
-                    "action": "DigitAxis",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "65242867-7d7e-442e-b631-fe84c4d5821b",
-                    "path": "<Keyboard>/3",
-                    "interactions": "",
-                    "processors": "Scale(factor=3)",
-                    "groups": "",
-                    "action": "DigitAxis",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ec1def2a-4dd2-4fa8-ae55-3c31e2649cbd",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ToggleAttachmentEditing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -809,52 +603,206 @@
                     "action": "ToggleMagnification",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "1378ee3c-08c8-472e-8c02-38ca29992e7c",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleAttachmentEditing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "62deb2b0-c57b-482d-8ae8-46047f7406f6",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectPrimary",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f3de5291-379d-46d1-ac75-8d49b022c7b3",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eea1e44c-b366-4767-8cab-309f39f47a0f",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "Weapon",
-            "id": "2f208ee0-9e1d-40b2-b5fd-c55b793cc3ef",
+            "name": "Hotbar",
+            "id": "c7fe07aa-9d77-4742-9e7e-eaaf8a160f3a",
             "actions": [
                 {
-                    "name": "HoldBreath",
-                    "type": "Value",
-                    "id": "e0ab5fdb-aaf6-4360-83c2-a8324874d8d7",
+                    "name": "SelectSecondary",
+                    "type": "Button",
+                    "id": "e2ab4037-d006-4323-b2db-6d69d536cdb6",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
-                    "name": "CycleBullet",
+                    "name": "SelectThrowables",
                     "type": "Button",
-                    "id": "375cfc04-ab35-485e-8834-fe448f87e22c",
-                    "expectedControlType": "Button",
+                    "id": "2c5ecee0-0446-49df-bc09-1848b9704f3e",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SelectSpecialEquipment",
+                    "type": "Button",
+                    "id": "97ee0219-2d7a-4eeb-9624-cc4be5e5bb25",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SelectMedical",
+                    "type": "Button",
+                    "id": "9a9d1b40-cb90-4dd0-a4b1-6f9c7c8472bb",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "SelectTools",
+                    "type": "Button",
+                    "id": "a4ced437-7f7f-4163-aa29-7b3b9b2ec581",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "846ce700-57a0-45c8-b46e-7123637a5fcd",
-                    "path": "<Keyboard>/leftCtrl",
+                    "id": "0a72d350-e46c-465f-84e8-0f2263800b87",
+                    "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "HoldBreath",
+                    "action": "SelectSecondary",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "b5e45f97-20f5-4311-9dce-baac2811c7d0",
-                    "path": "<Keyboard>/p",
+                    "id": "671f9c02-a49c-4039-acc8-e54857e85334",
+                    "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "CycleBullet",
+                    "action": "SelectThrowables",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d96b978c-7bf4-46e4-81bd-827189ab76c8",
+                    "path": "<Keyboard>/4",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectSpecialEquipment",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2ac66136-90e2-47a3-8668-4645e0f1a6c1",
+                    "path": "<Keyboard>/5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectMedical",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "216c18ea-ded9-439f-8a53-0ff2d2894e39",
+                    "path": "<Keyboard>/6",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SelectTools",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Attachments",
+            "id": "2f208ee0-9e1d-40b2-b5fd-c55b793cc3ef",
+            "actions": [
+                {
+                    "name": "DigitAxis",
+                    "type": "Value",
+                    "id": "a0e74415-f27e-4fb9-82ab-f7ae12b5497f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c1c839da-be8a-462a-8032-9a0c3d4f5f09",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "Scale",
+                    "groups": "",
+                    "action": "DigitAxis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "797762a3-7317-4392-90ca-8b37508d805b",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "Scale(factor=2)",
+                    "groups": "",
+                    "action": "DigitAxis",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "675b5941-4fe7-4ae7-934c-d578ce3ce383",
+                    "path": "<Keyboard>/3",
+                    "interactions": "",
+                    "processors": "Scale(factor=3)",
+                    "groups": "",
+                    "action": "DigitAxis",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -868,7 +816,7 @@
                     "name": "ToggleHelp",
                     "type": "Button",
                     "id": "c1766d81-2c12-41d3-92d1-b37f91aa49e8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -1100,7 +1048,7 @@
                     "name": "New action",
                     "type": "Button",
                     "id": "51f0879e-593f-4f00-b5da-d36e236e010f",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

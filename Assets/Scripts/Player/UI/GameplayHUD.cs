@@ -28,6 +28,9 @@ public class GameplayHUD : MonoBehaviour
     public float fadeOutDuration = 0.3f;
     public CanvasGroup hotbarCanvasGroup;
 
+    [Header("Events")]
+    [SerializeField] private InventoryEvents inventoryEvents;
+
     [System.Serializable]
     public class CategoryUI
     {
@@ -67,6 +70,15 @@ public class GameplayHUD : MonoBehaviour
             {
                 Debug.LogWarning("GameplayHUD: No PlayerLoadout component found!");
             }
+        }
+
+        // Subscribe to events
+        if (inventoryEvents != null)
+        {
+            inventoryEvents.OnCategorySelected += HandleCategorySelected;
+            inventoryEvents.OnItemSelected += HandleItemSelected;
+            inventoryEvents.OnItemConsumed += HandleItemConsumed;
+            inventoryEvents.OnInputStateChanged += HandleInputStateChanged;
         }
 
         // Validate UI setup
@@ -368,11 +380,15 @@ public class GameplayHUD : MonoBehaviour
                 // Update size based on selection
                 SetCategorySize(i, (i == selectedCategoryIndex) ? expandedSize : normalSize);
 
-                // Show count for first item if it's a consumable
+                // Show count for first item if it's a consumable - ALWAYS show this regardless of selection
                 if (loadoutCategory.isConsumable && category.itemCounts[0] != null)
                 {
+                    // Make sure the parent containers are active
+                    category.itemContainer.gameObject.SetActive(true);
+                    category.itemIcons[0].gameObject.SetActive(true);
                     category.itemCounts[0].gameObject.SetActive(true);
-                    int count = loadoutCategory.itemCounts[0]; // Get count from the actual category
+                    
+                    int count = loadoutCategory.itemCounts[0];
                     category.itemCounts[0].text = count.ToString();
                     category.itemCounts[0].color = count > 0 ? Color.green : depleteItemColor;
                 }
@@ -385,7 +401,8 @@ public class GameplayHUD : MonoBehaviour
             // Only show expanded category info when hotbar is active and category is selected
             if (!isHotbarActive || i != selectedCategoryIndex)
             {
-                if (category.itemContainer != null)
+                // Don't disable the container if it's a consumable with a single item
+                if (category.itemContainer != null && (!loadoutCategory.isConsumable || loadoutCategory.items.Count > 1))
                     category.itemContainer.gameObject.SetActive(false);
                 continue;
             }
@@ -443,12 +460,6 @@ public class GameplayHUD : MonoBehaviour
                     if (category.itemCounts[j] != null)
                         category.itemCounts[j].gameObject.SetActive(false);
                 }
-            }
-            else
-            {
-                // Single item category or not selected - hide additional slots
-                if (category.itemContainer != null)
-                    category.itemContainer.gameObject.SetActive(false);
             }
         }
     }
@@ -628,6 +639,62 @@ public class GameplayHUD : MonoBehaviour
         if (playerHealth != null)
         {
             playerHealth.OnHealthStateChanged.RemoveListener(HandleHealthStateChanged);
+        }
+
+        if (inventoryEvents != null)
+        {
+            inventoryEvents.OnCategorySelected -= HandleCategorySelected;
+            inventoryEvents.OnItemSelected -= HandleItemSelected;
+            inventoryEvents.OnItemConsumed -= HandleItemConsumed;
+            inventoryEvents.OnInputStateChanged -= HandleInputStateChanged;
+        }
+    }
+
+    private void HandleCategorySelected(int categoryIndex)
+    {
+        SelectCategory(categoryIndex);
+    }
+
+    private void HandleItemSelected(int categoryIndex, int itemIndex)
+    {
+        if (categoryIndex == selectedCategoryIndex)
+        {
+            selectedItemIndex = itemIndex;
+            EquipSelectedItem();
+        }
+    }
+
+    private void HandleItemConsumed(int categoryIndex)
+    {
+        // Update the UI for the consumed item
+        if (categoryIndex >= 0 && categoryIndex < categories.Length)
+        {
+            var category = categories[categoryIndex];
+            var loadoutCategory = playerLoadout.GetCategory(categoryIndex);
+            
+            if (loadoutCategory != null && loadoutCategory.isConsumable)
+            {
+                int count = loadoutCategory.itemCounts[0];
+                if (category.itemCounts[0] != null)
+                {
+                    category.itemCounts[0].text = count.ToString();
+                    category.itemCounts[0].color = count > 0 ? Color.green : depleteItemColor;
+                }
+            }
+        }
+    }
+
+    private void HandleInputStateChanged(InputState newState)
+    {
+        switch (newState)
+        {
+            case InputState.HotbarActive:
+                ShowHotbar();
+                break;
+            case InputState.Normal:
+                if (isHotbarActive)
+                    StartFadeOut();
+                break;
         }
     }
 

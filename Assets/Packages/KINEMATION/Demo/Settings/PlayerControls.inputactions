@@ -141,22 +141,22 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "ToggleAttachmentEditing",
+                    "type": "Button",
+                    "id": "398a09d8-df40-4ed5-a831-65e9f9201c81",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "DigitAxis",
                     "type": "Value",
-                    "id": "ac148343-3006-4bf3-8af4-93b08f1684fe",
+                    "id": "9680761a-1f0c-4c32-be37-833f6637caaa",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "ToggleAttachmentEditing",
-                    "type": "Button",
-                    "id": "398a09d8-df40-4ed5-a831-65e9f9201c81",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -382,7 +382,18 @@
                 },
                 {
                     "name": "",
-                    "id": "e9f6f6e8-d4c6-43ae-b110-6b097b5b955a",
+                    "id": "ec1def2a-4dd2-4fa8-ae55-3c31e2649cbd",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleAttachmentEditing",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "807aa207-6867-485f-b07f-b4479fcdf9b7",
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "Scale",
@@ -393,7 +404,7 @@
                 },
                 {
                     "name": "",
-                    "id": "364c60a5-418b-450e-ae59-73f5957d59ea",
+                    "id": "3157eb69-5324-45c6-bcbd-3e4785a4064e",
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "Scale(factor=2)",
@@ -404,23 +415,12 @@
                 },
                 {
                     "name": "",
-                    "id": "65242867-7d7e-442e-b631-fe84c4d5821b",
+                    "id": "5bbb37a7-7ae1-4c74-a2fa-e14ea8c0ea9a",
                     "path": "<Keyboard>/3",
                     "interactions": "",
                     "processors": "Scale(factor=3)",
                     "groups": "",
                     "action": "DigitAxis",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ec1def2a-4dd2-4fa8-ae55-3c31e2649cbd",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ToggleAttachmentEditing",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -434,7 +434,7 @@
                     "name": "ToggleMenu",
                     "type": "Button",
                     "id": "4aefe0b9-e95b-4bc3-aad3-7d54a5ec4a0b",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false

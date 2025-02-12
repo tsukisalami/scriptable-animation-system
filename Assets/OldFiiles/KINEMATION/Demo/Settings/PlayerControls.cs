@@ -30,7 +30,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Fire"",
                     ""type"": ""Value"",
-                    ""id"": ""a7145557-7d88-42dc-bd8f-6e4eb520848e"",
+                    ""id"": ""0e401e1d-7208-4098-aa33-9e508f7f0235"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -39,8 +39,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Aim"",
                     ""type"": ""Value"",
-                    ""id"": ""d38b3c9c-3122-4026-b210-62a623974bf5"",
-                    ""expectedControlType"": ""Button"",
+                    ""id"": ""8c9da6dc-ce9c-403b-a85a-cbec17711f3d"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -49,7 +49,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""ThrowGrenade"",
                     ""type"": ""Button"",
                     ""id"": ""b511db82-e7e2-4fee-9dd2-adca766702f4"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -58,16 +58,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""ToggleUnarmed"",
                     ""type"": ""Button"",
                     ""id"": ""3038bfee-99fe-4f0a-9aa5-f13f0f160458"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ChangeWeapon"",
-                    ""type"": ""Button"",
-                    ""id"": ""ccf0f95a-2fe7-4ee9-9082-2fd1a83a0dc9"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -154,60 +145,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""SelectPrimary"",
-                    ""type"": ""Button"",
-                    ""id"": ""8dd2c8bb-6413-4627-addf-f156592fdbb0"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""SelectSecondary"",
-                    ""type"": ""Button"",
-                    ""id"": ""2d460ad1-b31c-48b2-8eb4-90c93272f94e"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""SelectThrowables"",
-                    ""type"": ""Button"",
-                    ""id"": ""b960a2d6-5be0-4636-b386-eaa078fe7eec"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""SelectSpecialEquipment"",
-                    ""type"": ""Button"",
-                    ""id"": ""aa73dce7-992b-4b58-9a43-3caa2f61099d"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""SelectMedical"",
-                    ""type"": ""Button"",
-                    ""id"": ""444ac3b3-4151-4d2c-8b9f-f2176ccf6c6b"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""SelectTools"",
-                    ""type"": ""Button"",
-                    ""id"": ""40c895a9-01d3-4534-a4d9-1d384af142bd"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
                     ""name"": ""ConsumablePrimaryUse"",
                     ""type"": ""Button"",
                     ""id"": ""ebe565fb-0f01-454d-af2c-4e8a6dc49e3e"",
@@ -253,28 +190,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""DigitAxis"",
-                    ""type"": ""Value"",
-                    ""id"": ""ac148343-3006-4bf3-8af4-93b08f1684fe"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": true
-                },
-                {
-                    ""name"": ""ToggleAttachmentEditing"",
-                    ""type"": ""Button"",
-                    ""id"": ""398a09d8-df40-4ed5-a831-65e9f9201c81"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""CycleBullet"",
                     ""type"": ""Button"",
                     ""id"": ""622dcad9-ef15-4389-b9aa-f5e724648756"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -323,31 +242,27 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleAttachmentEditing"",
+                    ""type"": ""Button"",
+                    ""id"": ""72026426-25eb-407a-9e18-c7dacb267e43"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectPrimary"",
+                    ""type"": ""Button"",
+                    ""id"": ""e6774b6e-309f-41c3-99cb-d82ff697c8f6"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""da9ab103-7f1e-4471-ad04-7bfe3d701bb8"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Fire"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""5c0b9f01-1432-4419-b38f-4bba84dade75"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""0da21a52-d37c-4767-9f62-3c780c5c4f85"",
@@ -367,17 +282,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ToggleUnarmed"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e62386ed-e227-432d-be94-2b77010693cc"",
-                    ""path"": ""<Keyboard>/n"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ChangeWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -537,72 +441,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""349f2dca-95bd-4042-84e9-9de0b04275ee"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectPrimary"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""994d2300-8427-4a62-84b1-c003d15ef246"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectSecondary"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""908e6c9f-ebc2-4341-a2db-cc9a803f7867"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectThrowables"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3541753d-b817-4545-9292-3909a028f502"",
-                    ""path"": ""<Keyboard>/4"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectSpecialEquipment"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a282a612-7998-4f25-891f-17439ba73488"",
-                    ""path"": ""<Keyboard>/5"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectMedical"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""3858f17c-4d8f-474e-b0f4-7f219f8bee7f"",
-                    ""path"": ""<Keyboard>/6"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""SelectTools"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a339950d-b934-48ea-a328-66e5255bb102"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
@@ -675,50 +513,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""ChangeFireMode"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e9f6f6e8-d4c6-43ae-b110-6b097b5b955a"",
-                    ""path"": ""<Keyboard>/1"",
-                    ""interactions"": """",
-                    ""processors"": ""Scale"",
-                    ""groups"": """",
-                    ""action"": ""DigitAxis"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""364c60a5-418b-450e-ae59-73f5957d59ea"",
-                    ""path"": ""<Keyboard>/2"",
-                    ""interactions"": """",
-                    ""processors"": ""Scale(factor=2)"",
-                    ""groups"": """",
-                    ""action"": ""DigitAxis"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""65242867-7d7e-442e-b631-fe84c4d5821b"",
-                    ""path"": ""<Keyboard>/3"",
-                    ""interactions"": """",
-                    ""processors"": ""Scale(factor=3)"",
-                    ""groups"": """",
-                    ""action"": ""DigitAxis"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ec1def2a-4dd2-4fa8-ae55-3c31e2649cbd"",
-                    ""path"": ""<Keyboard>/i"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ToggleAttachmentEditing"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -831,52 +625,206 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""ToggleMagnification"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1378ee3c-08c8-472e-8c02-38ca29992e7c"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleAttachmentEditing"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""62deb2b0-c57b-482d-8ae8-46047f7406f6"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectPrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f3de5291-379d-46d1-ac75-8d49b022c7b3"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eea1e44c-b366-4767-8cab-309f39f47a0f"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
         {
-            ""name"": ""Weapon"",
-            ""id"": ""2f208ee0-9e1d-40b2-b5fd-c55b793cc3ef"",
+            ""name"": ""Hotbar"",
+            ""id"": ""c7fe07aa-9d77-4742-9e7e-eaaf8a160f3a"",
             ""actions"": [
                 {
-                    ""name"": ""HoldBreath"",
-                    ""type"": ""Value"",
-                    ""id"": ""e0ab5fdb-aaf6-4360-83c2-a8324874d8d7"",
+                    ""name"": ""SelectSecondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2ab4037-d006-4323-b2db-6d69d536cdb6"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""CycleBullet"",
+                    ""name"": ""SelectThrowables"",
                     ""type"": ""Button"",
-                    ""id"": ""375cfc04-ab35-485e-8834-fe448f87e22c"",
-                    ""expectedControlType"": ""Button"",
+                    ""id"": ""2c5ecee0-0446-49df-bc09-1848b9704f3e"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectSpecialEquipment"",
+                    ""type"": ""Button"",
+                    ""id"": ""97ee0219-2d7a-4eeb-9624-cc4be5e5bb25"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectMedical"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a9d1b40-cb90-4dd0-a4b1-6f9c7c8472bb"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""SelectTools"",
+                    ""type"": ""Button"",
+                    ""id"": ""a4ced437-7f7f-4163-aa29-7b3b9b2ec581"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""846ce700-57a0-45c8-b46e-7123637a5fcd"",
-                    ""path"": ""<Keyboard>/leftCtrl"",
+                    ""id"": ""0a72d350-e46c-465f-84e8-0f2263800b87"",
+                    ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""HoldBreath"",
+                    ""action"": ""SelectSecondary"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""b5e45f97-20f5-4311-9dce-baac2811c7d0"",
-                    ""path"": ""<Keyboard>/p"",
+                    ""id"": ""671f9c02-a49c-4039-acc8-e54857e85334"",
+                    ""path"": ""<Keyboard>/3"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""CycleBullet"",
+                    ""action"": ""SelectThrowables"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d96b978c-7bf4-46e4-81bd-827189ab76c8"",
+                    ""path"": ""<Keyboard>/4"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSpecialEquipment"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2ac66136-90e2-47a3-8668-4645e0f1a6c1"",
+                    ""path"": ""<Keyboard>/5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectMedical"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""216c18ea-ded9-439f-8a53-0ff2d2894e39"",
+                    ""path"": ""<Keyboard>/6"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectTools"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""Attachments"",
+            ""id"": ""2f208ee0-9e1d-40b2-b5fd-c55b793cc3ef"",
+            ""actions"": [
+                {
+                    ""name"": ""DigitAxis"",
+                    ""type"": ""Value"",
+                    ""id"": ""a0e74415-f27e-4fb9-82ab-f7ae12b5497f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""c1c839da-be8a-462a-8032-9a0c3d4f5f09"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale"",
+                    ""groups"": """",
+                    ""action"": ""DigitAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""797762a3-7317-4392-90ca-8b37508d805b"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=2)"",
+                    ""groups"": """",
+                    ""action"": ""DigitAxis"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""675b5941-4fe7-4ae7-934c-d578ce3ce383"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": ""Scale(factor=3)"",
+                    ""groups"": """",
+                    ""action"": ""DigitAxis"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -890,7 +838,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""ToggleHelp"",
                     ""type"": ""Button"",
                     ""id"": ""c1766d81-2c12-41d3-92d1-b37f91aa49e8"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1122,7 +1070,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""name"": ""New action"",
                     ""type"": ""Button"",
                     ""id"": ""51f0879e-593f-4f00-b5da-d36e236e010f"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
@@ -1151,7 +1099,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_Aim = m_Gameplay.FindAction("Aim", throwIfNotFound: true);
         m_Gameplay_ThrowGrenade = m_Gameplay.FindAction("ThrowGrenade", throwIfNotFound: true);
         m_Gameplay_ToggleUnarmed = m_Gameplay.FindAction("ToggleUnarmed", throwIfNotFound: true);
-        m_Gameplay_ChangeWeapon = m_Gameplay.FindAction("ChangeWeapon", throwIfNotFound: true);
         m_Gameplay_Look = m_Gameplay.FindAction("Look", throwIfNotFound: true);
         m_Gameplay_Lean = m_Gameplay.FindAction("Lean", throwIfNotFound: true);
         m_Gameplay_Reload = m_Gameplay.FindAction("Reload", throwIfNotFound: true);
@@ -1161,29 +1108,29 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_Jump = m_Gameplay.FindAction("Jump", throwIfNotFound: true);
         m_Gameplay_Prone = m_Gameplay.FindAction("Prone", throwIfNotFound: true);
         m_Gameplay_Slide = m_Gameplay.FindAction("Slide", throwIfNotFound: true);
-        m_Gameplay_SelectPrimary = m_Gameplay.FindAction("SelectPrimary", throwIfNotFound: true);
-        m_Gameplay_SelectSecondary = m_Gameplay.FindAction("SelectSecondary", throwIfNotFound: true);
-        m_Gameplay_SelectThrowables = m_Gameplay.FindAction("SelectThrowables", throwIfNotFound: true);
-        m_Gameplay_SelectSpecialEquipment = m_Gameplay.FindAction("SelectSpecialEquipment", throwIfNotFound: true);
-        m_Gameplay_SelectMedical = m_Gameplay.FindAction("SelectMedical", throwIfNotFound: true);
-        m_Gameplay_SelectTools = m_Gameplay.FindAction("SelectTools", throwIfNotFound: true);
         m_Gameplay_ConsumablePrimaryUse = m_Gameplay.FindAction("ConsumablePrimaryUse", throwIfNotFound: true);
         m_Gameplay_ConsumableSecondaryUse = m_Gameplay.FindAction("ConsumableSecondaryUse", throwIfNotFound: true);
         m_Gameplay_Suicide = m_Gameplay.FindAction("Suicide", throwIfNotFound: true);
         m_Gameplay_CycleScope = m_Gameplay.FindAction("CycleScope", throwIfNotFound: true);
         m_Gameplay_ChangeFireMode = m_Gameplay.FindAction("ChangeFireMode", throwIfNotFound: true);
-        m_Gameplay_DigitAxis = m_Gameplay.FindAction("DigitAxis", throwIfNotFound: true);
-        m_Gameplay_ToggleAttachmentEditing = m_Gameplay.FindAction("ToggleAttachmentEditing", throwIfNotFound: true);
         m_Gameplay_CycleBullet = m_Gameplay.FindAction("CycleBullet", throwIfNotFound: true);
         m_Gameplay_HoldBreath = m_Gameplay.FindAction("HoldBreath", throwIfNotFound: true);
         m_Gameplay_Zoom = m_Gameplay.FindAction("Zoom", throwIfNotFound: true);
         m_Gameplay_Use = m_Gameplay.FindAction("Use", throwIfNotFound: true);
         m_Gameplay_ChangeMagnification = m_Gameplay.FindAction("ChangeMagnification", throwIfNotFound: true);
         m_Gameplay_ToggleMagnification = m_Gameplay.FindAction("ToggleMagnification", throwIfNotFound: true);
-        // Weapon
-        m_Weapon = asset.FindActionMap("Weapon", throwIfNotFound: true);
-        m_Weapon_HoldBreath = m_Weapon.FindAction("HoldBreath", throwIfNotFound: true);
-        m_Weapon_CycleBullet = m_Weapon.FindAction("CycleBullet", throwIfNotFound: true);
+        m_Gameplay_ToggleAttachmentEditing = m_Gameplay.FindAction("ToggleAttachmentEditing", throwIfNotFound: true);
+        m_Gameplay_SelectPrimary = m_Gameplay.FindAction("SelectPrimary", throwIfNotFound: true);
+        // Hotbar
+        m_Hotbar = asset.FindActionMap("Hotbar", throwIfNotFound: true);
+        m_Hotbar_SelectSecondary = m_Hotbar.FindAction("SelectSecondary", throwIfNotFound: true);
+        m_Hotbar_SelectThrowables = m_Hotbar.FindAction("SelectThrowables", throwIfNotFound: true);
+        m_Hotbar_SelectSpecialEquipment = m_Hotbar.FindAction("SelectSpecialEquipment", throwIfNotFound: true);
+        m_Hotbar_SelectMedical = m_Hotbar.FindAction("SelectMedical", throwIfNotFound: true);
+        m_Hotbar_SelectTools = m_Hotbar.FindAction("SelectTools", throwIfNotFound: true);
+        // Attachments
+        m_Attachments = asset.FindActionMap("Attachments", throwIfNotFound: true);
+        m_Attachments_DigitAxis = m_Attachments.FindAction("DigitAxis", throwIfNotFound: true);
         // Plane
         m_Plane = asset.FindActionMap("Plane", throwIfNotFound: true);
         m_Plane_ToggleHelp = m_Plane.FindAction("ToggleHelp", throwIfNotFound: true);
@@ -1203,7 +1150,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     ~@PlayerControls()
     {
         UnityEngine.Debug.Assert(!m_Gameplay.enabled, "This will cause a leak and performance issues, PlayerControls.Gameplay.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Weapon.enabled, "This will cause a leak and performance issues, PlayerControls.Weapon.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Hotbar.enabled, "This will cause a leak and performance issues, PlayerControls.Hotbar.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Attachments.enabled, "This will cause a leak and performance issues, PlayerControls.Attachments.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Plane.enabled, "This will cause a leak and performance issues, PlayerControls.Plane.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Car.enabled, "This will cause a leak and performance issues, PlayerControls.Car.Disable() has not been called.");
     }
@@ -1271,7 +1219,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Aim;
     private readonly InputAction m_Gameplay_ThrowGrenade;
     private readonly InputAction m_Gameplay_ToggleUnarmed;
-    private readonly InputAction m_Gameplay_ChangeWeapon;
     private readonly InputAction m_Gameplay_Look;
     private readonly InputAction m_Gameplay_Lean;
     private readonly InputAction m_Gameplay_Reload;
@@ -1281,25 +1228,19 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_Jump;
     private readonly InputAction m_Gameplay_Prone;
     private readonly InputAction m_Gameplay_Slide;
-    private readonly InputAction m_Gameplay_SelectPrimary;
-    private readonly InputAction m_Gameplay_SelectSecondary;
-    private readonly InputAction m_Gameplay_SelectThrowables;
-    private readonly InputAction m_Gameplay_SelectSpecialEquipment;
-    private readonly InputAction m_Gameplay_SelectMedical;
-    private readonly InputAction m_Gameplay_SelectTools;
     private readonly InputAction m_Gameplay_ConsumablePrimaryUse;
     private readonly InputAction m_Gameplay_ConsumableSecondaryUse;
     private readonly InputAction m_Gameplay_Suicide;
     private readonly InputAction m_Gameplay_CycleScope;
     private readonly InputAction m_Gameplay_ChangeFireMode;
-    private readonly InputAction m_Gameplay_DigitAxis;
-    private readonly InputAction m_Gameplay_ToggleAttachmentEditing;
     private readonly InputAction m_Gameplay_CycleBullet;
     private readonly InputAction m_Gameplay_HoldBreath;
     private readonly InputAction m_Gameplay_Zoom;
     private readonly InputAction m_Gameplay_Use;
     private readonly InputAction m_Gameplay_ChangeMagnification;
     private readonly InputAction m_Gameplay_ToggleMagnification;
+    private readonly InputAction m_Gameplay_ToggleAttachmentEditing;
+    private readonly InputAction m_Gameplay_SelectPrimary;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -1308,7 +1249,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Aim => m_Wrapper.m_Gameplay_Aim;
         public InputAction @ThrowGrenade => m_Wrapper.m_Gameplay_ThrowGrenade;
         public InputAction @ToggleUnarmed => m_Wrapper.m_Gameplay_ToggleUnarmed;
-        public InputAction @ChangeWeapon => m_Wrapper.m_Gameplay_ChangeWeapon;
         public InputAction @Look => m_Wrapper.m_Gameplay_Look;
         public InputAction @Lean => m_Wrapper.m_Gameplay_Lean;
         public InputAction @Reload => m_Wrapper.m_Gameplay_Reload;
@@ -1318,25 +1258,19 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Gameplay_Jump;
         public InputAction @Prone => m_Wrapper.m_Gameplay_Prone;
         public InputAction @Slide => m_Wrapper.m_Gameplay_Slide;
-        public InputAction @SelectPrimary => m_Wrapper.m_Gameplay_SelectPrimary;
-        public InputAction @SelectSecondary => m_Wrapper.m_Gameplay_SelectSecondary;
-        public InputAction @SelectThrowables => m_Wrapper.m_Gameplay_SelectThrowables;
-        public InputAction @SelectSpecialEquipment => m_Wrapper.m_Gameplay_SelectSpecialEquipment;
-        public InputAction @SelectMedical => m_Wrapper.m_Gameplay_SelectMedical;
-        public InputAction @SelectTools => m_Wrapper.m_Gameplay_SelectTools;
         public InputAction @ConsumablePrimaryUse => m_Wrapper.m_Gameplay_ConsumablePrimaryUse;
         public InputAction @ConsumableSecondaryUse => m_Wrapper.m_Gameplay_ConsumableSecondaryUse;
         public InputAction @Suicide => m_Wrapper.m_Gameplay_Suicide;
         public InputAction @CycleScope => m_Wrapper.m_Gameplay_CycleScope;
         public InputAction @ChangeFireMode => m_Wrapper.m_Gameplay_ChangeFireMode;
-        public InputAction @DigitAxis => m_Wrapper.m_Gameplay_DigitAxis;
-        public InputAction @ToggleAttachmentEditing => m_Wrapper.m_Gameplay_ToggleAttachmentEditing;
         public InputAction @CycleBullet => m_Wrapper.m_Gameplay_CycleBullet;
         public InputAction @HoldBreath => m_Wrapper.m_Gameplay_HoldBreath;
         public InputAction @Zoom => m_Wrapper.m_Gameplay_Zoom;
         public InputAction @Use => m_Wrapper.m_Gameplay_Use;
         public InputAction @ChangeMagnification => m_Wrapper.m_Gameplay_ChangeMagnification;
         public InputAction @ToggleMagnification => m_Wrapper.m_Gameplay_ToggleMagnification;
+        public InputAction @ToggleAttachmentEditing => m_Wrapper.m_Gameplay_ToggleAttachmentEditing;
+        public InputAction @SelectPrimary => m_Wrapper.m_Gameplay_SelectPrimary;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1358,9 +1292,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToggleUnarmed.started += instance.OnToggleUnarmed;
             @ToggleUnarmed.performed += instance.OnToggleUnarmed;
             @ToggleUnarmed.canceled += instance.OnToggleUnarmed;
-            @ChangeWeapon.started += instance.OnChangeWeapon;
-            @ChangeWeapon.performed += instance.OnChangeWeapon;
-            @ChangeWeapon.canceled += instance.OnChangeWeapon;
             @Look.started += instance.OnLook;
             @Look.performed += instance.OnLook;
             @Look.canceled += instance.OnLook;
@@ -1388,24 +1319,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Slide.started += instance.OnSlide;
             @Slide.performed += instance.OnSlide;
             @Slide.canceled += instance.OnSlide;
-            @SelectPrimary.started += instance.OnSelectPrimary;
-            @SelectPrimary.performed += instance.OnSelectPrimary;
-            @SelectPrimary.canceled += instance.OnSelectPrimary;
-            @SelectSecondary.started += instance.OnSelectSecondary;
-            @SelectSecondary.performed += instance.OnSelectSecondary;
-            @SelectSecondary.canceled += instance.OnSelectSecondary;
-            @SelectThrowables.started += instance.OnSelectThrowables;
-            @SelectThrowables.performed += instance.OnSelectThrowables;
-            @SelectThrowables.canceled += instance.OnSelectThrowables;
-            @SelectSpecialEquipment.started += instance.OnSelectSpecialEquipment;
-            @SelectSpecialEquipment.performed += instance.OnSelectSpecialEquipment;
-            @SelectSpecialEquipment.canceled += instance.OnSelectSpecialEquipment;
-            @SelectMedical.started += instance.OnSelectMedical;
-            @SelectMedical.performed += instance.OnSelectMedical;
-            @SelectMedical.canceled += instance.OnSelectMedical;
-            @SelectTools.started += instance.OnSelectTools;
-            @SelectTools.performed += instance.OnSelectTools;
-            @SelectTools.canceled += instance.OnSelectTools;
             @ConsumablePrimaryUse.started += instance.OnConsumablePrimaryUse;
             @ConsumablePrimaryUse.performed += instance.OnConsumablePrimaryUse;
             @ConsumablePrimaryUse.canceled += instance.OnConsumablePrimaryUse;
@@ -1421,12 +1334,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ChangeFireMode.started += instance.OnChangeFireMode;
             @ChangeFireMode.performed += instance.OnChangeFireMode;
             @ChangeFireMode.canceled += instance.OnChangeFireMode;
-            @DigitAxis.started += instance.OnDigitAxis;
-            @DigitAxis.performed += instance.OnDigitAxis;
-            @DigitAxis.canceled += instance.OnDigitAxis;
-            @ToggleAttachmentEditing.started += instance.OnToggleAttachmentEditing;
-            @ToggleAttachmentEditing.performed += instance.OnToggleAttachmentEditing;
-            @ToggleAttachmentEditing.canceled += instance.OnToggleAttachmentEditing;
             @CycleBullet.started += instance.OnCycleBullet;
             @CycleBullet.performed += instance.OnCycleBullet;
             @CycleBullet.canceled += instance.OnCycleBullet;
@@ -1445,6 +1352,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToggleMagnification.started += instance.OnToggleMagnification;
             @ToggleMagnification.performed += instance.OnToggleMagnification;
             @ToggleMagnification.canceled += instance.OnToggleMagnification;
+            @ToggleAttachmentEditing.started += instance.OnToggleAttachmentEditing;
+            @ToggleAttachmentEditing.performed += instance.OnToggleAttachmentEditing;
+            @ToggleAttachmentEditing.canceled += instance.OnToggleAttachmentEditing;
+            @SelectPrimary.started += instance.OnSelectPrimary;
+            @SelectPrimary.performed += instance.OnSelectPrimary;
+            @SelectPrimary.canceled += instance.OnSelectPrimary;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -1461,9 +1374,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToggleUnarmed.started -= instance.OnToggleUnarmed;
             @ToggleUnarmed.performed -= instance.OnToggleUnarmed;
             @ToggleUnarmed.canceled -= instance.OnToggleUnarmed;
-            @ChangeWeapon.started -= instance.OnChangeWeapon;
-            @ChangeWeapon.performed -= instance.OnChangeWeapon;
-            @ChangeWeapon.canceled -= instance.OnChangeWeapon;
             @Look.started -= instance.OnLook;
             @Look.performed -= instance.OnLook;
             @Look.canceled -= instance.OnLook;
@@ -1491,24 +1401,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Slide.started -= instance.OnSlide;
             @Slide.performed -= instance.OnSlide;
             @Slide.canceled -= instance.OnSlide;
-            @SelectPrimary.started -= instance.OnSelectPrimary;
-            @SelectPrimary.performed -= instance.OnSelectPrimary;
-            @SelectPrimary.canceled -= instance.OnSelectPrimary;
-            @SelectSecondary.started -= instance.OnSelectSecondary;
-            @SelectSecondary.performed -= instance.OnSelectSecondary;
-            @SelectSecondary.canceled -= instance.OnSelectSecondary;
-            @SelectThrowables.started -= instance.OnSelectThrowables;
-            @SelectThrowables.performed -= instance.OnSelectThrowables;
-            @SelectThrowables.canceled -= instance.OnSelectThrowables;
-            @SelectSpecialEquipment.started -= instance.OnSelectSpecialEquipment;
-            @SelectSpecialEquipment.performed -= instance.OnSelectSpecialEquipment;
-            @SelectSpecialEquipment.canceled -= instance.OnSelectSpecialEquipment;
-            @SelectMedical.started -= instance.OnSelectMedical;
-            @SelectMedical.performed -= instance.OnSelectMedical;
-            @SelectMedical.canceled -= instance.OnSelectMedical;
-            @SelectTools.started -= instance.OnSelectTools;
-            @SelectTools.performed -= instance.OnSelectTools;
-            @SelectTools.canceled -= instance.OnSelectTools;
             @ConsumablePrimaryUse.started -= instance.OnConsumablePrimaryUse;
             @ConsumablePrimaryUse.performed -= instance.OnConsumablePrimaryUse;
             @ConsumablePrimaryUse.canceled -= instance.OnConsumablePrimaryUse;
@@ -1524,12 +1416,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ChangeFireMode.started -= instance.OnChangeFireMode;
             @ChangeFireMode.performed -= instance.OnChangeFireMode;
             @ChangeFireMode.canceled -= instance.OnChangeFireMode;
-            @DigitAxis.started -= instance.OnDigitAxis;
-            @DigitAxis.performed -= instance.OnDigitAxis;
-            @DigitAxis.canceled -= instance.OnDigitAxis;
-            @ToggleAttachmentEditing.started -= instance.OnToggleAttachmentEditing;
-            @ToggleAttachmentEditing.performed -= instance.OnToggleAttachmentEditing;
-            @ToggleAttachmentEditing.canceled -= instance.OnToggleAttachmentEditing;
             @CycleBullet.started -= instance.OnCycleBullet;
             @CycleBullet.performed -= instance.OnCycleBullet;
             @CycleBullet.canceled -= instance.OnCycleBullet;
@@ -1548,6 +1434,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @ToggleMagnification.started -= instance.OnToggleMagnification;
             @ToggleMagnification.performed -= instance.OnToggleMagnification;
             @ToggleMagnification.canceled -= instance.OnToggleMagnification;
+            @ToggleAttachmentEditing.started -= instance.OnToggleAttachmentEditing;
+            @ToggleAttachmentEditing.performed -= instance.OnToggleAttachmentEditing;
+            @ToggleAttachmentEditing.canceled -= instance.OnToggleAttachmentEditing;
+            @SelectPrimary.started -= instance.OnSelectPrimary;
+            @SelectPrimary.performed -= instance.OnSelectPrimary;
+            @SelectPrimary.canceled -= instance.OnSelectPrimary;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -1566,59 +1458,129 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     }
     public GameplayActions @Gameplay => new GameplayActions(this);
 
-    // Weapon
-    private readonly InputActionMap m_Weapon;
-    private List<IWeaponActions> m_WeaponActionsCallbackInterfaces = new List<IWeaponActions>();
-    private readonly InputAction m_Weapon_HoldBreath;
-    private readonly InputAction m_Weapon_CycleBullet;
-    public struct WeaponActions
+    // Hotbar
+    private readonly InputActionMap m_Hotbar;
+    private List<IHotbarActions> m_HotbarActionsCallbackInterfaces = new List<IHotbarActions>();
+    private readonly InputAction m_Hotbar_SelectSecondary;
+    private readonly InputAction m_Hotbar_SelectThrowables;
+    private readonly InputAction m_Hotbar_SelectSpecialEquipment;
+    private readonly InputAction m_Hotbar_SelectMedical;
+    private readonly InputAction m_Hotbar_SelectTools;
+    public struct HotbarActions
     {
         private @PlayerControls m_Wrapper;
-        public WeaponActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @HoldBreath => m_Wrapper.m_Weapon_HoldBreath;
-        public InputAction @CycleBullet => m_Wrapper.m_Weapon_CycleBullet;
-        public InputActionMap Get() { return m_Wrapper.m_Weapon; }
+        public HotbarActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @SelectSecondary => m_Wrapper.m_Hotbar_SelectSecondary;
+        public InputAction @SelectThrowables => m_Wrapper.m_Hotbar_SelectThrowables;
+        public InputAction @SelectSpecialEquipment => m_Wrapper.m_Hotbar_SelectSpecialEquipment;
+        public InputAction @SelectMedical => m_Wrapper.m_Hotbar_SelectMedical;
+        public InputAction @SelectTools => m_Wrapper.m_Hotbar_SelectTools;
+        public InputActionMap Get() { return m_Wrapper.m_Hotbar; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(WeaponActions set) { return set.Get(); }
-        public void AddCallbacks(IWeaponActions instance)
+        public static implicit operator InputActionMap(HotbarActions set) { return set.Get(); }
+        public void AddCallbacks(IHotbarActions instance)
         {
-            if (instance == null || m_Wrapper.m_WeaponActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_WeaponActionsCallbackInterfaces.Add(instance);
-            @HoldBreath.started += instance.OnHoldBreath;
-            @HoldBreath.performed += instance.OnHoldBreath;
-            @HoldBreath.canceled += instance.OnHoldBreath;
-            @CycleBullet.started += instance.OnCycleBullet;
-            @CycleBullet.performed += instance.OnCycleBullet;
-            @CycleBullet.canceled += instance.OnCycleBullet;
+            if (instance == null || m_Wrapper.m_HotbarActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_HotbarActionsCallbackInterfaces.Add(instance);
+            @SelectSecondary.started += instance.OnSelectSecondary;
+            @SelectSecondary.performed += instance.OnSelectSecondary;
+            @SelectSecondary.canceled += instance.OnSelectSecondary;
+            @SelectThrowables.started += instance.OnSelectThrowables;
+            @SelectThrowables.performed += instance.OnSelectThrowables;
+            @SelectThrowables.canceled += instance.OnSelectThrowables;
+            @SelectSpecialEquipment.started += instance.OnSelectSpecialEquipment;
+            @SelectSpecialEquipment.performed += instance.OnSelectSpecialEquipment;
+            @SelectSpecialEquipment.canceled += instance.OnSelectSpecialEquipment;
+            @SelectMedical.started += instance.OnSelectMedical;
+            @SelectMedical.performed += instance.OnSelectMedical;
+            @SelectMedical.canceled += instance.OnSelectMedical;
+            @SelectTools.started += instance.OnSelectTools;
+            @SelectTools.performed += instance.OnSelectTools;
+            @SelectTools.canceled += instance.OnSelectTools;
         }
 
-        private void UnregisterCallbacks(IWeaponActions instance)
+        private void UnregisterCallbacks(IHotbarActions instance)
         {
-            @HoldBreath.started -= instance.OnHoldBreath;
-            @HoldBreath.performed -= instance.OnHoldBreath;
-            @HoldBreath.canceled -= instance.OnHoldBreath;
-            @CycleBullet.started -= instance.OnCycleBullet;
-            @CycleBullet.performed -= instance.OnCycleBullet;
-            @CycleBullet.canceled -= instance.OnCycleBullet;
+            @SelectSecondary.started -= instance.OnSelectSecondary;
+            @SelectSecondary.performed -= instance.OnSelectSecondary;
+            @SelectSecondary.canceled -= instance.OnSelectSecondary;
+            @SelectThrowables.started -= instance.OnSelectThrowables;
+            @SelectThrowables.performed -= instance.OnSelectThrowables;
+            @SelectThrowables.canceled -= instance.OnSelectThrowables;
+            @SelectSpecialEquipment.started -= instance.OnSelectSpecialEquipment;
+            @SelectSpecialEquipment.performed -= instance.OnSelectSpecialEquipment;
+            @SelectSpecialEquipment.canceled -= instance.OnSelectSpecialEquipment;
+            @SelectMedical.started -= instance.OnSelectMedical;
+            @SelectMedical.performed -= instance.OnSelectMedical;
+            @SelectMedical.canceled -= instance.OnSelectMedical;
+            @SelectTools.started -= instance.OnSelectTools;
+            @SelectTools.performed -= instance.OnSelectTools;
+            @SelectTools.canceled -= instance.OnSelectTools;
         }
 
-        public void RemoveCallbacks(IWeaponActions instance)
+        public void RemoveCallbacks(IHotbarActions instance)
         {
-            if (m_Wrapper.m_WeaponActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_HotbarActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IWeaponActions instance)
+        public void SetCallbacks(IHotbarActions instance)
         {
-            foreach (var item in m_Wrapper.m_WeaponActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_HotbarActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_WeaponActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_HotbarActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public WeaponActions @Weapon => new WeaponActions(this);
+    public HotbarActions @Hotbar => new HotbarActions(this);
+
+    // Attachments
+    private readonly InputActionMap m_Attachments;
+    private List<IAttachmentsActions> m_AttachmentsActionsCallbackInterfaces = new List<IAttachmentsActions>();
+    private readonly InputAction m_Attachments_DigitAxis;
+    public struct AttachmentsActions
+    {
+        private @PlayerControls m_Wrapper;
+        public AttachmentsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @DigitAxis => m_Wrapper.m_Attachments_DigitAxis;
+        public InputActionMap Get() { return m_Wrapper.m_Attachments; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(AttachmentsActions set) { return set.Get(); }
+        public void AddCallbacks(IAttachmentsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_AttachmentsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_AttachmentsActionsCallbackInterfaces.Add(instance);
+            @DigitAxis.started += instance.OnDigitAxis;
+            @DigitAxis.performed += instance.OnDigitAxis;
+            @DigitAxis.canceled += instance.OnDigitAxis;
+        }
+
+        private void UnregisterCallbacks(IAttachmentsActions instance)
+        {
+            @DigitAxis.started -= instance.OnDigitAxis;
+            @DigitAxis.performed -= instance.OnDigitAxis;
+            @DigitAxis.canceled -= instance.OnDigitAxis;
+        }
+
+        public void RemoveCallbacks(IAttachmentsActions instance)
+        {
+            if (m_Wrapper.m_AttachmentsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IAttachmentsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_AttachmentsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_AttachmentsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public AttachmentsActions @Attachments => new AttachmentsActions(this);
 
     // Plane
     private readonly InputActionMap m_Plane;
@@ -1781,7 +1743,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnAim(InputAction.CallbackContext context);
         void OnThrowGrenade(InputAction.CallbackContext context);
         void OnToggleUnarmed(InputAction.CallbackContext context);
-        void OnChangeWeapon(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
         void OnLean(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
@@ -1791,30 +1752,31 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnProne(InputAction.CallbackContext context);
         void OnSlide(InputAction.CallbackContext context);
-        void OnSelectPrimary(InputAction.CallbackContext context);
-        void OnSelectSecondary(InputAction.CallbackContext context);
-        void OnSelectThrowables(InputAction.CallbackContext context);
-        void OnSelectSpecialEquipment(InputAction.CallbackContext context);
-        void OnSelectMedical(InputAction.CallbackContext context);
-        void OnSelectTools(InputAction.CallbackContext context);
         void OnConsumablePrimaryUse(InputAction.CallbackContext context);
         void OnConsumableSecondaryUse(InputAction.CallbackContext context);
         void OnSuicide(InputAction.CallbackContext context);
         void OnCycleScope(InputAction.CallbackContext context);
         void OnChangeFireMode(InputAction.CallbackContext context);
-        void OnDigitAxis(InputAction.CallbackContext context);
-        void OnToggleAttachmentEditing(InputAction.CallbackContext context);
         void OnCycleBullet(InputAction.CallbackContext context);
         void OnHoldBreath(InputAction.CallbackContext context);
         void OnZoom(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
         void OnChangeMagnification(InputAction.CallbackContext context);
         void OnToggleMagnification(InputAction.CallbackContext context);
+        void OnToggleAttachmentEditing(InputAction.CallbackContext context);
+        void OnSelectPrimary(InputAction.CallbackContext context);
     }
-    public interface IWeaponActions
+    public interface IHotbarActions
     {
-        void OnHoldBreath(InputAction.CallbackContext context);
-        void OnCycleBullet(InputAction.CallbackContext context);
+        void OnSelectSecondary(InputAction.CallbackContext context);
+        void OnSelectThrowables(InputAction.CallbackContext context);
+        void OnSelectSpecialEquipment(InputAction.CallbackContext context);
+        void OnSelectMedical(InputAction.CallbackContext context);
+        void OnSelectTools(InputAction.CallbackContext context);
+    }
+    public interface IAttachmentsActions
+    {
+        void OnDigitAxis(InputAction.CallbackContext context);
     }
     public interface IPlaneActions
     {
