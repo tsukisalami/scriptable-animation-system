@@ -103,6 +103,27 @@ public class PlayerLoadout : MonoBehaviour
         }
     }
 
+    // New method for equipping without cycling
+    public void SelectCategoryWithoutCycle(int index)
+    {
+        // Check if FPSController has an active action
+        if (fpsController._actionState != FPSActionState.None)
+        {
+            return;
+        }
+        
+        LoadoutCategory category = GetCategory(index);
+        
+        if (category == null || !category.HasAvailableItems())
+        {
+            return;
+        }
+
+        currentCategoryIndex = index;
+        var currentItem = category.GetCurrentItem();
+        EquipItem(currentItem);
+    }
+
     public LoadoutCategory GetCategory(int index)
     {
         return index switch

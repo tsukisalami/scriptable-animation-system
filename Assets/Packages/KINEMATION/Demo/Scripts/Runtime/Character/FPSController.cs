@@ -67,6 +67,8 @@ namespace Demo.Scripts.Runtime.Character
 
         private PlayerLoadout playerLoadout;
 
+        [SerializeField] private GameplayHUD gameplayHUD;  // Reference to UI object's GameplayHUD component
+
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
             if (layerSettings == null)
@@ -171,6 +173,12 @@ namespace Demo.Scripts.Runtime.Character
             
             _userInput = GetComponent<UserInputController>();
             _recoilPattern = GetComponent<RecoilPattern>();
+
+            // Simple warning if GameplayHUD is not assigned
+            if (gameplayHUD == null)
+            {
+                Debug.LogWarning("GameplayHUD reference is not set in FPSController. Please assign it in the inspector. Hotbar functionality will be disabled.");
+            }
 
             InitializeMovement();
             InitializeWeapons();
@@ -350,6 +358,9 @@ namespace Demo.Scripts.Runtime.Character
         {
             if (IsSprinting()) return;
             
+            // Only block shooting if the hotbar is both active and visible (alpha > 0)
+            if (gameplayHUD != null && gameplayHUD.IsHotbarActive() && gameplayHUD.hotbarCanvasGroup.alpha > 0) return;
+            
             var currentItem = GetActiveItem();
             if (currentItem is ConsumableItem consumable)
             {
@@ -360,7 +371,6 @@ namespace Demo.Scripts.Runtime.Character
                 return;
             }
             
-            // Handle regular weapon fire
             if (value.isPressed)
             {
                 OnFirePressed();
@@ -384,7 +394,6 @@ namespace Demo.Scripts.Runtime.Character
                 return;
             }
 
-            // Handle regular weapon aiming
             if (value.isPressed && !IsAiming())
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;

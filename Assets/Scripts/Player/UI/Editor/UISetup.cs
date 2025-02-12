@@ -70,15 +70,28 @@ public class UISetup
         GameObject hotbarPanel = new GameObject("Hotbar Panel");
         hotbarPanel.transform.SetParent(hudObj.transform, false);
         RectTransform hotbarPanelRect = hotbarPanel.AddComponent<RectTransform>();
-        hotbarPanelRect.anchorMin = new Vector2(1, 0);
-        hotbarPanelRect.anchorMax = new Vector2(1, 1);
+        hotbarPanelRect.anchorMin = new Vector2(1, 0.5f);
+        hotbarPanelRect.anchorMax = new Vector2(1, 0.5f);
         hotbarPanelRect.pivot = new Vector2(1, 0.5f);
         hotbarPanelRect.anchoredPosition = new Vector2(-20, 0);
         hotbarPanelRect.sizeDelta = new Vector2(300, 600);
 
+        // Create a container for all hotbar elements that will fade
+        GameObject hotbarContainer = new GameObject("Hotbar Container");
+        hotbarContainer.transform.SetParent(hotbarPanel.transform, false);
+        RectTransform hotbarContainerRect = hotbarContainer.AddComponent<RectTransform>();
+        hotbarContainerRect.anchorMin = Vector2.zero;
+        hotbarContainerRect.anchorMax = Vector2.one;
+        hotbarContainerRect.sizeDelta = Vector2.zero;
+        hotbarContainerRect.anchoredPosition = Vector2.zero;
+
+        // Add CanvasGroup to the container
+        CanvasGroup hotbarCanvasGroup = hotbarContainer.AddComponent<CanvasGroup>();
+        hudScript.hotbarCanvasGroup = hotbarCanvasGroup;
+
         // Create background panel
         GameObject bgPanel = new GameObject("Background Panel");
-        bgPanel.transform.SetParent(hotbarPanel.transform, false);
+        bgPanel.transform.SetParent(hotbarContainer.transform, false);
         Image bgImage = bgPanel.AddComponent<Image>();
         bgImage.color = new Color(0, 0, 0, 0.5f);
         RectTransform bgRect = bgPanel.GetComponent<RectTransform>();
@@ -97,7 +110,7 @@ public class UISetup
         for (int i = 0; i < categories.Length; i++)
         {
             GameObject categoryObj = new GameObject(categories[i]);
-            categoryObj.transform.SetParent(hotbarPanel.transform, false);
+            categoryObj.transform.SetParent(hotbarContainer.transform, false);
             RectTransform categoryRect = categoryObj.AddComponent<RectTransform>();
             
             // Position from top to bottom
