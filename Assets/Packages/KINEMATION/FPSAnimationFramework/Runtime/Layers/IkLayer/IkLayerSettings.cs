@@ -1,5 +1,6 @@
 ﻿using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using KINEMATION.KAnimationCore.Runtime.Rig;
+using KINEMATION.KAnimationCore.Runtime.Input;
 using UnityEngine;
 
 namespace KINEMATION.FPSAnimationFramework.Runtime.Layers.IkLayer

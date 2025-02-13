@@ -3693,6 +3693,7 @@ GameObject:
   - component: {fileID: 652359171}
   - component: {fileID: 7948552439935663111}
   - component: {fileID: 269938222292084095}
+  - component: {fileID: 3410372038905825124}
   m_Layer: 23
   m_Name: Player
   m_TagString: Player
@@ -4230,6 +4231,22 @@ MonoBehaviour:
   droppedWeaponLayer:
     serializedVersion: 2
     m_Bits: 33554432
+--- !u!114 &3410372038905825124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7102044144766431328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61d371349e57314ba42108d50e4bae2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: {fileID: 9157916696633808124}
+  characterController: {fileID: 7948552439935663105}
+  animator: {fileID: 7948552439935663111}
+  hipsObject: {fileID: 4798813636080530026}
 --- !u!1 &7151070337432973102
 GameObject:
   m_ObjectHideFlags: 0
