@@ -3202,7 +3202,7 @@ MonoBehaviour:
   visualSpawnPoint: {fileID: 8088176832826359044}
   VisualBulletProvider: {fileID: 11400000, guid: d689875d55838fb42b90dabb64141202,
     type: 2}
-  BulletInfo: {fileID: 11400000, guid: 7b0c0cf104f91ba499270db4e2d8ff25, type: 2}
+  BulletInfo: {fileID: 11400000, guid: 53d4ea520826d5f409c030b561ece9ca, type: 2}
   OnShoot:
     m_PersistentCalls:
       m_Calls: []

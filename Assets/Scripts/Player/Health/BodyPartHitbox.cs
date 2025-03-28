@@ -24,4 +24,36 @@ public class BodyPartHitbox : MonoBehaviour, IDamageable
             playerHealth.HandleHit(damage, hitLocation);
         }
     }
+    
+    // Add direct collision detection
+    private void OnCollisionEnter(Collision collision)
+    {
+        // Debug.Log($"Collision detected on {gameObject.name} with {collision.gameObject.name}");
+        
+        // Try to get bullet component (adjust this based on your actual bullet component)
+        var bullet = collision.gameObject.GetComponent<MonoBehaviour>();
+        if (bullet != null && playerHealth != null)
+        {
+            // Get damage from bullet (this is a placeholder - adjust for your bullet system)
+            float damage = 45f;
+            
+            // Try different ways to get damage from bullet
+            var damageProperty = bullet.GetType().GetProperty("Damage");
+            if (damageProperty != null)
+            {
+                damage = (float)damageProperty.GetValue(bullet);
+            }
+            else
+            {
+                var damageField = bullet.GetType().GetField("damage");
+                if (damageField != null)
+                {
+                    damage = (float)damageField.GetValue(bullet);
+                }
+            }
+            
+            // Apply damage through the PlayerHealth component
+            playerHealth.HandleHit(damage, hitLocation);
+        }
+    }
 } 

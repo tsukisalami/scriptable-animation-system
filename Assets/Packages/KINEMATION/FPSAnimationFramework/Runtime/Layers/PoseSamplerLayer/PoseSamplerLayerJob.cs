@@ -172,7 +172,7 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Layers.PoseSamplerLayer
             _ikRightHandHint = jobData.animator.BindStreamTransform(ikRightHandHint);
             _ikLeftHandHint = jobData.animator.BindStreamTransform(ikLeftHandHint);
             
-            if (_hasValidRoot)
+            if (_settings.overwriteRoot && _hasValidRoot)
             {
                 pelvis.parent.localRotation = Quaternion.identity;
             }
@@ -184,7 +184,7 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Layers.PoseSamplerLayer
             _settings.poseToSample.clip.SampleAnimation(jobData.Owner.gameObject, 0f);
             
             // Avoid unnecessary root modification by the pose.
-            if (_hasValidRoot)
+            if (_settings.overwriteRoot && _hasValidRoot)
             {
                 KTransform pelvisCache = new KTransform(pelvis);
                 pelvis.parent.localRotation = Quaternion.identity;

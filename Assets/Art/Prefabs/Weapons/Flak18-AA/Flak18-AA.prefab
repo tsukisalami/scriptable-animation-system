@@ -261,6 +261,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponPivot: {fileID: 4844296276847351625}
   mountPosition: {fileID: 1139345336079712995}
+  dismountPosition: {fileID: 5565548024529009858}
   horizontalRotationLimits: {x: -45, y: 45}
   verticalRotationLimits: {x: -5, y: 30}
   ballisticsWeapon: {fileID: 3846123025421758669}
@@ -311,10 +312,42 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1139345336079712995}
+  - {fileID: 5565548024529009858}
   - {fileID: 6784914210081224452}
   - {fileID: 5813013034934794553}
   - {fileID: 3514808494496222544}
   m_Father: {fileID: 6878489676755065675}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8857191754116730048
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5565548024529009858}
+  m_Layer: 0
+  m_Name: DismountLocation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5565548024529009858
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8857191754116730048}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.978, y: 0.082, z: -1.082}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4844296276847351625}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3985020231230974651
 PrefabInstance:

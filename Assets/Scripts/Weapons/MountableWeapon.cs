@@ -2,12 +2,14 @@ using UnityEngine;
 using Ballistics;
 using KINEMATION.FPSAnimationFramework.Runtime.Core;
 using Demo.Scripts.Runtime.Item;
+using Demo.Scripts.Runtime.Character;
 
 public class MountableWeapon : MonoBehaviour
 {
     [Header("Weapon Settings")]
     [SerializeField] private Transform weaponPivot;
     [SerializeField] private Transform mountPosition;
+    [SerializeField] private Transform dismountPosition;
     [SerializeField] private Vector2 horizontalRotationLimits = new Vector2(-45f, 45f);
     [SerializeField] private Vector2 verticalRotationLimits = new Vector2(-20f, 60f);
     
@@ -20,19 +22,21 @@ public class MountableWeapon : MonoBehaviour
     private Vector2 currentRotation;
     private bool isMounted;
     
-    // Animation references
+    // Animation and controller references
     private FPSAnimator playerFPSAnimator;
     private FPSAnimatorEntity weaponAnimatorEntity;
     private FPSItem previousWeapon;
+    private FPSController playerFPSController;
+    private Vector3 originalPlayerRotation;
     
     private void Start()
     {
         if (ballisticsWeapon == null)
             ballisticsWeapon = GetComponent<Ballistics.Weapon>();
 
-        if (weaponPivot == null || mountPosition == null)
+        if (weaponPivot == null || mountPosition == null || dismountPosition == null)
         {
-            Debug.LogError("MountableWeapon: WeaponPivot or MountPosition is not assigned!", this);
+            Debug.LogError("MountableWeapon: WeaponPivot, MountPosition, or DismountPosition is not assigned!", this);
             enabled = false;
         }
 
@@ -75,9 +79,11 @@ public class MountableWeapon : MonoBehaviour
 
         // Get player references
         playerReferences = player.GetComponent<PlayerReferences>();
-        if (playerReferences == null)
+        playerFPSController = player.GetComponent<FPSController>();
+
+        if (playerReferences == null || playerFPSController == null)
         {
-            Debug.LogError("Mount failed - PlayerReferences component not found!");
+            Debug.LogError("Mount failed - Required player components not found!");
             return;
         }
 
@@ -98,11 +104,13 @@ public class MountableWeapon : MonoBehaviour
             return;
         }
 
+        // Store original rotation
+        originalPlayerRotation = player.transform.eulerAngles;
+
         // Store the current weapon and hide it
-        var fpsController = player.GetComponent<Demo.Scripts.Runtime.Character.FPSController>();
-        if (fpsController != null && fpsController._instantiatedWeapons.Count > 0)
+        if (playerFPSController._instantiatedWeapons.Count > 0)
         {
-            previousWeapon = fpsController._instantiatedWeapons[fpsController._activeWeaponIndex];
+            previousWeapon = playerFPSController._instantiatedWeapons[playerFPSController._activeWeaponIndex];
             if (previousWeapon != null)
             {
                 previousWeapon.gameObject.SetActive(false);
@@ -122,8 +130,12 @@ public class MountableWeapon : MonoBehaviour
         player.transform.position = mountPosition.position;
         player.transform.rotation = mountPosition.rotation;
         
-        // Disable character controller
+        // Disable character controller and movement
         playerReferences.CharacterController.enabled = false;
+        if (playerFPSController != null)
+        {
+            playerFPSController._actionState = FPSActionState.PlayingAnimation; // Prevent weapon switching and other actions
+        }
 
         // Reset rotation
         currentRotation = Vector2.zero;
@@ -151,16 +163,31 @@ public class MountableWeapon : MonoBehaviour
         {
             playerReferences.Health.OnHealthStateChanged.RemoveListener(HandleHealthStateChanged);
         }
+
+        // Move player to dismount position
+        if (mountedPlayer != null && dismountPosition != null)
+        {
+            mountedPlayer.transform.position = dismountPosition.position;
+            mountedPlayer.transform.rotation = dismountPosition.rotation;
+        }
         
-        // Re-enable character controller
+        // Re-enable character controller and movement
         if (playerReferences?.CharacterController != null)
         {
             playerReferences.CharacterController.enabled = true;
+        }
+
+        // Restore FPS controller state
+        if (playerFPSController != null)
+        {
+            playerFPSController._actionState = FPSActionState.None;
+            playerFPSController.ResetActionState();
         }
         
         mountedPlayer = null;
         playerReferences = null;
         playerFPSAnimator = null;
+        playerFPSController = null;
         previousWeapon = null;
         isMounted = false;
         currentRotation = Vector2.zero;
@@ -216,4 +243,33 @@ public class MountableWeapon : MonoBehaviour
             playerReferences.Health.OnHealthStateChanged.RemoveListener(HandleHealthStateChanged);
         }
     }
+
+#if UNITY_EDITOR
+    private void OnValidate()
+    {
+        if (dismountPosition == null)
+        {
+            Debug.LogWarning("MountableWeapon: DismountPosition is not assigned! Players will have nowhere to go when dismounting.", this);
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        // Draw mount position
+        if (mountPosition != null)
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawWireSphere(mountPosition.position, 0.3f);
+            Gizmos.DrawLine(transform.position, mountPosition.position);
+        }
+
+        // Draw dismount position
+        if (dismountPosition != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawWireSphere(dismountPosition.position, 0.3f);
+            Gizmos.DrawLine(transform.position, dismountPosition.position);
+        }
+    }
+#endif
 } 

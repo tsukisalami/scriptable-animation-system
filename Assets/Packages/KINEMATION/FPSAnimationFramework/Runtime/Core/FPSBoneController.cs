@@ -372,6 +372,11 @@ namespace KINEMATION.FPSAnimationFramework.Runtime.Core
             }
 
             if (newProfile.Equals(_newProfile)) return;
+            if (!newProfile.IsValid())
+            {
+                UnlinkAnimatorProfile();
+                return;
+            }
 
             _newProfile = newProfile;
 

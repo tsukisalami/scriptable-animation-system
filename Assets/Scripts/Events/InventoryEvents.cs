@@ -5,7 +5,8 @@ public enum InputState
     Normal,           // Regular gameplay
     HotbarActive,     // When hotbar is visible
     AttachmentMode,   // When modifying weapon attachments
-    ActionLocked      // During animations or other locked states
+    ActionLocked,     // During animations or other locked states
+    BuildMode         // When in building mode
 }
 
 [CreateAssetMenu(fileName = "InventoryEvents", menuName = "WW2/Events/InventoryEvents")]
@@ -21,6 +22,9 @@ public class InventoryEvents : ScriptableObject
     public event System.Action<int> OnAttachmentModeChanged;  // attachmentIndex
     public event System.Action OnAttachmentModeExit;
     
+    // Building Events
+    public event System.Action<string> OnBuildingSelected;    // buildingType
+    
     // Methods to raise events
     public void RaiseCategorySelected(int categoryIndex) => OnCategorySelected?.Invoke(categoryIndex);
     public void RaiseItemSelected(int categoryIndex, int itemIndex) => OnItemSelected?.Invoke(categoryIndex, itemIndex);
@@ -28,4 +32,5 @@ public class InventoryEvents : ScriptableObject
     public void RaiseInputStateChanged(InputState newState) => OnInputStateChanged?.Invoke(newState);
     public void RaiseAttachmentModeChanged(int attachmentIndex) => OnAttachmentModeChanged?.Invoke(attachmentIndex);
     public void RaiseAttachmentModeExit() => OnAttachmentModeExit?.Invoke();
+    public void RaiseBuildingSelected(string buildingType) => OnBuildingSelected?.Invoke(buildingType);
 } 

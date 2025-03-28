@@ -260,6 +260,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ToggleBuild"",
+                    ""type"": ""Button"",
+                    ""id"": ""e36bc0bb-9304-4691-930a-da9999ef558a"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -667,6 +676,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Fire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""95c4f402-61a4-4b00-8106-2073f8d2d417"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleBuild"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1089,6 +1109,54 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Building"",
+            ""id"": ""5aadedfe-cf58-42c6-b5e5-0b20c93f35f3"",
+            ""actions"": [
+                {
+                    ""name"": ""RotateLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""d5e4bf0a-f029-4494-8ee6-53416b6a2c1f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RotateRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""9a7cff1b-d673-47f6-81dc-c51b189e31a2"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""6b271d95-1562-4ffc-9809-63e00c4aeadf"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""33fc8621-3e60-449a-90fc-5a63b86de5cc"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RotateRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -1121,6 +1189,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Gameplay_ToggleMagnification = m_Gameplay.FindAction("ToggleMagnification", throwIfNotFound: true);
         m_Gameplay_ToggleAttachmentEditing = m_Gameplay.FindAction("ToggleAttachmentEditing", throwIfNotFound: true);
         m_Gameplay_SelectPrimary = m_Gameplay.FindAction("SelectPrimary", throwIfNotFound: true);
+        m_Gameplay_ToggleBuild = m_Gameplay.FindAction("ToggleBuild", throwIfNotFound: true);
         // Hotbar
         m_Hotbar = asset.FindActionMap("Hotbar", throwIfNotFound: true);
         m_Hotbar_SelectSecondary = m_Hotbar.FindAction("SelectSecondary", throwIfNotFound: true);
@@ -1145,6 +1214,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         // Car
         m_Car = asset.FindActionMap("Car", throwIfNotFound: true);
         m_Car_Newaction = m_Car.FindAction("New action", throwIfNotFound: true);
+        // Building
+        m_Building = asset.FindActionMap("Building", throwIfNotFound: true);
+        m_Building_RotateLeft = m_Building.FindAction("RotateLeft", throwIfNotFound: true);
+        m_Building_RotateRight = m_Building.FindAction("RotateRight", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -1154,6 +1227,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_Attachments.enabled, "This will cause a leak and performance issues, PlayerControls.Attachments.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Plane.enabled, "This will cause a leak and performance issues, PlayerControls.Plane.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_Car.enabled, "This will cause a leak and performance issues, PlayerControls.Car.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Building.enabled, "This will cause a leak and performance issues, PlayerControls.Building.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -1241,6 +1315,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Gameplay_ToggleMagnification;
     private readonly InputAction m_Gameplay_ToggleAttachmentEditing;
     private readonly InputAction m_Gameplay_SelectPrimary;
+    private readonly InputAction m_Gameplay_ToggleBuild;
     public struct GameplayActions
     {
         private @PlayerControls m_Wrapper;
@@ -1271,6 +1346,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @ToggleMagnification => m_Wrapper.m_Gameplay_ToggleMagnification;
         public InputAction @ToggleAttachmentEditing => m_Wrapper.m_Gameplay_ToggleAttachmentEditing;
         public InputAction @SelectPrimary => m_Wrapper.m_Gameplay_SelectPrimary;
+        public InputAction @ToggleBuild => m_Wrapper.m_Gameplay_ToggleBuild;
         public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1358,6 +1434,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SelectPrimary.started += instance.OnSelectPrimary;
             @SelectPrimary.performed += instance.OnSelectPrimary;
             @SelectPrimary.canceled += instance.OnSelectPrimary;
+            @ToggleBuild.started += instance.OnToggleBuild;
+            @ToggleBuild.performed += instance.OnToggleBuild;
+            @ToggleBuild.canceled += instance.OnToggleBuild;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -1440,6 +1519,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @SelectPrimary.started -= instance.OnSelectPrimary;
             @SelectPrimary.performed -= instance.OnSelectPrimary;
             @SelectPrimary.canceled -= instance.OnSelectPrimary;
+            @ToggleBuild.started -= instance.OnToggleBuild;
+            @ToggleBuild.performed -= instance.OnToggleBuild;
+            @ToggleBuild.canceled -= instance.OnToggleBuild;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -1737,6 +1819,60 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public CarActions @Car => new CarActions(this);
+
+    // Building
+    private readonly InputActionMap m_Building;
+    private List<IBuildingActions> m_BuildingActionsCallbackInterfaces = new List<IBuildingActions>();
+    private readonly InputAction m_Building_RotateLeft;
+    private readonly InputAction m_Building_RotateRight;
+    public struct BuildingActions
+    {
+        private @PlayerControls m_Wrapper;
+        public BuildingActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @RotateLeft => m_Wrapper.m_Building_RotateLeft;
+        public InputAction @RotateRight => m_Wrapper.m_Building_RotateRight;
+        public InputActionMap Get() { return m_Wrapper.m_Building; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(BuildingActions set) { return set.Get(); }
+        public void AddCallbacks(IBuildingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_BuildingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_BuildingActionsCallbackInterfaces.Add(instance);
+            @RotateLeft.started += instance.OnRotateLeft;
+            @RotateLeft.performed += instance.OnRotateLeft;
+            @RotateLeft.canceled += instance.OnRotateLeft;
+            @RotateRight.started += instance.OnRotateRight;
+            @RotateRight.performed += instance.OnRotateRight;
+            @RotateRight.canceled += instance.OnRotateRight;
+        }
+
+        private void UnregisterCallbacks(IBuildingActions instance)
+        {
+            @RotateLeft.started -= instance.OnRotateLeft;
+            @RotateLeft.performed -= instance.OnRotateLeft;
+            @RotateLeft.canceled -= instance.OnRotateLeft;
+            @RotateRight.started -= instance.OnRotateRight;
+            @RotateRight.performed -= instance.OnRotateRight;
+            @RotateRight.canceled -= instance.OnRotateRight;
+        }
+
+        public void RemoveCallbacks(IBuildingActions instance)
+        {
+            if (m_Wrapper.m_BuildingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IBuildingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_BuildingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_BuildingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public BuildingActions @Building => new BuildingActions(this);
     public interface IGameplayActions
     {
         void OnFire(InputAction.CallbackContext context);
@@ -1765,6 +1901,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnToggleMagnification(InputAction.CallbackContext context);
         void OnToggleAttachmentEditing(InputAction.CallbackContext context);
         void OnSelectPrimary(InputAction.CallbackContext context);
+        void OnToggleBuild(InputAction.CallbackContext context);
     }
     public interface IHotbarActions
     {
@@ -1793,5 +1930,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     public interface ICarActions
     {
         void OnNewaction(InputAction.CallbackContext context);
+    }
+    public interface IBuildingActions
+    {
+        void OnRotateLeft(InputAction.CallbackContext context);
+        void OnRotateRight(InputAction.CallbackContext context);
     }
 }
