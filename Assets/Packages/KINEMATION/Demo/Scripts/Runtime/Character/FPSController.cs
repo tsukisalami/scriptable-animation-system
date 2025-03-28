@@ -27,7 +27,8 @@ namespace Demo.Scripts.Runtime.Character
         None,
         PlayingAnimation,
         WeaponChange,
-        AttachmentEditing
+        AttachmentEditing,
+        Building
     }
 
     [RequireComponent(typeof(CharacterController), typeof(FPSMovement))]
@@ -221,6 +222,9 @@ namespace Demo.Scripts.Runtime.Character
                     break;
                 case InputState.ActionLocked:
                     _actionState = FPSActionState.PlayingAnimation;
+                    break;
+                case InputState.BuildMode:
+                    _actionState = FPSActionState.Building;
                     break;
             }
         }
@@ -419,6 +423,12 @@ namespace Demo.Scripts.Runtime.Character
         public void OnFire()
         {
             if (IsSprinting()) return;
+            
+            // Block firing if in any of the action states that should prevent firing
+            if (_actionState != FPSActionState.None) 
+            {
+                return;
+            }
             
             // Only block shooting if the hotbar is both active and visible (alpha > 0)
             if (gameplayHUD != null && gameplayHUD.IsHotbarActive() && gameplayHUD.hotbarCanvasGroup.alpha > 0) return;
