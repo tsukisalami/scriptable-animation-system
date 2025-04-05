@@ -1,11 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Legacy input state manager, maintained for backward compatibility.
+/// New code should use PlayerStateManager instead.
+/// </summary>
 public class InputStateManager : MonoBehaviour
 {
     [SerializeField] private InventoryEvents inventoryEvents;
     private InputState currentState = InputState.Normal;
     private PlayerInput playerInput;
+    private PlayerStateManager playerStateManager; // Reference to new state manager
     
     // Add a flag to track if the build menu is open (radial menu)
     private bool isBuildMenuOpen = false;
@@ -13,6 +18,8 @@ public class InputStateManager : MonoBehaviour
     private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
+        playerStateManager = GetComponent<PlayerStateManager>();
+        
         if (playerInput != null)
         {
             // Enable all action maps by default
@@ -33,6 +40,21 @@ public class InputStateManager : MonoBehaviour
         
         // Update state and notify listeners
         currentState = newState;
+        
+        // If we have the new state manager, try to use it instead
+        if (playerStateManager != null)
+        {
+            // Convert to new state enum and set it
+            PlayerStateManager.PlayerState newPlayerState = ConvertToPlayerState(newState, isBuildMenuOpen);
+            playerStateManager.SetState(newPlayerState);
+            
+            // Let the state manager handle the input maps
+            // We still notify via events for backward compatibility
+            inventoryEvents?.RaiseInputStateChanged(newState);
+            return;
+        }
+        
+        // Legacy code path when no PlayerStateManager is available
         inventoryEvents?.RaiseInputStateChanged(newState);
 
         if (playerInput == null) return;
@@ -131,6 +153,20 @@ public class InputStateManager : MonoBehaviour
         {
             isBuildMenuOpen = isOpen;
             
+            // If we have the new state manager, update it directly
+            if (playerStateManager != null)
+            {
+                if (currentState == InputState.BuildMode)
+                {
+                    // Set the appropriate building state based on menu open/closed
+                    playerStateManager.SetState(isOpen ? 
+                        PlayerStateManager.PlayerState.BuildingMenu : 
+                        PlayerStateManager.PlayerState.Building);
+                }
+                return;
+            }
+            
+            // Legacy path when no PlayerStateManager is available
             // If we're in build mode, update the state to reflect the menu change
             if (currentState == InputState.BuildMode)
             {
@@ -164,6 +200,13 @@ public class InputStateManager : MonoBehaviour
     // Check if we're currently in a state where weapon firing should be blocked
     public bool ShouldBlockWeaponFiring()
     {
+        // If we have the new state manager, use it
+        if (playerStateManager != null)
+        {
+            return !playerStateManager.CanPlayerFire();
+        }
+        
+        // Legacy check
         // Always block firing in build mode, whether in menu or placement phase
         if (currentState == InputState.BuildMode) return true;
         
@@ -171,5 +214,27 @@ public class InputStateManager : MonoBehaviour
         return currentState == InputState.HotbarActive || 
                currentState == InputState.AttachmentMode || 
                currentState == InputState.ActionLocked;
+    }
+    
+    // Helper method to convert old InputState to new PlayerState
+    private PlayerStateManager.PlayerState ConvertToPlayerState(InputState legacyState, bool buildMenuOpen)
+    {
+        switch (legacyState)
+        {
+            case InputState.Normal:
+                return PlayerStateManager.PlayerState.Normal;
+            case InputState.HotbarActive:
+                return PlayerStateManager.PlayerState.Hotbar;
+            case InputState.AttachmentMode:
+                return PlayerStateManager.PlayerState.Attachment;
+            case InputState.ActionLocked:
+                return PlayerStateManager.PlayerState.Animation;
+            case InputState.BuildMode:
+                return buildMenuOpen ? 
+                    PlayerStateManager.PlayerState.BuildingMenu : 
+                    PlayerStateManager.PlayerState.Building;
+            default:
+                return PlayerStateManager.PlayerState.Normal;
+        }
     }
 } 

@@ -1,10 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-
 
 [AddComponentMenu("Radial Menu Framework/RMF Core Script")]
 public class RMF_RadialMenu : MonoBehaviour {
@@ -43,6 +41,9 @@ public class RMF_RadialMenu : MonoBehaviour {
     [Tooltip("Should the menu be hidden at start?")]
     public bool hideAtStart = true;
 
+    // Reference to the PlayerStateManager to check state
+    private PlayerStateManager playerStateManager;
+
     [HideInInspector]
     public float currentAngle = 0f; //Our current angle from the center of the radial menu.
 
@@ -57,11 +58,11 @@ public class RMF_RadialMenu : MonoBehaviour {
     private int previousActiveIndex = 0; //Used to determine which buttons to unhighlight in lazy selection.
 
     private PointerEventData pointer;
+    private Vector3 lastMousePosition;
+    private bool isMenuActive = false;
 
     void Awake() {
-
         pointer = new PointerEventData(EventSystem.current);
-
         rt = GetComponent<RectTransform>();
 
         if (rt == null)
@@ -71,7 +72,6 @@ public class RMF_RadialMenu : MonoBehaviour {
             Debug.LogError("Radial Menu: Selection follower container is unassigned on " + gameObject.name + ", which has the selection follower enabled.");
 
         elementCount = elements.Count;
-
         angleOffset = (360f / (float)elementCount);
 
         //Loop through and set up the elements.
@@ -81,20 +81,18 @@ public class RMF_RadialMenu : MonoBehaviour {
                 continue;
             }
             elements[i].parentRM = this;
-
             elements[i].setAllAngles((angleOffset * i) + globalOffset, angleOffset);
-
             elements[i].assignedIndex = i;
-
         }
-
     }
-
 
     void Start() {
         if (hideAtStart) {
             gameObject.SetActive(false);
         }
+
+        // Try to find PlayerStateManager
+        playerStateManager = FindObjectOfType<PlayerStateManager>();
 
         // Find BuildSystem if not already assigned
         if (buildSystem == null) {
@@ -105,28 +103,51 @@ public class RMF_RadialMenu : MonoBehaviour {
         }
 
         if (useGamepad) {
-            EventSystem.current.SetSelectedGameObject(gameObject, null); //We'll make this the active object when we start it. Comment this line to set it manually from another script.
+            EventSystem.current.SetSelectedGameObject(gameObject, null);
             if (useSelectionFollower && selectionFollowerContainer != null)
-                selectionFollowerContainer.rotation = Quaternion.Euler(0, 0, -globalOffset); //Point the selection follower at the first element.
+                selectionFollowerContainer.rotation = Quaternion.Euler(0, 0, -globalOffset);
         }
+    }
 
+    void OnEnable() {
+        isMenuActive = true;
+        // Ensure cursor is visible and unlocked when menu is enabled
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        
+        // Record initial mouse position
+        lastMousePosition = Input.mousePosition;
+    }
+
+    void OnDisable() {
+        isMenuActive = false;
     }
 
     // Update is called once per frame
     void Update() {
+        // Ensure cursor is visible while radial menu is active
+        if (isMenuActive && !Cursor.visible) {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
 
         //If your gamepad uses different horizontal and vertical joystick inputs, change them here!
-        //==============================================================================================
         bool joystickMoved = Input.GetAxis("Horizontal") != 0.0 || Input.GetAxis("Vertical") != 0.0;
-        //==============================================================================================
-
-
+        
         float rawAngle;
         
-        if (!useGamepad)
+        if (!useGamepad) {
+            // Center the menu on screen for better interaction
+            if (rt.position != new Vector3(Screen.width/2, Screen.height/2, 0)) {
+                rt.position = new Vector3(Screen.width/2, Screen.height/2, 0);
+            }
+            
+            // Use mouse position relative to center of menu
             rawAngle = Mathf.Atan2(Input.mousePosition.y - rt.position.y, Input.mousePosition.x - rt.position.x) * Mathf.Rad2Deg;
-        else
+        }
+        else {
             rawAngle = Mathf.Atan2(Input.GetAxis("Vertical"), Input.GetAxis("Horizontal")) * Mathf.Rad2Deg;
+        }
 
         //If no gamepad, update the angle always. Otherwise, only update it if we've moved the joystick.
         if (!useGamepad)
@@ -139,7 +160,6 @@ public class RMF_RadialMenu : MonoBehaviour {
 
         //Handles lazy selection. Checks the current angle, matches it to the index of an element, and then highlights that element.
         if (angleOffset != 0 && useLazySelection) {
-
             //Current element index we're pointing at.
             index = (int)(currentAngle / angleOffset);
             
@@ -167,40 +187,28 @@ public class RMF_RadialMenu : MonoBehaviour {
         if (useSelectionFollower && selectionFollowerContainer != null) {
             if (!useGamepad || joystickMoved)
                 selectionFollowerContainer.rotation = Quaternion.Euler(0, 0, rawAngle + 270);
-           
-
-        } 
-
+        }
     }
 
 
     //Selects the button with the specified index.
     private void selectButton(int i) {
-
-          if (elements[i].active == false) {
-
+        if (elements[i].active == false) {
             elements[i].highlightThisElement(pointer); //Select this one
 
             if (previousActiveIndex != i) 
                 elements[previousActiveIndex].unHighlightThisElement(pointer); //Deselect the last one.
-            
-
         }
 
         previousActiveIndex = i;
-
     }
 
     //Keeps angles between 0 and 360.
     private float normalizeAngle(float angle) {
-
         angle = angle % 360f;
-
         if (angle < 0)
             angle += 360;
-
         return angle;
-
     }
 
 

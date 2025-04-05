@@ -30,6 +30,7 @@ public class GameplayHUD : MonoBehaviour
 
     [Header("Events")]
     [SerializeField] private InventoryEvents inventoryEvents;
+    [SerializeField] private PlayerStateManager playerStateManager;
 
     [System.Serializable]
     public class CategoryUI
@@ -72,6 +73,22 @@ public class GameplayHUD : MonoBehaviour
             }
         }
 
+        // Try to find PlayerStateManager if not assigned
+        if (playerStateManager == null)
+        {
+            playerStateManager = GetComponentInParent<PlayerStateManager>();
+            
+            if (playerStateManager == null)
+            {
+                playerStateManager = FindObjectOfType<PlayerStateManager>();
+                
+                if (playerStateManager == null)
+                {
+                    Debug.LogWarning("GameplayHUD: PlayerStateManager not found! Falling back to legacy input system.");
+                }
+            }
+        }
+
         // Subscribe to events
         if (inventoryEvents != null)
         {
@@ -79,6 +96,12 @@ public class GameplayHUD : MonoBehaviour
             inventoryEvents.OnItemSelected += HandleItemSelected;
             inventoryEvents.OnItemConsumed += HandleItemConsumed;
             inventoryEvents.OnInputStateChanged += HandleInputStateChanged;
+        }
+        
+        // Subscribe to player state changes
+        if (playerStateManager != null)
+        {
+            playerStateManager.OnStateChanged += HandlePlayerStateChanged;
         }
 
         // Validate UI setup
@@ -498,6 +521,12 @@ public class GameplayHUD : MonoBehaviour
 
         ShowHotbar();
 
+        // Use PlayerStateManager if available to set hotbar state
+        if (playerStateManager != null)
+        {
+            playerStateManager.SetState(PlayerStateManager.PlayerState.Hotbar);
+        }
+
         // If selecting the same category
         if (categoryIndex == selectedCategoryIndex)
         {
@@ -630,6 +659,12 @@ public class GameplayHUD : MonoBehaviour
         // Tell playerLoadout to equip this category without cycling
         playerLoadout.SelectCategoryWithoutCycle(selectedCategoryIndex);
         
+        // Return to normal state after equipping
+        if (playerStateManager != null)
+        {
+            playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
+        }
+        
         // Immediately start fade out after equipping
         StartFadeOut();
     }
@@ -647,6 +682,12 @@ public class GameplayHUD : MonoBehaviour
             inventoryEvents.OnItemSelected -= HandleItemSelected;
             inventoryEvents.OnItemConsumed -= HandleItemConsumed;
             inventoryEvents.OnInputStateChanged -= HandleInputStateChanged;
+        }
+        
+        // Unsubscribe from player state changes
+        if (playerStateManager != null)
+        {
+            playerStateManager.OnStateChanged -= HandlePlayerStateChanged;
         }
     }
 
@@ -686,6 +727,9 @@ public class GameplayHUD : MonoBehaviour
 
     private void HandleInputStateChanged(InputState newState)
     {
+        // If using new system, defer to that handler instead
+        if (playerStateManager != null) return;
+        
         switch (newState)
         {
             case InputState.HotbarActive:
@@ -702,5 +746,20 @@ public class GameplayHUD : MonoBehaviour
     {
         // Only consider hotbar active when it's at full opacity
         return hotbarCanvasGroup != null && hotbarCanvasGroup.alpha >= 1f;
+    }
+
+    // Handler for the new player state system
+    private void HandlePlayerStateChanged(PlayerStateManager.PlayerState newState, PlayerStateManager.PlayerState oldState)
+    {
+        switch (newState)
+        {
+            case PlayerStateManager.PlayerState.Hotbar:
+                ShowHotbar();
+                break;
+            case PlayerStateManager.PlayerState.Normal:
+                if (isHotbarActive)
+                    StartFadeOut();
+                break;
+        }
     }
 } 

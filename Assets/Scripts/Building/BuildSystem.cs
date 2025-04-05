@@ -16,6 +16,7 @@ public class BuildSystem : MonoBehaviour
     [SerializeField] private RMF_RadialMenu buildMenu;
     [SerializeField] private InventoryEvents inventoryEvents;
     [SerializeField] public Camera playerCamera; // Made public for direct assignment
+    [SerializeField] private PlayerStateManager playerStateManager; // Reference to our new player state manager
     
     [Header("Building Prefabs")]
     [SerializeField] private GameObject radioPrefab;  
@@ -49,6 +50,28 @@ public class BuildSystem : MonoBehaviour
     {
         inputStateManager = GetComponent<InputStateManager>();
         
+        // Try to find the PlayerStateManager if not already assigned
+        if (playerStateManager == null)
+        {
+            playerStateManager = GetComponent<PlayerStateManager>();
+            
+            // If still null, try to find in parent or scene
+            if (playerStateManager == null)
+            {
+                playerStateManager = GetComponentInParent<PlayerStateManager>();
+                
+                if (playerStateManager == null)
+                {
+                    playerStateManager = FindObjectOfType<PlayerStateManager>();
+                    
+                    if (playerStateManager == null)
+                    {
+                        Debug.LogWarning("BuildSystem: PlayerStateManager not found! Falling back to legacy input system.");
+                    }
+                }
+            }
+        }
+        
         // Validate prefabs and show helpful warnings
         ValidateBuildingPrefabs();
         
@@ -62,16 +85,47 @@ public class BuildSystem : MonoBehaviour
         buildingDistances.Add(BuildingType.FOB, fobDistance);
         buildingDistances.Add(BuildingType.AmmoCrate, ammocrateDistance);
 
-        // Make sure the menu is initially hidden
-        if (buildMenu != null && buildMenu.gameObject.activeSelf)
+        // Make sure the menu is always hidden at start
+        if (buildMenu != null)
         {
             buildMenu.gameObject.SetActive(false);
+            
+            // Also ensure canvas is inactive but ready
+            Canvas canvas = buildMenu.GetComponentInParent<Canvas>();
+            if (canvas != null)
+            {
+                canvas.enabled = false;
+            }
         }
         
         if (inventoryEvents != null)
         {
             // Subscribe to building selection event
             inventoryEvents.OnBuildingSelected += HandleBuildingSelected;
+        }
+        
+        // Ensure initial state is not in build mode
+        isInBuildMode = false;
+        isKeyPressed = false;
+        
+        // Explicitly initialize as not in build mode to prevent initial state confusion
+        if (playerStateManager != null)
+        {
+            // Ensure we start in normal state - but only if we're not already in a different state
+            var currentState = playerStateManager.GetCurrentState();
+            if (currentState == PlayerStateManager.PlayerState.BuildingMenu || 
+                currentState == PlayerStateManager.PlayerState.Building)
+            {
+                playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
+            }
+        }
+        else if (inputStateManager != null)
+        {
+            // Only reset to normal if we're in BuildMode
+            if (inputStateManager.GetCurrentState() == InputState.BuildMode)
+            {
+                inputStateManager.SetState(InputState.Normal);
+            }
         }
     }
     
@@ -219,6 +273,7 @@ public class BuildSystem : MonoBehaviour
         // Only respond to the key being pressed
         if (value.isPressed)
         {
+            Debug.Log("Build toggle key pressed");
             isKeyPressed = true;
             if (!isInBuildMode)
             {
@@ -228,6 +283,7 @@ public class BuildSystem : MonoBehaviour
         else
         {
             // Key released
+            Debug.Log("Build toggle key released");
             isKeyPressed = false;
             if (!isInBuildMode || currentPreview == null)
             {
@@ -254,30 +310,40 @@ public class BuildSystem : MonoBehaviour
     
     private void EnterBuildMode()
     {
-        if (isInBuildMode) return;
+        if (isInBuildMode)
+        {
+            Debug.Log("Already in build mode, ignoring request to enter build mode");
+            return;
+        }
         
+        Debug.Log("Entering build mode");
         isInBuildMode = true;
         
         // Reset rotation for new build session
         currentRotation = 0f;
         
-        // Switch to building action map
-        if (inputStateManager != null)
+        // Use the new state manager if available, otherwise fallback to old system
+        if (playerStateManager != null)
         {
+            playerStateManager.SetState(PlayerStateManager.PlayerState.BuildingMenu);
+        }
+        else if (inputStateManager != null)
+        {
+            // Legacy support
             inputStateManager.SetState(InputState.BuildMode);
             inputStateManager.SetBuildMenuOpen(true);
+            
+            // Show cursor and disable camera look
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
         }
-        
-        // Show cursor and disable camera look
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.Confined;
         
         // Show radial menu
         if (buildMenu != null)
         {
             buildMenu.gameObject.SetActive(true);
             
-            // Ensure it's visible over 1 frame to handle initialization/visibility issues
+            // Ensure it's visible by enabling the canvas
             Canvas canvas = buildMenu.GetComponentInParent<Canvas>();
             if (canvas != null)
             {
@@ -301,18 +367,28 @@ public class BuildSystem : MonoBehaviour
             buildMenu.gameObject.SetActive(false);
         }
         
-        // Hide cursor and lock it
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        
-        // Change input state back to normal
-        if (inputStateManager != null)
+        // Use the new state manager if available, otherwise fallback to old system
+        if (playerStateManager != null)
         {
+            playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
+        }
+        else if (inputStateManager != null)
+        {
+            // Legacy support
             inputStateManager.SetState(InputState.Normal);
+            
+            // Hide cursor and lock it
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
         else if (inventoryEvents != null)
         {
+            // Direct event if nothing else is available
             inventoryEvents.RaiseInputStateChanged(InputState.Normal);
+            
+            // Hide cursor and lock it
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
         }
     }
     
@@ -378,22 +454,30 @@ public class BuildSystem : MonoBehaviour
     // Helper method to restore normal controls but stay in build mode
     private void RestoreNormalControls()
     {
-        // Hide cursor and lock it to allow camera movement
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-        
-        // Keep tracking that we're in build mode, but allow normal camera controls
-        if (inputStateManager != null)
+        // Use the new state manager if available
+        if (playerStateManager != null)
         {
-            // Keep build mode active at the system level, but enable normal gameplay controls
-            inputStateManager.SetState(InputState.BuildMode);
-            inputStateManager.SetBuildMenuOpen(false);
+            playerStateManager.SetState(PlayerStateManager.PlayerState.Building);
         }
-        else if (inventoryEvents != null)
+        else
         {
-            // Tell other systems we're in normal input state (for camera movement)
-            // but we're still technically in build mode for our own tracking
-            inventoryEvents.RaiseInputStateChanged(InputState.BuildMode);
+            // Legacy support - hide cursor and lock it to allow camera movement
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+            
+            // Keep tracking that we're in build mode, but allow normal camera controls
+            if (inputStateManager != null)
+            {
+                // Keep build mode active at the system level, but enable normal gameplay controls
+                inputStateManager.SetState(InputState.BuildMode);
+                inputStateManager.SetBuildMenuOpen(false);
+            }
+            else if (inventoryEvents != null)
+            {
+                // Tell other systems we're in normal input state (for camera movement)
+                // but we're still technically in build mode for our own tracking
+                inventoryEvents.RaiseInputStateChanged(InputState.BuildMode);
+            }
         }
     }
     

@@ -28,7 +28,7 @@ namespace Demo.Scripts.Runtime.Character
         PlayingAnimation,
         WeaponChange,
         AttachmentEditing,
-        Building
+        // Building - Removed as this is now handled by PlayerStateManager
     }
 
     [RequireComponent(typeof(CharacterController), typeof(FPSMovement))]
@@ -72,6 +72,7 @@ namespace Demo.Scripts.Runtime.Character
 
         [SerializeField] private InventoryEvents inventoryEvents;
         private InputStateManager inputStateManager;
+        private PlayerStateManager playerStateManager; // Reference to our new player state manager
 
         private void PlayTransitionMotion(FPSAnimatorLayerSettings layerSettings)
         {
@@ -178,6 +179,7 @@ namespace Demo.Scripts.Runtime.Character
             _userInput = GetComponent<UserInputController>();
             _recoilPattern = GetComponent<RecoilPattern>();
             inputStateManager = GetComponent<InputStateManager>();
+            playerStateManager = GetComponent<PlayerStateManager>(); // Get player state manager
 
             // Simple warning if GameplayHUD is not assigned
             if (gameplayHUD == null)
@@ -197,6 +199,12 @@ namespace Demo.Scripts.Runtime.Character
                 inventoryEvents.OnAttachmentModeChanged += HandleAttachmentModeChanged;
                 inventoryEvents.OnAttachmentModeExit += HandleAttachmentModeExit;
             }
+            
+            // Subscribe to new player state changes if available
+            if (playerStateManager != null)
+            {
+                playerStateManager.OnStateChanged += HandlePlayerStateChanged;
+            }
         }
 
         private void OnDestroy()
@@ -208,10 +216,24 @@ namespace Demo.Scripts.Runtime.Character
                 inventoryEvents.OnAttachmentModeChanged -= HandleAttachmentModeChanged;
                 inventoryEvents.OnAttachmentModeExit -= HandleAttachmentModeExit;
             }
+            
+            // Unsubscribe from player state changes
+            if (playerStateManager != null)
+            {
+                playerStateManager.OnStateChanged -= HandlePlayerStateChanged;
+            }
+        }
+        
+        // New method to handle player state changes
+        private void HandlePlayerStateChanged(PlayerStateManager.PlayerState newState, PlayerStateManager.PlayerState oldState)
+        {
+            // Handle any transitions between player states that need special attention
+            // For example, animations for weapon lowering when entering certain states
         }
 
         private void HandleInputStateChanged(InputState newState)
         {
+            // Only used for backward compatibility
             switch (newState)
             {
                 case InputState.AttachmentMode:
@@ -223,9 +245,7 @@ namespace Demo.Scripts.Runtime.Character
                 case InputState.ActionLocked:
                     _actionState = FPSActionState.PlayingAnimation;
                     break;
-                case InputState.BuildMode:
-                    _actionState = FPSActionState.Building;
-                    break;
+                // No need to handle BuildMode here as we have playerStateManager now
             }
         }
 
@@ -275,9 +295,59 @@ namespace Demo.Scripts.Runtime.Character
             if (GetActiveItem().OnAimReleased()) _aimState = FPSAimState.None;
         }
         
+        private bool CanFire()
+        {
+            // Check with new player state manager first if available
+            if (playerStateManager != null)
+            {
+                // Use the centralized firing permission system
+                if (!playerStateManager.CanPlayerFire())
+                {
+                    return false;
+                }
+                
+                // Additional explicit check for building states
+                var currentState = playerStateManager.GetCurrentState();
+                if (currentState == PlayerStateManager.PlayerState.Building || 
+                    currentState == PlayerStateManager.PlayerState.BuildingMenu)
+                {
+                    return false;
+                }
+            }
+            
+            // Legacy check with InputStateManager
+            if (inputStateManager != null && inputStateManager.ShouldBlockWeaponFiring())
+            {
+                return false;
+            }
+            
+            // Also check action state
+            return !HasActiveAction() && !IsSprinting();
+        }
+
         private void OnFirePressed()
         {
-            if (_instantiatedWeapons.Count == 0 || HasActiveAction()) return;
+            // Double-check state before firing
+            if (_instantiatedWeapons.Count == 0 || !CanFire()) return;
+            
+            // Additional check for building mode using playerStateManager
+            if (playerStateManager != null)
+            {
+                var state = playerStateManager.GetCurrentState();
+                if (state == PlayerStateManager.PlayerState.Building || 
+                    state == PlayerStateManager.PlayerState.BuildingMenu)
+                {
+                    return;
+                }
+            }
+            
+            // Check if the weapon itself allows firing (handles weapon-specific conditions)
+            var weapon = GetActiveItem();
+            if (weapon is Demo.Scripts.Runtime.Item.Weapon weaponItem && !weaponItem.CanFire())
+            {
+                return;
+            }
+            
             GetActiveItem().OnFirePressed();
         }
 
@@ -422,12 +492,18 @@ namespace Demo.Scripts.Runtime.Character
         // Add new method for Send Message compatibility
         public void OnFire()
         {
-            if (IsSprinting()) return;
+            // Check if player can fire through our centralized state system
+            if (!CanFire()) return;
             
-            // Block firing if in any of the action states that should prevent firing
-            if (_actionState != FPSActionState.None) 
+            // Double-check building states specifically (to be extra safe)
+            if (playerStateManager != null)
             {
-                return;
+                var state = playerStateManager.GetCurrentState();
+                if (state == PlayerStateManager.PlayerState.Building || 
+                    state == PlayerStateManager.PlayerState.BuildingMenu)
+                {
+                    return;
+                }
             }
             
             // Only block shooting if the hotbar is both active and visible (alpha > 0)
