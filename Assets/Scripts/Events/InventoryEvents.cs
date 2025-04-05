@@ -23,7 +23,7 @@ public class InventoryEvents : ScriptableObject
     public event System.Action OnAttachmentModeExit;
     
     // Building Events
-    public event System.Action<string> OnBuildingSelected;    // buildingType
+    public event System.Action<string> OnBuildingSelected;    // The building type identifier (string)
     
     // Methods to raise events
     public void RaiseCategorySelected(int categoryIndex) => OnCategorySelected?.Invoke(categoryIndex);

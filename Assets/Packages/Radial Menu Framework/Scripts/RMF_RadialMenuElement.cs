@@ -1,10 +1,22 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Collections;
 
 [AddComponentMenu("Radial Menu Framework/RMF Element")]
 public class RMF_RadialMenuElement : MonoBehaviour {
+
+    // Element type enum
+    public enum ElementType
+    {
+        Building,   // Spawns a prefab in build mode
+        Folder,     // Opens a sub-menu
+        Back,       // Returns to parent menu
+        Marker      // Places a marker (to be implemented later)
+    }
+
+    [Header("Element Configuration")]
+    [Tooltip("The type of element this is")]
+    public ElementType elementType = ElementType.Building;
 
     [HideInInspector]
     public RectTransform rt;
@@ -17,9 +29,13 @@ public class RMF_RadialMenuElement : MonoBehaviour {
     [Tooltip("This is the text label that will appear in the center of the radial menu when this option is moused over. Best to keep it short.")]
     public string label;
 
-    [Header("Building System")]
-    [Tooltip("The type of building this menu option will create")]
-    public BuildingType buildingType;
+    [Header("Building Settings")]
+    [Tooltip("The type of building this menu option will create (as a string)")]
+    public string buildingType;
+
+    [Header("Sub-Menu Settings")]
+    [Tooltip("Reference to the sub-menu that will be opened when this element is clicked (for Folder type), or the parent menu (for Back type)")]
+    public RMF_RadialMenu targetSubmenu;
 
     [HideInInspector]
     public float angleMin, angleMax;
@@ -32,137 +48,109 @@ public class RMF_RadialMenuElement : MonoBehaviour {
 
     [HideInInspector]
     public int assignedIndex = 0;
-    // Use this for initialization
 
     private CanvasGroup cg;
 
     void Awake() {
-
         rt = gameObject.GetComponent<RectTransform>();
-
         if (gameObject.GetComponent<CanvasGroup>() == null)
             cg = gameObject.AddComponent<CanvasGroup>();
         else
             cg = gameObject.GetComponent<CanvasGroup>();
 
-
-        if (rt == null)
-            Debug.LogError("Radial Menu: Rect Transform for radial element " + gameObject.name + " could not be found. Please ensure this is an object parented to a canvas.");
-
-        if (button == null)
-            Debug.LogError("Radial Menu: No button attached to " + gameObject.name + "!");
-
+        if (rt == null) Debug.LogError("Radial Menu: Rect Transform missing on " + gameObject.name);
+        if (button == null) Debug.LogError("Radial Menu: Button missing on " + gameObject.name);
     }
 
     void Start () {
+        rt.rotation = Quaternion.Euler(0, 0, -angleOffset);
 
-        rt.rotation = Quaternion.Euler(0, 0, -angleOffset); //Apply rotation determined by the parent radial menu.
-
-        //If we're using lazy selection, we don't want our normal mouse-over effects interfering, so we turn raycasts off.
         if (parentRM.useLazySelection)
             cg.blocksRaycasts = false;
         else {
+            EventTrigger t = button.GetComponent<EventTrigger>() ?? button.gameObject.AddComponent<EventTrigger>();
+            if (t.triggers == null) t.triggers = new System.Collections.Generic.List<EventTrigger.Entry>();
 
-            //Otherwise, we have to do some magic with events to get the label stuff working on mouse-over.
-
-            EventTrigger t;
-
-            if (button.GetComponent<EventTrigger>() == null) {
-                t = button.gameObject.AddComponent<EventTrigger>();
-                t.triggers = new System.Collections.Generic.List<EventTrigger.Entry>();
-            } else
-                t = button.GetComponent<EventTrigger>();
-
-
-
-            EventTrigger.Entry enter = new EventTrigger.Entry();
-            enter.eventID = EventTriggerType.PointerEnter;
+            EventTrigger.Entry enter = new EventTrigger.Entry { eventID = EventTriggerType.PointerEnter };
             enter.callback.AddListener((eventData) => { setParentMenuLable(label); });
 
-
-            EventTrigger.Entry exit = new EventTrigger.Entry();
-            exit.eventID = EventTriggerType.PointerExit;
+            EventTrigger.Entry exit = new EventTrigger.Entry { eventID = EventTriggerType.PointerExit };
             exit.callback.AddListener((eventData) => { setParentMenuLable(""); });
 
             t.triggers.Add(enter);
             t.triggers.Add(exit);
-
-
-
         }
 
-        // Configure button click event
         if (button != null) {
             button.onClick.RemoveAllListeners();
             button.onClick.AddListener(OnButtonClicked);
         }
     }
 	
-    //Used by the parent radial menu to set up all the approprate angles. Affects master Z rotation and the active angles for lazy selection.
     public void setAllAngles(float offset, float baseOffset) {
-
         angleOffset = offset;
         angleMin = offset - (baseOffset / 2f);
         angleMax = offset + (baseOffset / 2f);
-
     }
 
-    //Highlights this button. Unity's default button wasn't really meant to be controlled through code so event handlers are necessary here.
-    //I would highly recommend not messing with this stuff unless you know what you're doing, if one event handler is wrong then the whole thing can break.
     public void highlightThisElement(PointerEventData p) {
-
         ExecuteEvents.Execute(button.gameObject, p, ExecuteEvents.selectHandler);
         active = true;
         setParentMenuLable(label);
-
     }
 
-    //Sets the label of the parent menu. Is set to public so you can call this elsewhere if you need to show a special label for something.
     public void setParentMenuLable(string l) {
-
         if (parentRM.textLabel != null)
             parentRM.textLabel.text = l;
-
-
     }
 
-
-    //Unhighlights the button, and if lazy selection is off, will reset the menu's label.
     public void unHighlightThisElement(PointerEventData p) {
-
         ExecuteEvents.Execute(button.gameObject, p, ExecuteEvents.deselectHandler);
         active = false;
-
-        if (!parentRM.useLazySelection)
-            setParentMenuLable(" ");
-
-
+        if (!parentRM.useLazySelection) setParentMenuLable(" ");
     }
 
-    // Handle button click or selection
     public void OnButtonClicked() {
-        // Log for debugging first
-        Debug.Log($"Clicked element: {label} (index: {assignedIndex}, type: {buildingType})");
-        
-        // Don't use FindObjectOfType - it's slow and can cause issues
-        // We'll use the cached reference from the parent menu instead
+        switch (elementType) {
+            case ElementType.Building: HandleBuildingSelection(); break;
+            case ElementType.Folder: OpenSubmenu(); break;
+            case ElementType.Back: ReturnToPreviousMenu(); break;
+            case ElementType.Marker: /* Marker placement to be implemented */ break;
+        }
+    }
+    
+    private void HandleBuildingSelection() {
         if (parentRM.buildSystem != null) {
-            parentRM.buildSystem.SelectBuildingItem(buildingType);
+            // First deactivate ALL active radial menus
+            RMF_RadialMenu[] allMenus = FindObjectsOfType<RMF_RadialMenu>();
+            foreach (RMF_RadialMenu menu in allMenus) {
+                if (menu.gameObject.activeSelf) {
+                    menu.gameObject.SetActive(false);
+                }
+            }
+            
+            // Then proceed with building selection
+            parentRM.buildSystem.SelectBuildingByTypeString(buildingType);
         }
-        else {
-            Debug.LogError("BuildSystem reference not set in RadialMenu! Cannot select building type.");
+    }
+    
+    // Simplified submenu opening
+    private void OpenSubmenu() {
+        if (targetSubmenu != null && parentRM != null) {
+            parentRM.gameObject.SetActive(false);
+            targetSubmenu.gameObject.SetActive(true);
+        }
+    }
+    
+    // Simplified return to previous menu
+    private void ReturnToPreviousMenu() {
+        if (targetSubmenu != null && parentRM != null) { // targetSubmenu is the parent menu here
+            parentRM.gameObject.SetActive(false);
+            targetSubmenu.gameObject.SetActive(true);
         }
     }
 
-    //Just a quick little test you can run to ensure things are working properly.
     public void clickMeTest() {
-
-        Debug.Log(assignedIndex);
-
-
+        // Empty method
     }
-
-
-
-
 }

@@ -99,7 +99,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _NormalMapOS:
-        m_Texture: {fileID: 2800000, guid: 8a208cc88bf4cf44db0d51a02c5944d6, type: 3}
+        m_Texture: {fileID: 2800000, guid: e608b73c4332c7e4486399db7fa21d10, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpecularColorMap:
@@ -259,8 +259,8 @@ Material:
     - _ZTestTransparent: 4
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 0.10184482, b: 0.3490566, a: 1}
-    - _Color: {r: 0, g: 0.10184478, b: 0.34905657, a: 1}
+    - _BaseColor: {r: 0.33962262, g: 0.0399556, b: 0, a: 1}
+    - _Color: {r: 0.3396226, g: 0.0399556, b: 0, a: 1}
     - _DiffusionProfileAsset: {r: 0, g: 0, b: 0, a: 0}
     - _DoubleSidedConstants: {r: 1, g: 1, b: -1, a: 0}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}

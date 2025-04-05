@@ -2,12 +2,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
-// Define an enum for building types to avoid string errors
-public enum BuildingType
+// Serializable class for building entries
+[System.Serializable]
+public class BuildingEntry
 {
-    Radio,
-    FOB,
-    AmmoCrate
+    [Tooltip("The name/identifier of the building type")]
+    public string buildingType;
+    
+    [Tooltip("The prefab for this building type")]
+    public GameObject prefab;
+    
+    [Tooltip("The placement distance for this building type")]
+    public float placementDistance = 2f;
 }
 
 public class BuildSystem : MonoBehaviour
@@ -18,15 +24,11 @@ public class BuildSystem : MonoBehaviour
     [SerializeField] public Camera playerCamera; // Made public for direct assignment
     [SerializeField] private PlayerStateManager playerStateManager; // Reference to our new player state manager
     
-    [Header("Building Prefabs")]
-    [SerializeField] private GameObject radioPrefab;  
-    [SerializeField] private GameObject fobPrefab;    
-    [SerializeField] private GameObject ammoCratePrefab;
+    [Header("Building Types")]
+    [Tooltip("Define your building types here with their corresponding prefabs")]
+    public List<BuildingEntry> buildingEntries = new List<BuildingEntry>();
     
     [Header("Placement Settings")]
-    [SerializeField] private float radioDistance = 1.5f;
-    [SerializeField] private float fobDistance = 5f;
-    [SerializeField] private float ammocrateDistance = 1f;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private Material previewMaterial;
     [SerializeField] private Material invalidPlacementMaterial;  // Material for invalid placement
@@ -40,11 +42,9 @@ public class BuildSystem : MonoBehaviour
     private GameObject selectedPrefab;
     private InputStateManager inputStateManager;
     private float currentRotation = 0f; // Current rotation offset in degrees
-    private Dictionary<BuildingType, GameObject> buildingPrefabs = new Dictionary<BuildingType, GameObject>();
-    private Dictionary<BuildingType, float> buildingDistances = new Dictionary<BuildingType, float>();
     private bool isProcessingSelection = false;
-    private BuildingType lastSelectedType;
     private bool isValidPlacement = true;      // Track if current placement is valid
+    private string currentBuildingTypeStr = ""; // Track current building type as string
     
     private void Start()
     {
@@ -74,16 +74,6 @@ public class BuildSystem : MonoBehaviour
         
         // Validate prefabs and show helpful warnings
         ValidateBuildingPrefabs();
-        
-        // Register building prefabs
-        buildingPrefabs.Add(BuildingType.Radio, radioPrefab);
-        buildingPrefabs.Add(BuildingType.FOB, fobPrefab);
-        buildingPrefabs.Add(BuildingType.AmmoCrate, ammoCratePrefab);
-        
-        // Register distances
-        buildingDistances.Add(BuildingType.Radio, radioDistance);
-        buildingDistances.Add(BuildingType.FOB, fobDistance);
-        buildingDistances.Add(BuildingType.AmmoCrate, ammocrateDistance);
 
         // Make sure the menu is always hidden at start
         if (buildMenu != null)
@@ -132,19 +122,26 @@ public class BuildSystem : MonoBehaviour
     // Helper method to validate all building prefabs are assigned
     private void ValidateBuildingPrefabs()
     {
-        if (radioPrefab == null)
+        // Check if building entries list has items
+        if (buildingEntries.Count == 0)
         {
-            Debug.LogWarning("BuildSystem: Radio prefab is not assigned! Radio buildings will be represented by placeholder cubes.");
+            Debug.LogWarning("BuildSystem: No building entries defined. Consider adding some building types to the buildingEntries list.");
         }
-        
-        if (fobPrefab == null)
+        else
         {
-            Debug.LogWarning("BuildSystem: FOB prefab is not assigned! FOB buildings will be represented by placeholder cubes.");
-        }
-        
-        if (ammoCratePrefab == null)
-        {
-            Debug.LogWarning("BuildSystem: Ammo Crate prefab is not assigned! Ammo Crate buildings will be represented by placeholder cubes.");
+            // Validate entries in the list
+            foreach (var entry in buildingEntries)
+            {
+                if (string.IsNullOrEmpty(entry.buildingType))
+                {
+                    Debug.LogWarning("BuildSystem: Found entry with empty building type!");
+                }
+                
+                if (entry.prefab == null)
+                {
+                    Debug.LogWarning($"BuildSystem: Prefab is missing for building type: {entry.buildingType}");
+                }
+            }
         }
         
         // Validate materials
@@ -159,27 +156,43 @@ public class BuildSystem : MonoBehaviour
         }
     }
     
+    // Get a building entry by its type string
+    public BuildingEntry GetBuildingEntryByType(string typeString)
+    {
+        if (string.IsNullOrEmpty(typeString)) return null;
+        
+        // Look for matching entry in our list
+        foreach (var entry in buildingEntries)
+        {
+            if (entry.buildingType.Equals(typeString, System.StringComparison.OrdinalIgnoreCase))
+            {
+                return entry;
+            }
+        }
+        
+        return null;
+    }
+    
     // This is the event handler - renamed to clarify separation of concerns
     private void HandleBuildingSelected(string buildingTypeStr)
     {
         // Skip processing if we're already handling a selection
         if (isProcessingSelection) return;
         
-        // Try to parse the string as a BuildingType enum
-        if (System.Enum.TryParse(buildingTypeStr, out BuildingType buildingType))
+        // Store the building type string
+        currentBuildingTypeStr = buildingTypeStr;
+        
+        // Check if we can find the building type in our entries
+        BuildingEntry entry = GetBuildingEntryByType(buildingTypeStr);
+        
+        if (entry != null)
         {
-            // Check if this is the same as our last selection - if so, skip it
-            if (buildingType == lastSelectedType && currentPreview != null)
-            {
-                return;
-            }
-            
-            // Actually select the building type
-            SelectBuildingItem(buildingType);
+            // Found the building type in our entries, use it directly
+            SelectBuildingByEntry(entry);
         }
         else
         {
-            Debug.LogError($"Invalid building type string: {buildingTypeStr}");
+            Debug.LogError($"Building type not found: {buildingTypeStr}");
         }
     }
     
@@ -241,214 +254,131 @@ public class BuildSystem : MonoBehaviour
     {
         if (currentPreview == null) return;
         
-        BuildingType currentType = BuildingType.Radio; // Default
+        // Default values
+        string currentTypeStr = "";
+        float distance = 2f;
         
         // Get current type from the BuildPreview component
         BuildPreview preview = currentPreview.GetComponent<BuildPreview>();
         if (preview != null)
         {
-            currentType = preview.buildingType;
+            // Get the type information
+            currentTypeStr = preview.buildingTypeStr;
+            
+            // Try to find a matching entry for the distance
+            BuildingEntry entry = GetBuildingEntryByType(currentTypeStr);
+            if (entry != null)
+            {
+                distance = entry.placementDistance;
+                
+                // Use string-based positioning
+                PositionObjectByString(currentPreview, currentTypeStr, distance);
+                return;
+            }
         }
         else
         {
             // Try to determine from name if component not found
             string previewName = currentPreview.name;
-            foreach (BuildingType type in System.Enum.GetValues(typeof(BuildingType)))
+            
+            // Try string-based first
+            foreach (var entry in buildingEntries)
             {
-                if (previewName.Contains(type.ToString()))
+                if (previewName.Contains(entry.buildingType))
                 {
-                    currentType = type;
-                    break;
+                    PositionObjectByString(currentPreview, entry.buildingType, entry.placementDistance);
+                    return;
                 }
             }
         }
         
-        // Position preview
-        PositionObject(currentPreview, currentType);
+        // Fallback to a default distance if we couldn't determine the type
+        PositionObjectByString(currentPreview, currentTypeStr, distance);
     }
     
     // Called by Unity Input System through the PlayerInput component
     public void OnToggleBuild(InputValue value)
     {
-        // Only respond to the key being pressed
         if (value.isPressed)
         {
-            Debug.Log("Build toggle key pressed");
             isKeyPressed = true;
             if (!isInBuildMode)
             {
                 EnterBuildMode();
             }
+            // If already in build mode, pressing T again does nothing until released
         }
-        else
+        else // Key released
         {
-            // Key released
-            Debug.Log("Build toggle key released");
             isKeyPressed = false;
-            if (!isInBuildMode || currentPreview == null)
+            // Exit build mode only if we are not currently placing an item (preview is null)
+            if (isInBuildMode && currentPreview == null)
             {
                 ExitBuildMode();
             }
         }
     }
 
-    // For backward compatibility
+    // For backward compatibility - simplified toggle logic
     public void OnToggleBuild()
     {
-        // Toggle build mode
         if (!isInBuildMode)
         {
-            isKeyPressed = true;
             EnterBuildMode();
         }
         else
         {
-            // If already in build mode, exit
-            CancelBuilding();
+            // If already in build mode, just exit (or cancel if placing)
+            if (currentPreview != null)
+                CancelBuilding();
+            else
+                ExitBuildMode();
         }
     }
     
     private void EnterBuildMode()
     {
-        if (isInBuildMode)
-        {
-            Debug.Log("Already in build mode, ignoring request to enter build mode");
-            return;
-        }
-        
-        Debug.Log("Entering build mode");
+        if (isInBuildMode) return;
         isInBuildMode = true;
-        
-        // Reset rotation for new build session
         currentRotation = 0f;
         
-        // Use the new state manager if available, otherwise fallback to old system
         if (playerStateManager != null)
-        {
             playerStateManager.SetState(PlayerStateManager.PlayerState.BuildingMenu);
-        }
-        else if (inputStateManager != null)
-        {
-            // Legacy support
-            inputStateManager.SetState(InputState.BuildMode);
-            inputStateManager.SetBuildMenuOpen(true);
-            
-            // Show cursor and disable camera look
-            Cursor.visible = true;
-            Cursor.lockState = CursorLockMode.Confined;
-        }
         
-        // Show radial menu
         if (buildMenu != null)
         {
-            buildMenu.gameObject.SetActive(true);
-            
-            // Ensure it's visible by enabling the canvas
             Canvas canvas = buildMenu.GetComponentInParent<Canvas>();
-            if (canvas != null)
-            {
-                canvas.enabled = true;
-            }
+            if (canvas != null) canvas.enabled = true;
+            if (!buildMenu.gameObject.activeSelf) buildMenu.gameObject.SetActive(true);
         }
     }
     
     private void ExitBuildMode()
     {
         if (!isInBuildMode) return;
-        
-        // First clear any preview
         ClearPreview();
-        
         isInBuildMode = false;
         
-        // Hide radial menu
         if (buildMenu != null)
         {
+            // Deactivate the main menu
             buildMenu.gameObject.SetActive(false);
+            
+            // Find and deactivate ANY active radial menu (including sub-menus)
+            RMF_RadialMenu[] allMenus = FindObjectsOfType<RMF_RadialMenu>();
+            foreach(RMF_RadialMenu menu in allMenus)
+            {
+                if (menu.gameObject.activeSelf)
+                    menu.gameObject.SetActive(false);
+            }
+
+            // Optionally disable the parent canvas
+            Canvas canvas = buildMenu.GetComponentInParent<Canvas>();
+            if (canvas != null) canvas.enabled = false;
         }
         
-        // Use the new state manager if available, otherwise fallback to old system
         if (playerStateManager != null)
-        {
             playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
-        }
-        else if (inputStateManager != null)
-        {
-            // Legacy support
-            inputStateManager.SetState(InputState.Normal);
-            
-            // Hide cursor and lock it
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else if (inventoryEvents != null)
-        {
-            // Direct event if nothing else is available
-            inventoryEvents.RaiseInputStateChanged(InputState.Normal);
-            
-            // Hide cursor and lock it
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-    }
-    
-    // This method is called directly from the RMF_RadialMenuElement buttons
-    public void SelectBuildingItem(BuildingType buildingType)
-    {
-        // Set a flag to prevent duplicate processing 
-        isProcessingSelection = true;
-        lastSelectedType = buildingType;
-        
-        try
-        {
-            // Early exit if we're already showing this building type's preview
-            if (currentPreview != null && currentPreview.name.Contains(buildingType.ToString()))
-            {
-                return;
-            }
-            
-            // Try to find prefab in dictionary
-            if (!buildingPrefabs.TryGetValue(buildingType, out selectedPrefab))
-            {
-                // If not in dictionary, check the prefab fields directly
-                switch (buildingType)
-                {
-                    case BuildingType.Radio:
-                        selectedPrefab = radioPrefab;
-                        break;
-                    case BuildingType.FOB:
-                        selectedPrefab = fobPrefab;
-                        break;
-                    case BuildingType.AmmoCrate:
-                        selectedPrefab = ammoCratePrefab;
-                        break;
-                }
-                
-                // If still null, log a warning
-                if (selectedPrefab == null)
-                {
-                    Debug.LogWarning($"No prefab assigned for building type {buildingType}. A placeholder will be used.");
-                }
-            }
-            
-            // Continue even if selectedPrefab is null - the CreateBasicPreview method handles the fallback
-            CreateBasicPreview(buildingType);
-            
-            // Hide menu but stay in build mode
-            if (buildMenu != null)
-            {
-                buildMenu.gameObject.SetActive(false);
-            }
-            
-            // Return to normal input state but stay in build mode for placement
-            // This allows player to look around while placing
-            RestoreNormalControls();
-        }
-        finally
-        {
-            // Reset the flag when we're done
-            isProcessingSelection = false;
-        }
     }
     
     // Helper method to restore normal controls but stay in build mode
@@ -481,7 +411,68 @@ public class BuildSystem : MonoBehaviour
         }
     }
     
-    private void CreateBasicPreview(BuildingType buildingType)
+    // New method that selects a building by entry
+    private void SelectBuildingByEntry(BuildingEntry entry)
+    {
+        if (entry == null) return;
+        
+        isProcessingSelection = true;
+        try
+        {
+            // Early exit if we're already showing this building type's preview
+            if (currentPreview != null && currentPreview.name.Contains(entry.buildingType))
+            {
+                return;
+            }
+            
+            selectedPrefab = entry.prefab;
+            
+            // Continue even if selectedPrefab is null - the CreateBasicPreview method handles the fallback
+            CreateBasicPreviewFromString(entry.buildingType, entry.placementDistance);
+            
+            // Hide all menus (including sub-menus) but stay in build mode
+            if (buildMenu != null)
+            {
+                buildMenu.gameObject.SetActive(false);
+                
+                // Find and deactivate ANY active radial menu (including sub-menus)
+                RMF_RadialMenu[] allMenus = FindObjectsOfType<RMF_RadialMenu>();
+                foreach(RMF_RadialMenu menu in allMenus)
+                {
+                    if (menu.gameObject.activeSelf)
+                        menu.gameObject.SetActive(false);
+                }
+            }
+            
+            // Return to normal input state but stay in build mode for placement
+            RestoreNormalControls();
+        }
+        finally
+        {
+            isProcessingSelection = false;
+        }
+    }
+    
+    // Select a building by type string (for direct use by RMF_RadialMenuElement)
+    public void SelectBuildingByTypeString(string buildingTypeStr)
+    {
+        if (string.IsNullOrEmpty(buildingTypeStr)) return;
+        
+        // Store the string for later reference
+        currentBuildingTypeStr = buildingTypeStr;
+        
+        // Try to find in building entries
+        BuildingEntry entry = GetBuildingEntryByType(buildingTypeStr);
+        if (entry != null)
+        {
+            SelectBuildingByEntry(entry);
+            return;
+        }
+        
+        Debug.LogError($"Building type not found: {buildingTypeStr}");
+    }
+
+    private void CreateBasicPreviewFromString(string buildingTypeStr, float placementDistance)
     {
         // First make sure any existing preview is cleared
         ClearPreview();
@@ -492,35 +483,24 @@ public class BuildSystem : MonoBehaviour
         try
         {
             // Create a fresh parent container for the preview
-            GameObject previewContainer = new GameObject($"PreviewContainer_{buildingType}");
+            GameObject previewContainer = new GameObject($"PreviewContainer_{buildingTypeStr}");
             currentPreview = previewContainer;
             
             // Create the actual preview object as a child
             GameObject previewModel;
             
-            // Use the actual prefab for all building types
+            // Use the actual prefab
             previewModel = Instantiate(selectedPrefab, previewContainer.transform);
             
             if (previewModel == null)
             {
                 // Fallback to primitive cube if instantiation fails
-                Debug.LogWarning($"Failed to instantiate prefab for {buildingType}. Creating fallback cube.");
+                Debug.LogWarning($"Failed to instantiate prefab for {buildingTypeStr}. Creating fallback cube.");
                 previewModel = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 previewModel.transform.SetParent(previewContainer.transform);
                 
-                // Scale based on type
-                switch (buildingType)
-                {
-                    case BuildingType.FOB:
-                        previewModel.transform.localScale = new Vector3(3f, 1f, 3f);
-                        break;
-                    case BuildingType.AmmoCrate:
-                        previewModel.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-                        break;
-                    default:
-                        previewModel.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
-                        break;
-                }
+                // Set a default scale
+                previewModel.transform.localScale = new Vector3(0.5f, 1f, 0.5f);
             }
             
             previewModel.transform.localPosition = Vector3.zero;
@@ -549,32 +529,25 @@ public class BuildSystem : MonoBehaviour
             }
             
             // Set name for identification
-            previewContainer.name = $"Preview_{buildingType}";
+            previewContainer.name = $"Preview_{buildingTypeStr}";
             
             // Add BuildPreview helper component to make preview more resilient
             BuildPreview previewHelper = previewContainer.AddComponent<BuildPreview>();
-            previewHelper.buildingType = buildingType;
+            previewHelper.buildingTypeStr = buildingTypeStr;
             
             // Position the preview
-            PositionObject(previewContainer, buildingType);
+            PositionObjectByString(previewContainer, buildingTypeStr, placementDistance);
         }
         catch (System.Exception e)
         {
             Debug.LogError($"Error creating preview: {e.Message}\n{e.StackTrace}");
         }
     }
-    
-    // Helper method to position an object directly without relying on camera logic
-    private void PositionObject(GameObject obj, BuildingType buildingType)
+
+    // Helper method to position an object using a string building type
+    private void PositionObjectByString(GameObject obj, string buildingTypeStr, float distance)
     {
         if (obj == null) return;
-        
-        // Get the appropriate distance for this building type
-        float distance = 2f;
-        if (buildingDistances != null && buildingDistances.TryGetValue(buildingType, out float typedDistance))
-        {
-            distance = typedDistance;
-        }
         
         // Use either the camera or this transform
         Transform referenceTransform = (playerCamera != null) ? playerCamera.transform : this.transform;
@@ -804,5 +777,6 @@ public class BuildSystem : MonoBehaviour
 // Add helper component to make preview objects more identifiable and resilient
 public class BuildPreview : MonoBehaviour
 {
-    public BuildingType buildingType;
+    // New string-based identifier
+    public string buildingTypeStr;
 } 

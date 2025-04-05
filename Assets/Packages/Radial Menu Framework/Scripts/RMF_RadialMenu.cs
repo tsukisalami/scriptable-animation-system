@@ -4,6 +4,11 @@ using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 
+// Add references to the required classes
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 [AddComponentMenu("Radial Menu Framework/RMF Core Script")]
 public class RMF_RadialMenu : MonoBehaviour {
 
@@ -41,8 +46,8 @@ public class RMF_RadialMenu : MonoBehaviour {
     [Tooltip("Should the menu be hidden at start?")]
     public bool hideAtStart = true;
 
-    // Reference to the PlayerStateManager to check state
-    private PlayerStateManager playerStateManager;
+    // Reference to find player state if needed - but not direct dependency
+    private MonoBehaviour playerStateManagerRef;
 
     [HideInInspector]
     public float currentAngle = 0f; //Our current angle from the center of the radial menu.
@@ -84,22 +89,18 @@ public class RMF_RadialMenu : MonoBehaviour {
             elements[i].setAllAngles((angleOffset * i) + globalOffset, angleOffset);
             elements[i].assignedIndex = i;
         }
+        
+        // Ensure parent canvas is enabled from the start
+        Canvas parentCanvas = GetComponentInParent<Canvas>();
+        if (parentCanvas != null) {
+            parentCanvas.enabled = true;
+        }
     }
 
     void Start() {
-        if (hideAtStart) {
-            gameObject.SetActive(false);
-        }
-
-        // Try to find PlayerStateManager
-        playerStateManager = FindObjectOfType<PlayerStateManager>();
-
         // Find BuildSystem if not already assigned
         if (buildSystem == null) {
             buildSystem = FindObjectOfType<BuildSystem>();
-            if (buildSystem == null) {
-                Debug.LogWarning("No BuildSystem found in the scene. Building selection will not work.");
-            }
         }
 
         if (useGamepad) {
@@ -107,16 +108,31 @@ public class RMF_RadialMenu : MonoBehaviour {
             if (useSelectionFollower && selectionFollowerContainer != null)
                 selectionFollowerContainer.rotation = Quaternion.Euler(0, 0, -globalOffset);
         }
+        
+        // Apply initial visibility based on hideAtStart
+        if (hideAtStart) {
+            gameObject.SetActive(false);
+        }
     }
 
     void OnEnable() {
         isMenuActive = true;
+        
+        // Force menu to center of screen
+        rt.position = new Vector3(Screen.width/2, Screen.height/2, 0);
+        
         // Ensure cursor is visible and unlocked when menu is enabled
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         
         // Record initial mouse position
         lastMousePosition = Input.mousePosition;
+        
+        // Ensure parent Canvas is enabled
+        Canvas parentCanvas = GetComponentInParent<Canvas>();
+        if (parentCanvas != null) {
+            parentCanvas.enabled = true;
+        }
     }
 
     void OnDisable() {
@@ -171,14 +187,7 @@ public class RMF_RadialMenu : MonoBehaviour {
                 //If we click or press a "submit" button (Button on joystick, enter, or spacebar), then we'll execute the OnClick() function for the button.
                 if (isClickInput) {
                     ExecuteEvents.Execute(elements[index].button.gameObject, pointer, ExecuteEvents.submitHandler);
-                    
-                    // Call our custom click handler
-                    try {
-                        elements[index].OnButtonClicked();
-                    }
-                    catch (System.Exception e) {
-                        Debug.LogError($"Error in OnButtonClicked: {e.Message}\n{e.StackTrace}");
-                    }
+                    elements[index].OnButtonClicked();
                 }
             }
         }

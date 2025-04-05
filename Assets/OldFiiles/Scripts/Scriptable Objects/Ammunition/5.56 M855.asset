@@ -24,11 +24,11 @@ MonoBehaviour:
     m_Bits: 50332279
   Lifetime: 6
   ImpactHandler: {fileID: 11400000, guid: 936c970e48693b244bc65d55bc6bf4fa, type: 2}
-  BulletPrefab: {fileID: 5341742223406746680, guid: 59e0e1d62b306254487accfec52e8516,
+  BulletPrefab: {fileID: 446573663222724476, guid: 59bf7096b5471ba4ca84c6131c925499,
     type: 3}
-  CasingPrefab: {fileID: 5341742223406746680, guid: d2aee6763cbff0f4fa765c8df64f6905,
+  CasingPrefab: {fileID: 446573663222724476, guid: 59bf7096b5471ba4ca84c6131c925499,
     type: 3}
-  RoundPrefab: {fileID: 5341742223406746680, guid: 9c3cddd6060b7cc4eadfb9cefcf6e7db,
+  RoundPrefab: {fileID: 446573663222724476, guid: 59bf7096b5471ba4ca84c6131c925499,
     type: 3}
   explodeOnImpact: 1
   explosionRadius: 5
