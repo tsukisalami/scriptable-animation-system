@@ -26,9 +26,9 @@ MonoBehaviour:
   m_Name: Dirt 2
   m_EditorClassIdentifier: 
   Target: {fileID: 13400000}
-  EnergyLossPerUnit: 12000
+  EnergyLossPerUnit: 1200
   Spread: 0.02
   ImpactHandler: {fileID: 11400000, guid: bbe111942f910e342a9ff8d2a55e4d12, type: 2}
   RicochetSpread: 0.1
-  RicochetProbability: {x: 0.3253012, y: 0.3253012}
+  RicochetProbability: {x: 0.18461533, y: 0.32307622}
   RicochetBounciness: {x: 0.06832863, y: 0.27551025}

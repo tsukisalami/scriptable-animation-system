@@ -88,10 +88,10 @@ namespace Ballistics
             return Mathf.Lerp(RicochetProbability.x, RicochetProbability.y, impactAngle * impactAngle);
         }
 
-        public MaterialImpact HandleImpact(in BulletNative bullet, BulletInfo _, in RaycastHit rayHit)
+        public MaterialImpact HandleImpact(in BulletNative bullet, BulletInfo info, in RaycastHit rayHit)
         {
             var impactAngle = Vector3.Angle(-rayHit.normal, bullet.Velocity);
-            if (EvaluateRicochetProbability(impactAngle) > UnityEngine.Random.value)
+            if (!info.dontRicochet && EvaluateRicochetProbability(impactAngle) > UnityEngine.Random.value)
                 return MaterialImpact.Ricochet(RicochetSpread, UnityEngine.Random.Range(RicochetBounciness.x, RicochetBounciness.y));
             return MaterialImpact.Penetrate();
         }

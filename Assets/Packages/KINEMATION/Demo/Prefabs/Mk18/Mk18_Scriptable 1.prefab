@@ -1436,7 +1436,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6544400914950876489
 Transform:
   m_ObjectHideFlags: 0
@@ -1526,9 +1526,9 @@ VisualEffect:
       - m_Value: 0
         m_Name: Creates A Flash?
         m_Overridden: 0
-      - m_Value: 1
+      - m_Value: 0
         m_Name: Creates Smoke?
-        m_Overridden: 0
+        m_Overridden: 1
       - m_Value: 0
         m_Name: Random Rotation?
         m_Overridden: 0
@@ -1540,7 +1540,7 @@ VFXRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3478115396455855650}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
@@ -2950,7 +2950,7 @@ Transform:
   m_GameObject: {fileID: 8421700286897404527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.00999999, z: 0.544}
+  m_LocalPosition: {x: 0, y: 0.01, z: 0.544}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3003,9 +3003,9 @@ VisualEffect:
       - m_Value: 0
         m_Name: Creates A Flash
         m_Overridden: 1
-      - m_Value: 0
+      - m_Value: 1
         m_Name: Creates A Flash?
-        m_Overridden: 1
+        m_Overridden: 0
 --- !u!73398921 &7253514522426828563
 VFXRenderer:
   serializedVersion: 1
@@ -3178,9 +3178,9 @@ MonoBehaviour:
     attachments: []
   SpreadController: {fileID: 0}
   currentState: 0
-  jamChance: 0.017
-  feedFailureChance: 0.023
-  misfireChance: 0.017
+  jamChance: 0
+  feedFailureChance: 0
+  misfireChance: 0
   adsTime: 0.3
   reloadTime: 2
   checkChamberTime: 1

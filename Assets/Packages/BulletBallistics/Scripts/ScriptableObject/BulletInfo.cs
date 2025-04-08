@@ -70,6 +70,9 @@ namespace Ballistics
         [Header("Bullet Type")]
         [Tooltip("If true, bullet explodes on impact instead of penetrating")]
         public bool explodeOnImpact = false;
+        
+        [Tooltip("If true, bullet will never ricochet on impact")]
+        public bool dontRicochet = false;
 
         [Header("Explosion Settings")]
         [ShowIf("explodeOnImpact")]

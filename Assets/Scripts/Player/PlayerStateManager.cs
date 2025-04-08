@@ -74,6 +74,9 @@ public class PlayerStateManager : MonoBehaviour
 
     private void Start()
     {
+        // Ensure UI Canvas is active
+        EnsureUICanvasIsActive();
+        
         // Apply initial state
         SetState(PlayerState.Normal);
     }
@@ -176,7 +179,7 @@ public class PlayerStateManager : MonoBehaviour
                 settings.allowFiring = false;
                 settings.allowWeaponSwitch = true;
                 settings.allowInteractions = true;
-                settings.useUIInput = false;
+                settings.useUIInput = true;
                 break;
                 
             default:
@@ -248,6 +251,32 @@ public class PlayerStateManager : MonoBehaviour
         // Apply cursor settings
         Cursor.visible = settings.showCursor;
         Cursor.lockState = settings.lockCursor ? CursorLockMode.Locked : CursorLockMode.Confined;
+        
+        // IMPORTANT: Ensure UI Canvas remains active regardless of state
+        EnsureUICanvasIsActive();
+    }
+
+    // Add method to ensure UI Canvas is always active
+    private void EnsureUICanvasIsActive()
+    {
+        // Find all UI canvases and ensure they're enabled
+        Canvas[] uiCanvases = FindObjectsOfType<Canvas>();
+        foreach (var canvas in uiCanvases)
+        {
+            // Check if this is a UI canvas
+            if (canvas.renderMode == RenderMode.ScreenSpaceOverlay || 
+                canvas.renderMode == RenderMode.ScreenSpaceCamera)
+            {
+                // Ensure canvas is enabled
+                canvas.enabled = true;
+                
+                // Ensure the GameObject is active
+                if (!canvas.gameObject.activeSelf)
+                {
+                    canvas.gameObject.SetActive(true);
+                }
+            }
+        }
     }
 
     private void UpdateInputMaps(PlayerState state)
@@ -268,26 +297,35 @@ public class PlayerStateManager : MonoBehaviour
         {
             case PlayerState.Normal:
                 EnableActionMap("Gameplay");
+                EnableActionMap("UI"); // Keep UI inputs active for health display
+                EnableActionMap("Hotbar"); // Always enable the hotbar keybinds
+                break;
+                
+            case PlayerState.Hotbar:
+                EnableActionMap("Gameplay", restrictedActions: new[] { "Fire", "Aim" });
+                EnableActionMap("UI");
+                EnableActionMap("Hotbar"); // Changed from "Inventory" to "Hotbar"
                 break;
                 
             case PlayerState.BuildingMenu:
                 EnableActionMap("Gameplay", restrictedActions: new[] { "Fire", "Aim", "Reload", "ThrowGrenade", "ChangeFireMode", "CycleScope", "Look" });
                 EnableActionMap("Building");
+                EnableActionMap("UI");
+                EnableActionMap("Hotbar"); // Add hotbar access in building menu
                 break;
                 
             case PlayerState.Building:
                 EnableActionMap("Gameplay", restrictedActions: new[] { "Fire", "Aim", "Reload", "ThrowGrenade", "ChangeFireMode", "CycleScope", "Lean" });
                 EnableActionMap("Building");
+                EnableActionMap("UI");
+                EnableActionMap("Hotbar"); // Add hotbar access in building mode
                 break;
                 
             case PlayerState.Attachment:
                 EnableActionMap("Gameplay", restrictedActions: new[] { "Fire", "Reload", "ThrowGrenade", "ChangeFireMode", "CycleScope" });
                 EnableActionMap("Attachments");
-                break;
-                
-            case PlayerState.Hotbar:
-                EnableActionMap("Gameplay");
-                EnableActionMap("Inventory");
+                EnableActionMap("UI");
+                EnableActionMap("Hotbar"); // Add hotbar access in attachment mode
                 break;
                 
             case PlayerState.Menu:
@@ -297,10 +335,14 @@ public class PlayerStateManager : MonoBehaviour
                 
             case PlayerState.Animation:
                 EnableActionMap("Gameplay", restrictedActions: new[] { "Fire", "Aim", "Reload", "ThrowGrenade", "ChangeFireMode", "CycleScope" });
+                EnableActionMap("UI");
+                EnableActionMap("Hotbar"); // Add hotbar access during animations
                 break;
                 
             default:
                 EnableActionMap("Gameplay");
+                EnableActionMap("UI");
+                EnableActionMap("Hotbar"); // Always enable the hotbar keybinds
                 break;
         }
     }

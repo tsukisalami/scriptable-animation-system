@@ -136,7 +136,7 @@ MonoBehaviour:
   visualSpawnPoint: {fileID: 3570529669708131491}
   VisualBulletProvider: {fileID: 11400000, guid: d689875d55838fb42b90dabb64141202,
     type: 2}
-  BulletInfo: {fileID: 11400000, guid: 53d4ea520826d5f409c030b561ece9ca, type: 2}
+  BulletInfo: {fileID: 11400000, guid: 613c9105bf85ccf4787bdd4851cd0991, type: 2}
   OnShoot:
     m_PersistentCalls:
       m_Calls: []
@@ -174,7 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d85af024ccba5614d9b32d334e4a1edd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  shotSound: {fileID: 8300000, guid: c3f3ba04fdae9ad418c4e950b1a35761, type: 3}
+  shotSound: {fileID: 8300000, guid: 40d93eed8e9e1324395fb4aad848a9c5, type: 3}
   reloadSound: {fileID: 8300000, guid: 34826cae9175e5841830ffbe12950692, type: 3}
   boltReleaseSound: {fileID: 0}
   fireModeSwitchSound: {fileID: 0}

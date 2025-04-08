@@ -12,6 +12,7 @@ public class GameplayHUD : MonoBehaviour
     [Header("Health UI")]
     public TMP_Text healthText;
     public Image healthBar;
+    public CanvasGroup healthUICanvasGroup;
 
     [Header("Hotbar UI")]
     public RectTransform[] categoryContainers;
@@ -123,6 +124,9 @@ public class GameplayHUD : MonoBehaviour
             hotbarCanvasGroup.alpha = 0f;
             isHotbarActive = false;
         }
+        
+        // IMPORTANT: Ensure health UI is visible at all times
+        ShowHealthUI();
 
         // Add listener for loadout changes
         if (playerLoadout != null)
@@ -237,8 +241,12 @@ public class GameplayHUD : MonoBehaviour
 
     private void Update()
     {
+        // Ensure health UI is ALWAYS updated and visible
         if (playerHealth != null)
+        {
             UpdateHealthUI();
+            ShowHealthUI();
+        }
 
         // Check for loadout changes
         if (playerLoadout != null)
@@ -285,6 +293,24 @@ public class GameplayHUD : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && selectedCategoryIndex != -1 && IsHotbarActive())
         {
             EquipSelectedItem();
+        }
+        
+        // NEW: Handle right click to exit hotbar mode
+        if (Input.GetMouseButtonDown(1) && IsHotbarActive())
+        {
+            // Right-click should start the fade out process
+            StartFadeOut();
+            
+            // If using player state manager, also return to normal state
+            if (playerStateManager != null)
+            {
+                playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
+            }
+            else if (inventoryEvents != null)
+            {
+                // Legacy support
+                inventoryEvents.RaiseInputStateChanged(InputState.Normal);
+            }
         }
     }
 
@@ -751,15 +777,82 @@ public class GameplayHUD : MonoBehaviour
     // Handler for the new player state system
     private void HandlePlayerStateChanged(PlayerStateManager.PlayerState newState, PlayerStateManager.PlayerState oldState)
     {
+        // Always ensure health UI is visible regardless of state
+        ShowHealthUI();
+        
         switch (newState)
         {
             case PlayerStateManager.PlayerState.Hotbar:
                 ShowHotbar();
                 break;
             case PlayerStateManager.PlayerState.Normal:
+                // Only fade out hotbar if it's active
                 if (isHotbarActive)
                     StartFadeOut();
                 break;
+            // Don't hide UI elements in build mode or other states
+            // Just leave them as they are
+        }
+    }
+
+    // ADD A NEW METHOD FOR HEALTH UI VISIBILITY
+    private void ShowHealthUI()
+    {
+        // Make sure health UI elements are visible regardless of player state
+        if (healthText != null)
+        {
+            // Ensure the health text's parent objects are active
+            Transform parent = healthText.transform.parent;
+            while (parent != null)
+            {
+                parent.gameObject.SetActive(true);
+                
+                // Check if this parent has a CanvasGroup and ensure it's visible
+                CanvasGroup cg = parent.GetComponent<CanvasGroup>();
+                if (cg != null)
+                {
+                    cg.alpha = 1f;
+                    cg.interactable = true;
+                    cg.blocksRaycasts = true;
+                }
+                
+                parent = parent.parent;
+            }
+            
+            // Ensure the health text itself is active and visible
+            healthText.gameObject.SetActive(true);
+        }
+        
+        if (healthBar != null)
+        {
+            // Ensure the health bar's parent objects are active
+            Transform parent = healthBar.transform.parent;
+            while (parent != null)
+            {
+                parent.gameObject.SetActive(true);
+                
+                // Check if this parent has a CanvasGroup and ensure it's visible
+                CanvasGroup cg = parent.GetComponent<CanvasGroup>();
+                if (cg != null)
+                {
+                    cg.alpha = 1f;
+                    cg.interactable = true;
+                    cg.blocksRaycasts = true;
+                }
+                
+                parent = parent.parent;
+            }
+            
+            // Ensure the health bar itself is active and visible
+            healthBar.gameObject.SetActive(true);
+        }
+        
+        // If we have a direct reference to the health UI canvas group, ensure it's visible
+        if (healthUICanvasGroup != null)
+        {
+            healthUICanvasGroup.alpha = 1f;
+            healthUICanvasGroup.interactable = true;
+            healthUICanvasGroup.blocksRaycasts = true;
         }
     }
 } 

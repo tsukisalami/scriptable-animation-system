@@ -28,4 +28,12 @@ MonoBehaviour:
     type: 3}
   CasingPrefab: {fileID: 8020193932685407484, guid: ed5405d292e9f684e9248a09ec5b09cb,
     type: 3}
-  RoundPrefab: {fileID: 0}
+  RoundPrefab: {fileID: 2065850837648312249, guid: 5a021473f20c08140898a1ab091a634f,
+    type: 3}
+  explodeOnImpact: 0
+  dontRicochet: 1
+  explosionRadius: 5
+  explosionForce: 1000
+  explosionDamage: 100
+  explosionFalloff: 1
+  explosionEffectPrefab: {fileID: 0}
