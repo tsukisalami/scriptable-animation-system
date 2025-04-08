@@ -3110,7 +3110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a38f36b54b84df3873b796d6728c637, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorProfile: {fileID: 11400000, guid: 8a7b18c3ddc6ec14590fcffc38d6aad6, type: 2}
+  animatorProfile: {fileID: 11400000, guid: c84c14010bccff14da6d5359a1a3ca6f, type: 2}
   defaultAimPoint: {fileID: 0}
 --- !u!114 &-8068247560124432235
 MonoBehaviour:
@@ -3124,7 +3124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  overrideController: {fileID: 22100000, guid: 7f4b08ee1d035e240b77bf86eb4d6668, type: 2}
+  overrideController: {fileID: 9100000, guid: b09d8a0688c5abe42998a0987f3f1210, type: 2}
   equipMotion: {fileID: 11400000, guid: b11b46638e8719941a429aa33657277d, type: 2}
   unEquipMotion: {fileID: 11400000, guid: 6e3ba419dec1a754b9c447a8fc1f9b1f, type: 2}
   fieldOfView: 90

@@ -547,12 +547,14 @@ namespace Demo.Scripts.Runtime.Character
                 return;
             }
 
+            //change here to right click to exit hotbar mode without aiming down sights, same thing for cancelling buildings, create variable for blocking aiming
             if (Input.GetMouseButton(1) && !IsAiming())
             {
                 if (GetActiveItem().OnAimPressed()) _aimState = FPSAimState.Aiming;
                 PlayTransitionMotion(settings.aimingMotion);
                 return;
             }
+
 
             if (Input.GetMouseButtonUp(1) && IsAiming())
             {
