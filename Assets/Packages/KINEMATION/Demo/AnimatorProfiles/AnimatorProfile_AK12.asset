@@ -994,6 +994,7 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 89
     isVirtual: 0
+  offsetFeetTargets: 1
   rightHandWeight: 1
   leftHandWeight: 1
   rightFootWeight: 1

@@ -495,13 +495,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentLayerSettings: []
-  modifierData: {fileID: 0}
   aimFovZoom: 0.9
   sensitivityMultiplier: 1
-  canHoldBreath: 1
-  canChangeMagnification: 0
   aimPoint: {fileID: 7181721017257114908}
-  scopeController: {fileID: 0}
 --- !u!1 &1708479024581533044
 GameObject:
   m_ObjectHideFlags: 0
@@ -1398,7 +1394,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachmentLayerSettings:
   - {fileID: 11400000, guid: c0ff5d88f7ff67947a432b3c766450c5, type: 2}
-  modifierData: {fileID: 0}
 --- !u!1 &3005797905096170225
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,13 +1531,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentLayerSettings: []
-  modifierData: {fileID: 0}
   aimFovZoom: 0.5
   sensitivityMultiplier: 0.5
-  canHoldBreath: 1
-  canChangeMagnification: 1
   aimPoint: {fileID: 6935309504726531760}
-  scopeController: {fileID: 0}
 --- !u!114 &1331339143260290728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1568,7 +1559,6 @@ MonoBehaviour:
   MinPowerSensitivity: 0.5
   MaxPowerSensitivity: 0.084
   CurrentSensitivity: 0
-  _targetMagnification: 0
 --- !u!1 &3478115396455855650
 GameObject:
   m_ObjectHideFlags: 0
@@ -2088,7 +2078,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentLayerSettings: []
-  modifierData: {fileID: 0}
 --- !u!1 &4701897663119888544
 GameObject:
   m_ObjectHideFlags: 0
@@ -3059,7 +3048,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentLayerSettings: []
-  modifierData: {fileID: 0}
 --- !u!1 &8421700286897404527
 GameObject:
   m_ObjectHideFlags: 0
@@ -3259,12 +3247,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd79974665c90734d9bd7ff5a68cba63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  overrideController: {fileID: 0}
+  equipMotion: {fileID: 0}
+  unEquipMotion: {fileID: 0}
   fieldOfView: 90
   bolt: {fileID: 3908947564442918690}
   casingEjectPoint: {fileID: 6898294777410688076}
   ejectForce: 3
   casingLifetime: 5
   casingTorque: 150
+  defaultMagazine: {fileID: 11400000, guid: c04f43e212c095242a938afd80472e6a, type: 2}
   muzzleFlashVFX: {fileID: 5532375965403511289}
   muzzleSmokeVFX: {fileID: 1573295337017816914}
   chamberSmokeVFX: {fileID: 4183384757955243894}
@@ -3334,7 +3326,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BulletSpawnPoint: {fileID: 8088176832826359044}
   visualSpawnPoint: {fileID: 8088176832826359044}
-  visualBulletProvider: {fileID: 11400000, guid: d689875d55838fb42b90dabb64141202,
+  VisualBulletProvider: {fileID: 11400000, guid: d689875d55838fb42b90dabb64141202,
     type: 2}
   BulletInfo: {fileID: 11400000, guid: 53d4ea520826d5f409c030b561ece9ca, type: 2}
   OnShoot:
@@ -3617,7 +3609,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachmentLayerSettings:
   - {fileID: 11400000, guid: 5afc0803c337381488b4118352ef08db, type: 2}
-  modifierData: {fileID: 11400000, guid: c3ded1f055550b246b8a5e2332c8f201, type: 2}
 --- !u!1001 &4483415207640275673
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4242,7 +4233,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachmentLayerSettings: []
-  modifierData: {fileID: 0}
 --- !u!1001 &4916234512848408926
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4766,7 +4756,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attachmentLayerSettings:
   - {fileID: 11400000, guid: 17b1012f36849b64e9a7d330b5f341e3, type: 2}
-  modifierData: {fileID: 0}
 --- !u!1001 &6956905280773319721
 PrefabInstance:
   m_ObjectHideFlags: 0

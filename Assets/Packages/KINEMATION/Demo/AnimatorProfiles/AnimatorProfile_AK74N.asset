@@ -379,6 +379,7 @@ MonoBehaviour:
   translationScale: {x: 1, y: 1, z: 1}
   blendTime: 0
   playRate: 1
+  autoBlendOut: 1
 --- !u!114 &-5290396991009541559
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -507,7 +508,25 @@ MonoBehaviour:
     easeFunc: 1
     curve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
@@ -547,10 +566,20 @@ MonoBehaviour:
     source: 2
   linkDynamically: 0
   isStandalone: 0
-  boneToModify:
+  weaponIkBone:
     name: IK WeaponBone
     index: 48
     isVirtual: 0
+  rightHandElbow:
+    name: IK RightElbow
+    index: 50
+    isVirtual: 0
+  leftHandElbow:
+    name: IK LeftElbow
+    index: 52
+    isVirtual: 0
+  animatedPivotOffset: {x: 0, y: 0, z: 0}
+  hintTargetWeight: 1
   headBone:
     name: Head
     index: 41
@@ -722,6 +751,7 @@ MonoBehaviour:
     rotation: {x: 0, y: 0, z: 0, w: 1}
     scale: {x: 1, y: 1, z: 1}
   overwriteRoot: 1
+  overwriteWeaponBone: 0
   ikWeaponBone:
     name: IK WeaponBone
     index: 48
@@ -1004,3 +1034,8 @@ MonoBehaviour:
     name: IK LeftKnee
     index: 89
     isVirtual: 0
+  offsetFeetTargets: 1
+  rightHandWeight: 1
+  leftHandWeight: 1
+  rightFootWeight: 1
+  leftFootWeight: 1

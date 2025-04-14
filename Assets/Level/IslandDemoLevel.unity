@@ -1283,6 +1283,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildMenu_Deployables_TechStructures
       objectReference: {fileID: 0}
+    - target: {fileID: 6810949214988060353, guid: 8141665878e33b642ab07d998086406c,
+        type: 3}
+      propertyPath: buildSystem
+      value: 
+      objectReference: {fileID: 1122721089}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1910,6 +1915,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildMenu_Markers
       objectReference: {fileID: 0}
+    - target: {fileID: 6810949214988060353, guid: e497e13564c4790469cdcd109aa79c5d,
+        type: 3}
+      propertyPath: buildSystem
+      value: 
+      objectReference: {fileID: 1122721089}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2930,6 +2940,7 @@ MonoBehaviour:
   playerLoadout: {fileID: 816820784}
   healthText: {fileID: 299275273}
   healthBar: {fileID: 1014373857}
+  healthUICanvasGroup: {fileID: 0}
   categoryContainers:
   - {fileID: 1843856111}
   - {fileID: 45036345}
@@ -3260,10 +3271,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
         type: 3}
+      propertyPath: throwables.itemTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: throwables.itemCounts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
       propertyPath: 'primaryWeapons.items.Array.data[1]'
       value: 
       objectReference: {fileID: 1520529762629545365, guid: 3f8355a8e4e41214892d595cdcdc527d,
         type: 3}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: primaryWeapons.itemTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: medicalEquipment.itemTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: secondaryWeapons.itemTypes.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: specialEquipment.itemTypes.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: secondaryWeapons.itemCounts.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: specialEquipment.itemCounts.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: 'primaryWeapons.itemCounts.Array.data[0]'
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3532337663395753440, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: 'secondaryWeapons.itemCounts.Array.data[0]'
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5051314499054102941, guid: 67e4bc50a87761743a89b599eff52d79,
         type: 3}
       propertyPath: buildMenu
@@ -3302,6 +3363,11 @@ PrefabInstance:
       propertyPath: ammocrateDistance
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 5051314499054102941, guid: 67e4bc50a87761743a89b599eff52d79,
+        type: 3}
+      propertyPath: playerStateManager
+      value: 
+      objectReference: {fileID: 1122721086}
     - target: {fileID: 5051314499054102941, guid: 67e4bc50a87761743a89b599eff52d79,
         type: 3}
       propertyPath: buildingEntries.Array.size
@@ -4625,6 +4691,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildMenu_Deployables_Fortifications
       objectReference: {fileID: 0}
+    - target: {fileID: 6810949214988060353, guid: 7e8ab5c748b45f447afa526802a030ae,
+        type: 3}
+      propertyPath: buildSystem
+      value: 
+      objectReference: {fileID: 1122721089}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6797,55 +6868,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!1 &670404323
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 670404324}
-  - component: {fileID: 670404325}
-  m_Layer: 0
-  m_Name: Cloudy(Clone)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &670404324
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670404323}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1474770887}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &670404325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 670404323}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 1
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: befac5373d704a04784e1c8dcf434af5, type: 2}
 --- !u!1 &680025927
 GameObject:
   m_ObjectHideFlags: 0
@@ -12191,7 +12213,7 @@ PrefabInstance:
         type: 3}
       propertyPath: buildSystem
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1122721089}
     - target: {fileID: 7226266063823530799, guid: 97155b2401f3f90438570777f47c8e75,
         type: 3}
       propertyPath: targetSubmenu
@@ -12524,6 +12546,18 @@ MonoBehaviour:
     allowInteractions: 1
     useUIInput: 0
   inventoryEvents: {fileID: 11400000, guid: 61ddf5b11c9d484478385a5edf26f7b3, type: 2}
+--- !u!114 &1122721089 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5051314499054102941, guid: 67e4bc50a87761743a89b599eff52d79,
+    type: 3}
+  m_PrefabInstance: {fileID: 357375273}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122721067}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7eed0c8472d0b164caed8bd99b3d3e51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1134411840
 GameObject:
   m_ObjectHideFlags: 0
@@ -13292,6 +13326,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: afc561f13a5ea0346867dabaab718d45, type: 3}
+--- !u!1 &1252963405
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1252963406}
+  - component: {fileID: 1252963407}
+  m_Layer: 0
+  m_Name: Cloudy(Clone)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1252963406
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252963405}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1474770887}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1252963407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1252963405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 1
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: befac5373d704a04784e1c8dcf434af5, type: 2}
 --- !u!1 &1260411250
 GameObject:
   m_ObjectHideFlags: 0
@@ -13935,6 +14018,7 @@ MonoBehaviour:
   playerLoadout: {fileID: 816820784}
   healthText: {fileID: 1869223867}
   healthBar: {fileID: 2048901862}
+  healthUICanvasGroup: {fileID: 0}
   categoryContainers: []
   categorySpacing: 100
   normalSize: 60
@@ -16119,7 +16203,7 @@ MonoBehaviour:
   PresentationMode: 0
   enableSelectButton: 1
   currentIndex: 1
-  currentPrefab: {fileID: 670404323}
+  currentPrefab: {fileID: 1252963405}
   requiredSettingsSO: {fileID: 11400000, guid: ca037d78bd48fdf488c1d10e5946022d, type: 2}
   gameobjectSamplesName: {fileID: 0}
   gameobjectSamplesDescription: {fileID: 0}
@@ -16137,7 +16221,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
-  - {fileID: 670404324}
+  - {fileID: 1252963406}
   m_Father: {fileID: 786922028}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1482597753
@@ -21456,7 +21540,7 @@ PrefabInstance:
         type: 3}
       propertyPath: buildSystem
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1122721089}
     - target: {fileID: 2985084517151822925, guid: c4e6b37fb4de86444abe91dacfad14de,
         type: 3}
       propertyPath: targetSubmenu
@@ -21600,6 +21684,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BuildMenu_Deployables_Weapons
       objectReference: {fileID: 0}
+    - target: {fileID: 6810949214988060353, guid: 6dcac2ccd4cb70643b5ae5ccabe0cc53,
+        type: 3}
+      propertyPath: buildSystem
+      value: 
+      objectReference: {fileID: 1122721089}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

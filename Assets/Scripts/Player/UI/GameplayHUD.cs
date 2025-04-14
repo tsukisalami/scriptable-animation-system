@@ -28,6 +28,11 @@ public class GameplayHUD : MonoBehaviour
     public float visibilityDuration = 3f;
     public float fadeOutDuration = 0.3f;
     public CanvasGroup hotbarCanvasGroup;
+    
+    // Add reference to FPSController for tracking equip state
+    [Header("Weapon Animation")]
+    [SerializeField] private Demo.Scripts.Runtime.Character.FPSController fpsController;
+    private bool isInEquipTransition = false;
 
     [Header("Events")]
     [SerializeField] private InventoryEvents inventoryEvents;
@@ -71,6 +76,22 @@ public class GameplayHUD : MonoBehaviour
             if (playerLoadout == null)
             {
                 Debug.LogWarning("GameplayHUD: No PlayerLoadout component found!");
+            }
+        }
+
+        // Try to find FPSController if not assigned
+        if (fpsController == null)
+        {
+            fpsController = GetComponentInParent<Demo.Scripts.Runtime.Character.FPSController>();
+            
+            if (fpsController == null)
+            {
+                fpsController = FindObjectOfType<Demo.Scripts.Runtime.Character.FPSController>();
+                
+                if (fpsController == null)
+                {
+                    Debug.LogWarning("GameplayHUD: FPSController not found! Weapon equip animation sync will not work.");
+                }
             }
         }
 
@@ -259,7 +280,10 @@ public class GameplayHUD : MonoBehaviour
                 {
                     var category = playerLoadout.GetCategory(currentlyEquippedCategory);
                     currentlyEquippedItem = category?.currentIndex ?? -1;
-                    ShowHotbar();
+                    
+                    // Show hotbar but track that we're in equip transition
+                    ShowHotbarDuringEquip();
+                    
                     selectedCategoryIndex = currentlyEquippedCategory;
                     selectedItemIndex = currentlyEquippedItem;
                 }
@@ -271,7 +295,10 @@ public class GameplayHUD : MonoBehaviour
                 if (category != null && category.currentIndex != currentlyEquippedItem)
                 {
                     currentlyEquippedItem = category.currentIndex;
-                    ShowHotbar();
+                    
+                    // Show hotbar but track that we're in equip transition
+                    ShowHotbarDuringEquip();
+                    
                     selectedCategoryIndex = currentlyEquippedCategory;
                     selectedItemIndex = currentlyEquippedItem;
                 }
@@ -279,37 +306,52 @@ public class GameplayHUD : MonoBehaviour
         }
 
         UpdateHotbarUI();
-        UpdateHotbarVisibility();
-
-        // Handle scroll wheel input only
-        float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
-        if (scrollDelta != 0)
-        {
-            ShowHotbar();
-            HandleScrollWheel(scrollDelta);
-        }
-
-        // Handle left click to equip selected item only when hotbar is fully visible
-        if (Input.GetMouseButtonDown(0) && selectedCategoryIndex != -1 && IsHotbarActive())
-        {
-            EquipSelectedItem();
-        }
         
-        // NEW: Handle right click to exit hotbar mode
-        if (Input.GetMouseButtonDown(1) && IsHotbarActive())
+        // Only update visibility timer when not in equip transition
+        if (!isInEquipTransition)
         {
-            // Right-click should start the fade out process
-            StartFadeOut();
-            
-            // If using player state manager, also return to normal state
-            if (playerStateManager != null)
+            UpdateHotbarVisibility();
+        }
+        // Check if equip transition has ended
+        else if (fpsController != null && fpsController._actionState == Demo.Scripts.Runtime.Character.FPSActionState.None)
+        {
+            // If FPSController is no longer in WeaponChange state, the equip animation is done
+            HideHotbarImmediately();
+            isInEquipTransition = false;
+        }
+
+        // Handle scroll wheel input only when not in equip transition
+        if (!isInEquipTransition)
+        {
+            float scrollDelta = Input.GetAxis("Mouse ScrollWheel");
+            if (scrollDelta != 0)
             {
-                playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
+                ShowHotbar();
+                HandleScrollWheel(scrollDelta);
             }
-            else if (inventoryEvents != null)
+
+            // Handle left click to equip selected item only when hotbar is fully visible
+            if (Input.GetMouseButtonDown(0) && selectedCategoryIndex != -1 && IsHotbarActive())
             {
-                // Legacy support
-                inventoryEvents.RaiseInputStateChanged(InputState.Normal);
+                EquipSelectedItem();
+            }
+            
+            // Handle right click to exit hotbar mode
+            if (Input.GetMouseButtonDown(1) && IsHotbarActive())
+            {
+                // Right-click should start the fade out process
+                StartFadeOut();
+                
+                // If using player state manager, also return to normal state
+                if (playerStateManager != null)
+                {
+                    playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
+                }
+                else if (inventoryEvents != null)
+                {
+                    // Legacy support
+                    inventoryEvents.RaiseInputStateChanged(InputState.Normal);
+                }
             }
         }
     }
@@ -325,6 +367,44 @@ public class GameplayHUD : MonoBehaviour
         }
     }
 
+    // New method to show hotbar during weapon equip
+    private void ShowHotbarDuringEquip()
+    {
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+            fadeCoroutine = null;
+        }
+
+        isHotbarActive = true;
+        isInEquipTransition = true;
+        
+        if (hotbarCanvasGroup != null)
+        {
+            hotbarCanvasGroup.alpha = 1f;
+        }
+    }
+    
+    // New method to immediately hide hotbar without fade
+    private void HideHotbarImmediately()
+    {
+        if (fadeCoroutine != null)
+        {
+            StopCoroutine(fadeCoroutine);
+            fadeCoroutine = null;
+        }
+        
+        if (hotbarCanvasGroup != null)
+        {
+            hotbarCanvasGroup.alpha = 0f;
+        }
+        
+        isHotbarActive = false;
+        selectedCategoryIndex = -1;
+        selectedItemIndex = -1;
+        ResetAllCategories();
+    }
+
     private void ShowHotbar()
     {
         if (fadeCoroutine != null)
@@ -334,6 +414,7 @@ public class GameplayHUD : MonoBehaviour
         }
 
         isHotbarActive = true;
+        isInEquipTransition = false; // Reset equip transition flag for manual hotbar activation
         visibilityTimer = visibilityDuration;
         
         if (hotbarCanvasGroup != null)
@@ -430,7 +511,8 @@ public class GameplayHUD : MonoBehaviour
                 SetCategorySize(i, (i == selectedCategoryIndex) ? expandedSize : normalSize);
 
                 // Show count for first item if it's a consumable - ALWAYS show this regardless of selection
-                if (loadoutCategory.isConsumable && category.itemCounts[0] != null)
+                if (loadoutCategory.itemTypes != null && loadoutCategory.itemTypes.Length > 0 && 
+                    loadoutCategory.itemTypes[0] == ItemType.Consumable && category.itemCounts[0] != null)
                 {
                     // Make sure the parent containers are active
                     category.itemContainer.gameObject.SetActive(true);
@@ -451,7 +533,10 @@ public class GameplayHUD : MonoBehaviour
             if (!isHotbarActive || i != selectedCategoryIndex)
             {
                 // Don't disable the container if it's a consumable with a single item
-                if (category.itemContainer != null && (!loadoutCategory.isConsumable || loadoutCategory.items.Count > 1))
+                bool isConsumable = loadoutCategory.itemTypes != null && loadoutCategory.itemTypes.Length > 0 && 
+                                    loadoutCategory.itemTypes[0] == ItemType.Consumable;
+                
+                if (category.itemContainer != null && (!isConsumable || loadoutCategory.items.Count > 1))
                     category.itemContainer.gameObject.SetActive(false);
                 continue;
             }
@@ -492,7 +577,8 @@ public class GameplayHUD : MonoBehaviour
                     }
 
                     // Update count for consumables
-                    if (loadoutCategory.isConsumable && category.itemCounts[j] != null)
+                    if (loadoutCategory.itemTypes != null && loadoutCategory.itemTypes.Length > j && 
+                        loadoutCategory.itemTypes[j] == ItemType.Consumable && category.itemCounts[j] != null)
                     {
                         category.itemCounts[j].gameObject.SetActive(true);
                         int count = loadoutCategory.itemCounts[j];
@@ -545,7 +631,15 @@ public class GameplayHUD : MonoBehaviour
         if (categoryIndex < 0 || categoryIndex >= categories.Length)
             return;
 
-        ShowHotbar();
+        // Don't allow category selection during equip transition
+        if (isInEquipTransition)
+            return;
+
+        // Keybind selection mode - track it as an equip transition
+        isInEquipTransition = true;
+        
+        // Show hotbar during equip
+        ShowHotbarDuringEquip();
 
         // Use PlayerStateManager if available to set hotbar state
         if (playerStateManager != null)
@@ -669,13 +763,13 @@ public class GameplayHUD : MonoBehaviour
 
     private void EquipSelectedItem()
     {
-        if (selectedCategoryIndex == -1 || playerLoadout == null || !IsHotbarActive()) return;
+        if (selectedCategoryIndex == -1 || playerLoadout == null) return;
 
         var category = playerLoadout.GetCategory(selectedCategoryIndex);
         if (category == null || selectedItemIndex >= category.items.Count) return;
 
         // Only equip if the item has uses (for consumables)
-        if (category.isConsumable && !playerLoadout.HasCurrentItemUses())
+        if (category.itemTypes != null && category.itemTypes.Length > 0 && category.itemTypes[0] == ItemType.Consumable && !playerLoadout.HasCurrentItemUses())
             return;
 
         // Set the selected item as current in the category WITHOUT cycling
@@ -691,8 +785,13 @@ public class GameplayHUD : MonoBehaviour
             playerStateManager.SetState(PlayerStateManager.PlayerState.Normal);
         }
         
-        // Immediately start fade out after equipping
-        StartFadeOut();
+        // For manual selection (not keybind), start fade out
+        if (!isInEquipTransition)
+        {
+            // Immediately start fade out after equipping
+            StartFadeOut();
+        }
+        // For keybind selection, the hotbar will be hidden when equip animation finishes
     }
 
     private void OnDestroy()
@@ -739,7 +838,8 @@ public class GameplayHUD : MonoBehaviour
             var category = categories[categoryIndex];
             var loadoutCategory = playerLoadout.GetCategory(categoryIndex);
             
-            if (loadoutCategory != null && loadoutCategory.isConsumable)
+            if (loadoutCategory != null && loadoutCategory.itemTypes != null && loadoutCategory.itemTypes.Length > 0 && 
+                loadoutCategory.itemTypes[0] == ItemType.Consumable)
             {
                 int count = loadoutCategory.itemCounts[0];
                 if (category.itemCounts[0] != null)
@@ -770,8 +870,9 @@ public class GameplayHUD : MonoBehaviour
 
     public bool IsHotbarActive()
     {
-        // Only consider hotbar active when it's at full opacity
-        return hotbarCanvasGroup != null && hotbarCanvasGroup.alpha >= 1f;
+        // Consider hotbar active when either the internal flag is set OR it's at full opacity
+        // When in equip transition, don't allow clicking even if hotbar is visible
+        return isHotbarActive && !isInEquipTransition;
     }
 
     // Handler for the new player state system

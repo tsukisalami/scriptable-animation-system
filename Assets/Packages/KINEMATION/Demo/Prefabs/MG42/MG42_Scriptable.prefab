@@ -79,6 +79,7 @@ MonoBehaviour:
   ejectForce: 1.5
   casingLifetime: 5
   casingTorque: 100
+  defaultMagazine: {fileID: 11400000, guid: 9f7d29e1e6a49904f8468f22f866a598, type: 2}
   muzzleFlashVFX: {fileID: 7924038009876346063}
   muzzleSmokeVFX: {fileID: 4640635256641374870}
   chamberSmokeVFX: {fileID: 4871126565979311694}

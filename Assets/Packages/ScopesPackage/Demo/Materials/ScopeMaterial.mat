@@ -198,7 +198,7 @@ Material:
     - _Reticle_Alpha: 1
     - _Reticle_Brightness: 3
     - _Reticle_Size: 0.5
-    - _Reticle_Zoom: 1.0000018
+    - _Reticle_Zoom: 1
     - _Scope_Depth: 0.653
     - _ShaderZoom: 1
     - _ShadowFadeDistance: 0.1
