@@ -626,7 +626,10 @@ namespace Demo.Scripts.Runtime.Character
                 // Handle consumable items - call their primary use method
                 if (currentItem is ConsumableItem consumable)
                 {
-                    consumable.OnPrimaryUse();
+                    if (Input.GetMouseButtonDown(0))
+                    {
+                        consumable.OnPrimaryUse();
+                    }
                     return;
                 }
                 

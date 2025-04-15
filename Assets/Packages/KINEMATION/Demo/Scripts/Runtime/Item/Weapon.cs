@@ -797,9 +797,6 @@ namespace Demo.Scripts.Runtime.Item
                 bulletsInMag.Clear();
                 bulletsInMag.AddRange(bestMag);
                 
-                // Clear the magazine in the loadout since we've moved it to the weapon
-                category.weaponMagazineBullets[itemIndex][0].Clear();
-                
                 // Check if we need to chamber a round
                 if (chamberedBulletInfo == null && bulletsInMag.Count > 0)
                 {
@@ -957,6 +954,25 @@ namespace Demo.Scripts.Runtime.Item
             // Always update the UI when we cycle a bullet
             if (didChangeBullet && _isFullyInitialized)
             {
+                // --- ADDED: Update PlayerLoadout with current magazine state --- 
+                var playerLoadout = _fpsController?.GetComponent<PlayerLoadout>();
+                if (playerLoadout != null && playerLoadout.IsWeaponMagazineSystemInitialized())
+                {
+                    int categoryIndex = playerLoadout.currentCategoryIndex;
+                    var category = playerLoadout.GetCategory(categoryIndex);
+                    if (category != null)
+                    {
+                        int itemIndex = category.currentIndex;
+                        if (itemIndex >= 0 && itemIndex < category.weaponMagazineBullets.Count && 
+                            category.weaponMagazineBullets[itemIndex].Count > 0)
+                        {
+                            // Update the first magazine slot (index 0) in PlayerLoadout
+                            category.weaponMagazineBullets[itemIndex][0] = new List<BulletInfo>(bulletsInMag);
+                        }
+                    }
+                }
+                // --- END ADDED CODE ---
+
                 ForceUpdateMagazineUI();
             }
         }

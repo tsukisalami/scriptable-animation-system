@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
+using System.Collections.Generic;
+using Ballistics;
 
 public class GameplayHUD : MonoBehaviour
 {
@@ -23,6 +25,30 @@ public class GameplayHUD : MonoBehaviour
     public Color selectedColor = Color.white;
     public Color unselectedColor = new Color(1f, 1f, 1f, 0.6f);
     public Color depleteItemColor = Color.yellow;
+
+    [Header("Magazine UI")]
+    public RectTransform magazineContainer;
+    public Sprite magazineOutlineSprite;  // The border sprite
+    public Sprite magazineFillSprite;     // The interior fill sprite
+    public float magazineIconWidth = 30f;   // Width of the magazine icon
+    public float magazineIconHeight = 50f;  // Height of the magazine icon
+    public float magazineIconSpacing = 5f;
+    public float magazineIconVerticalSpacing = 10f;
+    public int maxIconsPerRow = 15;
+    public int maxMagazineIcons = 30;
+    public Color outlineColor = Color.black;  // Color for the outline/border
+
+    // Magazine colors based on ammo percentage
+    public Color fullMagazineColor = Color.white;
+    public Color highAmmoColor = Color.yellow;      // 99-70%
+    public Color mediumAmmoColor = new Color(1f, 0.5f, 0f, 1f); // Orange 70-40%
+    public Color lowAmmoColor = new Color(1f, 0.3f, 0.3f, 1f);  // Light red 40-20%
+    public Color criticalAmmoColor = new Color(0.8f, 0f, 0f, 1f); // Dark red 20-1%
+    public Color emptyMagazineColor = new Color(0.3f, 0.3f, 0.3f, 1f); // Dark grey 0%
+
+    // Runtime magazine icon list
+    private List<Image> magazineIcons = new List<Image>();
+    private Demo.Scripts.Runtime.Item.Weapon currentWeapon;
 
     [Header("Hotbar Visibility")]
     public float visibilityDuration = 3f;
@@ -59,6 +85,16 @@ public class GameplayHUD : MonoBehaviour
     private int currentlyEquippedCategory = -1;
     private int currentlyEquippedItem = -1;
 
+    [System.Serializable]
+    private class MagazineIconData
+    {
+        public Image outlineImage;
+        public Image fillImage;
+        public RectTransform iconTransform;
+    }
+
+    private List<MagazineIconData> magazineIconData;
+
     private void Start()
     {
         if (playerHealth == null)
@@ -93,6 +129,12 @@ public class GameplayHUD : MonoBehaviour
                     Debug.LogWarning("GameplayHUD: FPSController not found! Weapon equip animation sync will not work.");
                 }
             }
+        }
+
+        // Subscribe to FPSController events
+        if (fpsController != null)
+        {
+            fpsController.OnAmmoStatusChanged += HandleAmmoStatusChanged;
         }
 
         // Try to find PlayerStateManager if not assigned
@@ -138,6 +180,7 @@ public class GameplayHUD : MonoBehaviour
         // Initialize UI
         UpdateHealthUI();
         InitializeCategories();
+        InitializeMagazineUI();
 
         // Set initial hotbar visibility
         if (hotbarCanvasGroup != null)
@@ -159,6 +202,9 @@ public class GameplayHUD : MonoBehaviour
                 var category = playerLoadout.GetCategory(currentlyEquippedCategory);
                 currentlyEquippedItem = category?.currentIndex ?? -1;
             }
+            
+            // Initial update of magazine UI
+            UpdateMagazineUI();
         }
     }
 
@@ -272,6 +318,9 @@ public class GameplayHUD : MonoBehaviour
         // Check for loadout changes
         if (playerLoadout != null)
         {
+            // Track if weapon changed to update magazine UI
+            bool weaponChanged = false;
+            
             // Only show hotbar on number key press
             if (playerLoadout.currentCategoryIndex != currentlyEquippedCategory)
             {
@@ -286,6 +335,8 @@ public class GameplayHUD : MonoBehaviour
                     
                     selectedCategoryIndex = currentlyEquippedCategory;
                     selectedItemIndex = currentlyEquippedItem;
+                    
+                    weaponChanged = true;
                 }
             }
             // Check for item changes within same category
@@ -301,7 +352,20 @@ public class GameplayHUD : MonoBehaviour
                     
                     selectedCategoryIndex = currentlyEquippedCategory;
                     selectedItemIndex = currentlyEquippedItem;
+                    
+                    weaponChanged = true;
                 }
+            }
+            
+            // Update magazine UI if weapon changed or if UI was empty
+            if (weaponChanged || (magazineIcons.Count == 0 && currentlyEquippedCategory != -1))
+            {
+                UpdateMagazineUI();
+            }
+            else
+            {
+                // Update active magazine in real-time
+                UpdateActiveMagazineColor();
             }
         }
 
@@ -318,6 +382,9 @@ public class GameplayHUD : MonoBehaviour
             // If FPSController is no longer in WeaponChange state, the equip animation is done
             HideHotbarImmediately();
             isInEquipTransition = false;
+            
+            // Make sure magazine UI is updated once equip animation is complete
+            UpdateMagazineUI();
         }
 
         // Handle scroll wheel input only when not in equip transition
@@ -814,6 +881,16 @@ public class GameplayHUD : MonoBehaviour
         {
             playerStateManager.OnStateChanged -= HandlePlayerStateChanged;
         }
+        
+        // Unsubscribe from weapon events
+        Demo.Scripts.Runtime.Item.Weapon.OnWeaponReloaded -= OnWeaponReloaded;
+        Demo.Scripts.Runtime.Item.Weapon.OnWeaponFired -= OnWeaponFired;
+        
+        // Unsubscribe from FPSController events
+        if (fpsController != null)
+        {
+            fpsController.OnAmmoStatusChanged -= HandleAmmoStatusChanged;
+        }
     }
 
     private void HandleCategorySelected(int categoryIndex)
@@ -896,6 +973,104 @@ public class GameplayHUD : MonoBehaviour
         }
     }
 
+    // Event handler for ammo status changes
+    private void HandleAmmoStatusChanged(bool isOutOfAmmo)
+    {
+        // Update the magazine UI when ammo status changes
+        UpdateMagazineUI();
+    }
+    
+    // Method to update UI when a reload occurs - call this from Weapon.cs after reload
+    public void UpdateMagazineUIAfterReload()
+    {
+        // Update Magazine UI after short delay to ensure data is updated
+        StartCoroutine(DelayedMagazineUIUpdate());
+    }
+    
+    private IEnumerator DelayedMagazineUIUpdate()
+    {
+        // Small delay to ensure magazine data is updated
+        yield return new WaitForSeconds(0.1f);
+        UpdateMagazineUI();
+    }
+    
+    // Method to hook into weapon events
+    private void OnEnable()
+    {
+        // Subscribe to static weapon events
+        Demo.Scripts.Runtime.Item.Weapon.OnWeaponReloaded += OnWeaponReloaded;
+        Demo.Scripts.Runtime.Item.Weapon.OnWeaponFired += OnWeaponFired;
+    }
+    
+    private void OnDisable()
+    {
+        // Unsubscribe from static weapon events
+        Demo.Scripts.Runtime.Item.Weapon.OnWeaponReloaded -= OnWeaponReloaded;
+        Demo.Scripts.Runtime.Item.Weapon.OnWeaponFired -= OnWeaponFired;
+        
+        // Unsubscribe from FPSController events if needed
+        if (fpsController != null)
+        {
+            fpsController.OnAmmoStatusChanged -= HandleAmmoStatusChanged;
+        }
+    }
+    
+    private void OnWeaponReloaded()
+    {
+        // When a reload happens, wait a short moment for PlayerLoadout to update
+        StartCoroutine(DelayedReloadUpdate());
+    }
+    
+    private IEnumerator DelayedReloadUpdate()
+    {
+        // Small delay to ensure PlayerLoadout has updated magazine data
+        yield return new WaitForSeconds(0.1f);
+        
+        // Get the magazine data directly from PlayerLoadout
+        if (currentlyEquippedCategory >= 0 && playerLoadout != null)
+        {
+            var category = playerLoadout.GetCategory(currentlyEquippedCategory);
+            if (category != null && category.currentIndex < category.items.Count)
+            {
+                int weaponIndex = category.currentIndex;
+                
+                if (category.weaponMagazineTemplates.Count > weaponIndex &&
+                    category.weaponMagazineBullets.Count > weaponIndex &&
+                    category.weaponMagazineTemplates[weaponIndex].Count > 0 &&
+                    category.weaponMagazineBullets[weaponIndex].Count > 0)
+                {
+                    var activeMagazine = category.weaponMagazineTemplates[weaponIndex][0];
+                    var activeBullets = category.weaponMagazineBullets[weaponIndex][0];
+                    
+                    float fillPercentage = 0;
+                    if (activeMagazine.ammoCount > 0)
+                    {
+                        fillPercentage = (float)activeBullets.Count / activeMagazine.ammoCount;
+                    }
+                    
+                    // Update the active magazine color (rightmost icon)
+                    if (magazineIcons.Count > 0)
+                    {
+                        int activeIconIndex = magazineIcons.Count - 1;
+                        Color newColor = GetMagazineColor(fillPercentage);
+                        
+                        Debug.Log($"After Reload from PlayerLoadout: Bullets: {activeBullets.Count}/{activeMagazine.ammoCount}, " +
+                                 $"Fill %: {fillPercentage}, Color: {newColor}");
+                        
+                        // Force color update
+                        magazineIcons[activeIconIndex].color = newColor;
+                    }
+                }
+            }
+        }
+    }
+    
+    private void OnWeaponFired()
+    {
+        // Update the active magazine color when weapon is fired
+        UpdateActiveMagazineColor();
+    }
+
     // ADD A NEW METHOD FOR HEALTH UI VISIBILITY
     private void ShowHealthUI()
     {
@@ -954,6 +1129,371 @@ public class GameplayHUD : MonoBehaviour
             healthUICanvasGroup.alpha = 1f;
             healthUICanvasGroup.interactable = true;
             healthUICanvasGroup.blocksRaycasts = true;
+        }
+    }
+
+    #region Magazine UI Methods
+    
+    // Initialize magazine UI
+    private void InitializeMagazineUI()
+    {
+        // Clear any existing magazine icons
+        ClearMagazineIcons();
+        
+        // Make sure we have the magazine container
+        if (magazineContainer == null)
+        {
+            Debug.LogError("Magazine container is not assigned in the inspector!");
+            return;
+        }
+    }
+    
+    // Update the magazine icons when a weapon is equipped
+    public void UpdateMagazineUI()
+    {
+        // If no container, initialize first
+        if (magazineContainer == null) return;
+        
+        // Make sure the container is active
+        magazineContainer.gameObject.SetActive(true);
+        
+        // Get the current weapon and its magazine info
+        if (currentlyEquippedCategory < 0 || playerLoadout == null) return;
+        
+        var category = playerLoadout.GetCategory(currentlyEquippedCategory);
+        if (category == null || category.currentIndex >= category.items.Count) return;
+        
+        // Only weapons have magazines
+        if (category.itemTypes[category.currentIndex] != ItemType.Weapon) 
+        {
+            // Hide magazine UI for non-weapons
+            magazineContainer.gameObject.SetActive(false);
+            return;
+        }
+        
+        // Try to get the weapon component
+        var weaponItem = category.items[category.currentIndex] as Demo.Scripts.Runtime.Item.Weapon;
+        if (weaponItem == null) return;
+        
+        // Store reference to current weapon
+        currentWeapon = weaponItem;
+        
+        // Get magazine data for this weapon
+        int weaponIndex = category.currentIndex;
+        
+        // Make sure we have magazine data
+        if (category.weaponMagazineTemplates.Count <= weaponIndex || 
+            category.weaponMagazineBullets.Count <= weaponIndex)
+        {
+            ClearMagazineIcons();
+            return;
+        }
+        
+        var magazineTemplates = category.weaponMagazineTemplates[weaponIndex];
+        var magazineBullets = category.weaponMagazineBullets[weaponIndex];
+        
+        // Create a sorted list of magazine indices (excluding the active one at index 0)
+        List<int> sortedMagazineIndices = new List<int>();
+        
+        // Skip the active magazine (index 0), we'll add it later
+        // Add the rest of the magazines in any order for now
+        for (int i = 1; i < magazineBullets.Count; i++)
+        {
+            sortedMagazineIndices.Add(i);
+        }
+        
+        // Sort magazines by bullet count in ASCENDING order (least to most)
+        sortedMagazineIndices.Sort((a, b) => {
+            int bulletsA = magazineBullets[a].Count;
+            int bulletsB = magazineBullets[b].Count;
+            return bulletsA.CompareTo(bulletsB); // ASCENDING order - least bullets first
+        });
+        
+        // Add active magazine at the END (it will be rightmost position)
+        sortedMagazineIndices.Add(0);
+        
+        // Determine total magazines to show
+        int totalMagazines = Mathf.Min(magazineTemplates.Count, maxMagazineIcons);
+        
+        // Create or update magazine icons
+        // First, ensure we have enough icons
+        while (magazineIcons.Count < totalMagazines)
+        {
+            CreateMagazineIcon();
+        }
+        
+        // Hide excess icons if needed
+        for (int i = totalMagazines; i < magazineIcons.Count; i++)
+        {
+            if (magazineIconData[i].outlineImage != null)
+            {
+                magazineIconData[i].outlineImage.gameObject.SetActive(false);
+            }
+        }
+        
+        // Update magazine data for each icon
+        for (int i = 0; i < totalMagazines; i++)
+        {
+            // Get the magazine data using the correct sorted index
+            int sortedIndex = sortedMagazineIndices.Count - 1 - i; // Reverse order to put active mag rightmost
+            int magIndex = sortedIndex >= 0 && sortedIndex < sortedMagazineIndices.Count 
+                ? sortedMagazineIndices[sortedIndex] 
+                : 0;
+                
+            MagazineData template = null;
+            List<BulletInfo> bullets = null;
+            
+            if (magIndex < magazineTemplates.Count && magIndex < magazineBullets.Count)
+            {
+                template = magazineTemplates[magIndex];
+                bullets = magazineBullets[magIndex];
+                
+                // Ensure icon is active
+                if (i < magazineIconData.Count && magazineIconData[i].outlineImage != null)
+                {
+                    magazineIconData[i].outlineImage.gameObject.SetActive(true);
+                }
+                
+                // Calculate fill percentage
+                float fillPercentage = 0;
+                if (template.ammoCount > 0)
+                {
+                    // For active magazine (index 0), get direct bullet count
+                    if (magIndex == 0)
+                    {
+                        // Use PlayerLoadout data rather than weapon
+                        fillPercentage = (float)bullets.Count / template.ammoCount;
+                    }
+                    else
+                    {
+                        fillPercentage = (float)bullets.Count / template.ammoCount;
+                    }
+                }
+                
+                // Set color based on fill percentage
+                if (i < magazineIcons.Count)
+                {
+                    magazineIcons[i].color = GetMagazineColor(fillPercentage);
+                }
+            }
+            else if (i < magazineIconData.Count && magazineIconData[i].outlineImage != null)
+            {
+                // Hide this icon if no magazine data
+                magazineIconData[i].outlineImage.gameObject.SetActive(false);
+            }
+        }
+        
+        // Make sure icons are positioned correctly
+        UpdateMagazineIconPositions();
+    }
+    
+    // Get color based on ammo percentage
+    private Color GetMagazineColor(float fillPercentage)
+    {
+        if (fillPercentage >= 1.0f)
+        {
+            // Full magazine
+            return fullMagazineColor;
+        }
+        else if (fillPercentage <= 0.0f)
+        {
+            // Empty magazine
+            return emptyMagazineColor;
+        }
+        else if (fillPercentage > 0.7f)
+        {
+            // High ammo (99-70%)
+            float t = (fillPercentage - 0.7f) / 0.3f;
+            return Color.Lerp(highAmmoColor, fullMagazineColor, t);
+        }
+        else if (fillPercentage > 0.4f)
+        {
+            // Medium ammo (70-40%)
+            float t = (fillPercentage - 0.4f) / 0.3f;
+            return Color.Lerp(mediumAmmoColor, highAmmoColor, t);
+        }
+        else if (fillPercentage > 0.2f)
+        {
+            // Low ammo (40-20%)
+            float t = (fillPercentage - 0.2f) / 0.2f;
+            return Color.Lerp(lowAmmoColor, mediumAmmoColor, t);
+        }
+        else
+        {
+            // Critical ammo (20-1%)
+            float t = fillPercentage / 0.2f;
+            return Color.Lerp(criticalAmmoColor, lowAmmoColor, t);
+        }
+    }
+    
+    // Create a new magazine icon
+    private void CreateMagazineIcon()
+    {
+        // Figure out the row and position within row
+        int totalIcons = magazineIcons.Count;
+        int row = totalIcons / maxIconsPerRow;
+        int posInRow = totalIcons % maxIconsPerRow;
+        
+        // Create parent GameObject for outline
+        GameObject iconObj = new GameObject("MagazineIcon");
+        iconObj.transform.SetParent(magazineContainer, false);
+        
+        // Add outline Image component
+        Image outlineImage = iconObj.AddComponent<Image>();
+        if (magazineOutlineSprite != null)
+        {
+            outlineImage.sprite = magazineOutlineSprite;
+            outlineImage.type = Image.Type.Simple;
+            outlineImage.color = outlineColor;
+            outlineImage.preserveAspect = true;
+        }
+        
+        // Set size and position
+        RectTransform rect = iconObj.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(magazineIconWidth, magazineIconHeight); // Adjust size as needed
+        
+        // Position the icon - to the LEFT of the origin point (negative X)
+        // And UP for additional rows (positive Y)
+        rect.anchoredPosition = new Vector2(
+            -posInRow * (rect.sizeDelta.x + magazineIconSpacing), 
+            row * (rect.sizeDelta.y + magazineIconVerticalSpacing)
+        );
+        
+        // Create child GameObject for interior fill
+        GameObject fillObj = new GameObject("Fill");
+        fillObj.transform.SetParent(iconObj.transform, false);
+        
+        // Add fill Image component (colored part)
+        Image fillImage = fillObj.AddComponent<Image>();
+        if (magazineFillSprite != null)
+        {
+            fillImage.sprite = magazineFillSprite;
+            fillImage.type = Image.Type.Simple;
+            fillImage.preserveAspect = true;
+        }
+        
+        // Ensure perfect alignment of fill with outline by positioning explicitly
+        RectTransform fillRect = fillObj.GetComponent<RectTransform>();
+        fillRect.anchorMin = Vector2.zero;
+        fillRect.anchorMax = Vector2.one;
+        fillRect.offsetMin = Vector2.zero;
+        fillRect.offsetMax = Vector2.zero;
+        
+        // Store both outline and fill for reference
+        if (magazineIconData == null)
+            magazineIconData = new List<MagazineIconData>();
+            
+        magazineIconData.Add(new MagazineIconData {
+            outlineImage = outlineImage,
+            fillImage = fillImage,
+            iconTransform = rect
+        });
+        
+        // Add to list - we track the FILL image for color changes
+        magazineIcons.Add(fillImage);
+    }
+    
+    // Update positions of magazine icons
+    private void UpdateMagazineIconPositions()
+    {
+        for (int i = 0; i < magazineIcons.Count; i++)
+        {
+            if (magazineIcons[i] != null)
+            {
+                int row = i / maxIconsPerRow;
+                int posInRow = i % maxIconsPerRow;
+                
+                RectTransform rect = magazineIcons[i].GetComponent<RectTransform>();
+                
+                // Position to the LEFT (negative X) and UP for additional rows
+                rect.anchoredPosition = new Vector2(
+                    -posInRow * (rect.sizeDelta.x + magazineIconSpacing),
+                    row * (rect.sizeDelta.y + magazineIconVerticalSpacing)
+                );
+            }
+        }
+    }
+    
+    // Clear all magazine icons
+    private void ClearMagazineIcons()
+    {
+        // Also clear the icon data list
+        if (magazineIconData != null)
+        {
+            foreach (var iconData in magazineIconData)
+            {
+                if (iconData.outlineImage != null)
+                {
+                    Destroy(iconData.outlineImage.gameObject);
+                }
+            }
+            magazineIconData.Clear();
+        }
+        
+        foreach (var icon in magazineIcons)
+        {
+            if (icon != null)
+            {
+                Destroy(icon.gameObject);
+            }
+        }
+        magazineIcons.Clear();
+    }
+    
+    #endregion
+
+    // Update active magazine color in real-time - we'll make this more direct
+    private void UpdateActiveMagazineColor()
+    {
+        // Only continue if we have magazine icons and a valid weapon
+        if (magazineIcons.Count == 0 || magazineIconData.Count == 0 || 
+            currentlyEquippedCategory < 0 || playerLoadout == null) 
+            return;
+            
+        var category = playerLoadout.GetCategory(currentlyEquippedCategory);
+        if (category == null || category.currentIndex >= category.items.Count) 
+            return;
+            
+        // Only weapons have magazines
+        if (category.itemTypes[category.currentIndex] != ItemType.Weapon)
+            return;
+            
+        // Get the active weapon
+        var weaponItem = category.items[category.currentIndex] as Demo.Scripts.Runtime.Item.Weapon;
+        if (weaponItem == null) 
+            return;
+            
+        int weaponIndex = category.currentIndex;
+        
+        // Make sure we have magazine data in the PlayerLoadout
+        if (category.weaponMagazineTemplates.Count <= weaponIndex || 
+            category.weaponMagazineBullets.Count <= weaponIndex ||
+            category.weaponMagazineTemplates[weaponIndex].Count == 0 ||
+            category.weaponMagazineBullets[weaponIndex].Count == 0)
+            return;
+            
+        // Get data directly from PlayerLoadout for the active magazine (index 0)
+        var activeMagazine = category.weaponMagazineTemplates[weaponIndex][0];
+        var activeBullets = category.weaponMagazineBullets[weaponIndex][0];
+        
+        // Calculate fill percentage using actual magazine bullet data
+        float fillPercentage = 0;
+        if (activeMagazine != null && activeMagazine.ammoCount > 0)
+        {
+            fillPercentage = (float)activeBullets.Count / activeMagazine.ammoCount;
+        }
+        
+        // The active magazine is always the rightmost (given our sorting logic)
+        if (magazineIcons.Count > 0)
+        {
+            Color newColor = GetMagazineColor(fillPercentage);
+            int activeIconIndex = magazineIcons.Count - 1; // Rightmost
+            
+            // Debug logs to help diagnose
+            Debug.Log($"Active magazine from PlayerLoadout: Bullets: {activeBullets.Count}/{activeMagazine.ammoCount}, " +
+                      $"Fill %: {fillPercentage}, Color: {newColor}");
+            
+            magazineIcons[activeIconIndex].color = newColor;
         }
     }
 } 

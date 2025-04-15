@@ -61,6 +61,9 @@ public class WeaponMagazines
 
 public class PlayerLoadout : MonoBehaviour
 {
+    // Event triggered when a consumable item's count changes
+    public event System.Action OnConsumableUsed;
+
     [System.Serializable]
     public class LoadoutCategory
     {
@@ -71,6 +74,7 @@ public class PlayerLoadout : MonoBehaviour
         // Item types and counts
         [SerializeField] public ItemType[] itemTypes; // Type of each item
         [SerializeField] public int[] itemCounts; // Magazine count or item count
+        [HideInInspector] public int[] initialItemCounts; // Track initial/maximum counts for consumables
         
         // Weapon magazines per weapon in this category
         [SerializeField] public List<List<MagazineData>> weaponMagazineTemplates = new List<List<MagazineData>>();
@@ -124,12 +128,17 @@ public class PlayerLoadout : MonoBehaviour
             if (itemCounts == null)
                 itemCounts = new int[0];
                 
+            if (initialItemCounts == null)
+                initialItemCounts = new int[0];
+                
             System.Array.Resize(ref itemTypes, items.Count);
             System.Array.Resize(ref itemCounts, items.Count);
+            System.Array.Resize(ref initialItemCounts, items.Count);
             
             // Set new values
             itemTypes[items.Count - 1] = type;
             itemCounts[items.Count - 1] = count;
+            initialItemCounts[items.Count - 1] = count; // Set initial count same as current count
             
             // If weapon, initialize magazine list
             if (type == ItemType.Weapon)
@@ -193,6 +202,18 @@ public class PlayerLoadout : MonoBehaviour
         {
             var category = GetCategory(i);
             if (category == null) continue;
+            
+            // Initialize initialItemCounts if not already set
+            if (category.initialItemCounts == null || category.initialItemCounts.Length != category.itemCounts.Length)
+            {
+                category.initialItemCounts = new int[category.itemCounts.Length];
+                
+                // Copy current counts as initial counts
+                for (int j = 0; j < category.itemCounts.Length; j++)
+                {
+                    category.initialItemCounts[j] = category.itemCounts[j];
+                }
+            }
             
             // Initialize magazine bullets lists if not already created
             if (category.weaponMagazineBullets == null)
@@ -347,6 +368,9 @@ public class PlayerLoadout : MonoBehaviour
         if (category.itemTypes[currentItemIndex] != ItemType.Consumable) return;
 
         category.itemCounts[currentItemIndex]--;
+        
+        // Invoke event when consumable is used
+        OnConsumableUsed?.Invoke();
         
         // If current item is depleted
         if (category.itemCounts[currentItemIndex] <= 0)
